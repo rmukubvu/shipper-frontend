@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ZimconBackOffice.Controllers.DeviceAllocationViewModel deviceAllocationViewModel = Model;
+    var count = 1;
+}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Vehicles</h4>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-striped">
+                    <tr>
+                        <th>ID</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Device Id</th>
+                    </tr>
+                    <tbody>
+                        @foreach (var item in deviceAllocationViewModel.Devices)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td>@item.make</td>
+                                <td>@item.model</td>
+                                <td>@item.deviceId</td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Allocate Device</h4>
+            </div>
+            <div class="content">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Device</label>
+                                <select class="form-control" id="deviceSelector">
+                                    @foreach (var device in deviceAllocationViewModel.Devices)
+                                    {
+                                        <option value="@device.deviceId">@device.make - @device.deviceId</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Vehicle</label>
+                                <select class="form-control" id="vehicleSelector">
+                                    @foreach (var vehicle in deviceAllocationViewModel.Vehicles)
+                                    {
+                                        <option value="@vehicle.id">@vehicle.model - @vehicle.licenseId</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left">
+                        <button type="button" class="btn btn-info btn-fill btn-wd" id="submitDeviceAllocation">Submit</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

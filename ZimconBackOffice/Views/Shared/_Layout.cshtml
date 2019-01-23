@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipper - Backoffice</title>
+    <!-- Bootstrap core CSS     -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Animation library for notifications   -->
+    <link href="../../assets/css/animate.min.css" rel="stylesheet" />
+    <!--  Paper Dashboard core CSS    -->
+    <link href="../../assets/css/paper-dashboard.css" rel="stylesheet" />
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="../../assets/css/demo.css" rel="stylesheet" />
+    <link href="../../assets/css/sweetalert2.css" rel="stylesheet"/>
+    <!--  Fonts and icons     -->
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-background-color="white" data-active-color="danger">
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a href="#" class="simple-text">
+                        ZimCon
+                    </a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a href="/Home">
+                            <i class="ti-panel"></i>
+                            <p>Home</p>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/User">
+                            <i class="ti-user"></i>
+                            <p>User</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Vehicle">
+                            <i class="ti-view-list-alt"></i>
+                            <p>Vehicle</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Consignee">
+                            <i class="ti-pencil-alt2"></i>
+                            <p>Consignee</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Devices">
+                            <i class="ti-map"></i>
+                            <p>Devices</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Shipments">
+                            <i class="ti-text"></i>
+                            <p>Shipments</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Notifications">
+                            <i class="ti-bell"></i>
+                            <p>Notifications</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar bar1"></span>
+                        <span class="icon-bar bar2"></span>
+                        <span class="icon-bar bar3"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Back Office</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">
+                                <i class="ti-settings"></i>
+                                <span id="loggedUser"></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            @RenderBody()
+            <hr />
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul>
+                            <li>
+                                <a href="http://www.zimcon.com">
+                                    Licensed to ZimCon
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="copyright pull-right">
+                        &copy;
+                        <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.zimcon.com">Thamserios</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    </div>
+            @RenderSection("scripts", required: false)
+            <!--   Core JS Files   -->
+            <script src="../../assets/js/jquery.min.js" type="text/javascript"></script>
+            <script src="../../assets/js/bootstrap.min.js" type="text/javascript"></script>
+            <!--  Checkbox, Radio & Switch Plugins -->
+            <script src="../../assets/js/bootstrap-checkbox-radio.js"></script>
+            <!--  Charts Plugin -->
+            <script src="../../assets/js/chartist.min.js"></script>
+            <!--  Notifications Plugin    -->
+            <script src="../../assets/js/bootstrap-notify.js"></script>
+            <!-- sweet alert -->
+            <script src="../../assets/js/sweetalert2.js"></script>
+            <!--  Google Maps Plugin    -->
+            <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDJTEHW57RdhCXwM6xLcFsmcSeK9ldaGUQ"></script>
+            <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+            <script src="../../assets/js/paper-dashboard.js"></script>
+            <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+            <script src="../../assets/js/demo.js"></script>
+            <script type="application/javascript">
+                $(document).ready(function () {
+                  var displayName = localStorage.getItem('shipper.userName');
+                  $('#loggedUser').html(displayName);
+                });
+            </script>
+            <!-- idle time -->
+            <script src="../../js/rest.js"></script>
+            <!-- vehicle -->
+            <script src="../../assets/js/vehicle.js"></script>
+            <!-- smart device -->
+            <script src="../../assets/js/smartdevice.js"></script>
+</body>
+
+</html>

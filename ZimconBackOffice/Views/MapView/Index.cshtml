@@ -1,0 +1,50 @@
+﻿@using Shipper.RestGateway.Model
+@using ZimconBackOffice.Models
+
+@{
+    ViewBag.Title = "Index";
+    //List<TruckCoordinates> model = Model;
+    List<TruckCoordinates> model = Model;
+}
+
+<div class="container-fluid">
+    <input type="hidden" id="savedMapData" value="@Json.Encode(model)" />
+    <div class="card card-map">
+        <div class="header">
+            <h4 class="title">Vehicle Movement</h4>
+        </div>
+        <div class="map">
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var map;
+    function initMap() {
+        var vehicleCoordinates = document.getElementById('savedMapData').value;
+        vehicleCoordinates = JSON.parse(vehicleCoordinates);
+        
+        var latlng = new google.maps.LatLng(-26.195246, 28.034088);
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: latlng,
+            zoom: 16
+        });
+
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map
+        });
+
+        var truckPath = new google.maps.Polyline({
+            path: vehicleCoordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        truckPath.setMap(map);
+    };
+</script>
+

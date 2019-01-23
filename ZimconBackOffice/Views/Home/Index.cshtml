@@ -1,0 +1,130 @@
+﻿@using Shipper.RestGateway.Model
+@{
+    ViewBag.Title = "Home Page";
+    ZimconBackOffice.Controllers.DashboardViewModel dashboardViewModel = Model;
+    var count = 1;
+    var deviceCount = 1;
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-md-5">
+            <div class="card card-user">
+                <div class="image">
+                    <img src="../../assets/img/background.jpg" alt="..." />
+                </div>
+                <div class="content">
+                    <div class="author">
+                        <img class="avatar border-white" src="../../assets/img/faces/face-2.jpg" alt="..." />
+                        <h4 class="title">
+                            Admin<br />
+                        </h4>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-1">
+                            <h5>@dashboardViewModel.vehicleCount<br /><small>Vehicles</small></h5>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>@dashboardViewModel.smartDevicesCount<br /><small>Devices</small></h5>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>@dashboardViewModel.deviceAllocations.Count<br /><small>Allocations</small></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Smart Devices</h4>
+                </div>
+                <div class="content">
+                    <ul class="list-unstyled team-members">
+                        @foreach (var device in dashboardViewModel.devices)
+                        {
+                            <li>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <div class="avatar">
+                                            <img src="../../assets/img/faces/face-1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        @device.make
+                                        <br />
+                                        <span class="text-muted"><small>@device.model</small></span>
+                                    </div>
+
+                                    <div class="col-xs-3 text-right">
+                                        <a href="/device/@device.deviceId" class="btn btn-sm btn-success btn-icon"><i class="fas fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-7">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Vehicles</h4>
+                </div>
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>ID</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>License</th>
+                            <th>Year</th>
+                            <th>Replay</th>
+                        </tr>
+                        <tbody>
+                        @foreach (var car in dashboardViewModel.vehicles)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td>@car.make</td>
+                                <td>@car.model</td>
+                                <td>@car.licenseId</td>
+                                <td>@car.year</td>
+                                <td><a href="/replay/@car.id">View</a></td>
+                            </tr>
+                            count++;
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Devices</h4>
+                </div>
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>ID</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Device Id</th>
+                        </tr>
+                        <tbody>
+                        @foreach (var item in dashboardViewModel.devices)
+                        {
+                            <tr>
+                                <td>@deviceCount</td>
+                                <td>@item.make</td>
+                                <td>@item.model</td>
+                                <td>@item.deviceId</td>
+                            </tr>
+                            deviceCount++;
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
