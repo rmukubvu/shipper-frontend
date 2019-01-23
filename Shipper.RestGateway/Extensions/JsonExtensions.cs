@@ -17,6 +17,11 @@ namespace Shipper.RestGateway.Extensions
                 return writer.ToString();
             }
         }
+
+        public static T FromJson<T>(this string json)
+        {
+            return JsonConvert.DeserializeObject<T>(json);
+        }
     }
 
 }
