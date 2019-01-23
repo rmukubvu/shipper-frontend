@@ -19,9 +19,9 @@ $(document).ready(function() {
                     );
                 }else{
                     //open new window pass consgineeid
-                    localStorage.setItem('shipper.consignee',result.user.consigneeId);
+                    //localStorage.setItem('shipper.consignee',result.user.consigneeId);
                     localStorage.setItem('shipper.userName',result.user.emailAddress);
-                    window.location.href = "shipper.html";
+                    window.location.href = "/Dashboard";
                 }              
             },
             error: function (xhr, status, error) {

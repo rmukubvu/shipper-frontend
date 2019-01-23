@@ -1,26 +1,26 @@
-﻿
+﻿@using Shipper.RestGateway.Model
 @{
     ViewBag.Title = "Index";
-    List<ZimconBackOffice.Model.Vehicle> vehicles = Model;
+    List<Vehicle> vehicles = Model;
     var count = 1;
 }
 
 <div class="row">
     <div class="col-md-8">
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">Vehicles</h4>
-                </div>
-                <div class="content table-responsive table-full-width">
-                    <table class="table table-striped">
-                        <thead>
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Vehicles</h4>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-striped">
+                    <tr>
                         <th>ID</th>
                         <th>Make</th>
                         <th>Model</th>
                         <th>License</th>
                         <th>Year</th>
-                        </thead>
-                        <tbody>
+                    </tr>
+                    <tbody>
                         @foreach (var car in vehicles)
                         {
                             <tr>
@@ -32,10 +32,10 @@
                             </tr>
                             count++;
                         }
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
+        </div>
 
     </div>
     <div class="col-md-4">

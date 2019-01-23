@@ -24,7 +24,7 @@ $(document).ready(function() {
                     //localStorage.setItem('shipper.consignee',result.user.consigneeId);
                     localStorage.setItem('shipper.userName',result.user.emailAddress);
                     document.cookie = "ShipperSession=Valid; "+ loginDuration.toGMTString()+ "; path=/";
-                    window.location.href = "/Home";
+                    window.location.href = "/Dashboard";
                 } else {
                     swal(
                         'Ooops',
