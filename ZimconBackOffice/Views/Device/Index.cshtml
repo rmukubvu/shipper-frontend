@@ -8,26 +8,28 @@
     <div class="col-md-8">
         <div class="card">
             <div class="header">
-                <h4 class="title">Vehicles</h4>
+                <h4 class="title">Devices</h4>
             </div>
             <div class="content table-responsive table-full-width">
                 <table class="table table-striped">
                     <tr>
-                        <th>ID</th>
+                        @*<th>ID</th>*@
+                        <th>Device Id</th>
                         <th>Make</th>
                         <th>Model</th>
-                        <th>Device Id</th>
+                        <th></th>
                     </tr>
                     <tbody>
                         @foreach (var item in deviceAllocationViewModel.Devices)
                         {
                             <tr>
-                                <td>@count</td>
+                                @*<td>@count</td>*@
                                 <td>@item.make</td>
                                 <td>@item.model</td>
                                 <td>@item.deviceId</td>
+                                <td><a href=""><i class="fa fa-edit"></i></a></td>
                             </tr>
-                            count++;
+                            //count++;
                         }
                     </tbody>
                 </table>
@@ -38,7 +40,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="header">
-                <h4 class="title">Allocate Device</h4>
+                <h4 class="title"><i class="fa fa-mobile-alt"></i> Allocate Device</h4>
             </div>
             <div class="content">
                 <form>

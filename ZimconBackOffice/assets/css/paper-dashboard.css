@@ -2212,11 +2212,12 @@ textarea.form-control {
     margin-bottom: 5px;
 }
 
-.card .title {
-    margin: 0;
-    color: #252422;
-    font-weight: 300;
-}
+    .card .title {
+        margin: 0;
+        color: #252422;
+        font-weight: 300;
+        color: #7AC29A;
+    }
 
 .card .avatar {
     width: 50px;

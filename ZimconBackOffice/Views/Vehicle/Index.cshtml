@@ -14,23 +14,25 @@
             <div class="content table-responsive table-full-width">
                 <table class="table table-striped">
                     <tr>
-                        <th>ID</th>
+                        @*<th>ID</th>*@
+                        <th>License</th>
                         <th>Make</th>
                         <th>Model</th>
-                        <th>License</th>
                         <th>Year</th>
+                        <th></th>
                     </tr>
                     <tbody>
                         @foreach (var car in vehicles)
                         {
                             <tr>
-                                <td>@count</td>
+                                @*<td>@count</td>*@
+                                <td>@car.licenseId</td>
                                 <td>@car.make</td>
                                 <td>@car.model</td>
-                                <td>@car.licenseId</td>
                                 <td>@car.year</td>
+                                <td><a href=""><i class="fa fa-edit"></i></a></td>
                             </tr>
-                            count++;
+                            //count++;
                         }
                     </tbody>
                 </table>
@@ -41,7 +43,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="header">
-                <h4 class="title">Add New Vehicle</h4>
+                <h4 class="title" ><i class="fas fa-truck-moving"></i> Add New Vehicle</h4>
             </div>
             <div class="content">
                 <form>
@@ -56,15 +58,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Vehicle Year</label>
-                                <select class="form-control" id="vehicleYearOption"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="vehicleModelSelector">Select Vehicle Model</label>
+                                <label>Make</label>
                                 <select class="form-control" id="vehicleModelSelector">
                                     <option>Volvo</option>
                                     <option>Mercedes Benz</option>
@@ -78,8 +72,22 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Vehicle Make</label>
-                                <input type="text" class="form-control border-input" placeholder="Vehicle Make" value="" id="vehicleMake">
+                                <label for="vehicleModelSelector">Model</label>
+                                <select class="form-control" id="vehicleModelSelector">
+                                    <option>Volvo</option>
+                                    <option>Mercedes Benz</option>
+                                    <option>Toyota</option>
+                                    <option>Nissan</option>
+                                    <option>Mahindra</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Year</label>
+                                <select class="form-control" id="vehicleYearOption"></select>
                             </div>
                         </div>
                     </div>

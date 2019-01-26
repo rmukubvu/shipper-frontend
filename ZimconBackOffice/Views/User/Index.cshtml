@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Shipper.RestGateway.Model.User>
+@{
+    ViewBag.Title = "User";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">User</h4>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email Address</th>
+                        <th>Created Date</th>
+                        <th></th>
+                    </tr>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.consigneeId</td>
+                                <td>@user.emailAddress</td>
+                                <td>@user.createdDate</td>
+                                <td>
+                                    <a href="">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="header">
+                <h4 class="title"><i class="fa fa-user-circle"></i> Add New User</h4>
+            </div>
+            <div class="content">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="email">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pull-left">
+                        <button type="button" class="btn btn-info btn-fill btn-wd" id="submitUser">Submit</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

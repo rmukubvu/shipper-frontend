@@ -106,6 +106,17 @@ namespace Shipper.RestGateway.RestClients
             return client.GetResult<DriverAllocation>($"vehicle/driver/allocation?vehicleId={vehicleId}");
         }
 
+        public List<Consignee> GetConsignee()
+        {
+            var client = new Services(_cache, _serializer);
+            return client.GetResult<List<Consignee>>("consignee");
+        }
+
+        public List<User> GetUser()
+        {
+            var client = new Services(_cache, _serializer);
+            return client.GetResult<List<User>>("users");
+        }
         #endregion
 
         #region Posts

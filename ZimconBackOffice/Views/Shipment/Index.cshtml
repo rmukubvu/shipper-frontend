@@ -1,0 +1,83 @@
+﻿@model ZimconBackOffice.Controllers.ShipmentVehicleViewModel
+
+@{
+    ViewBag.Title = "Shipment";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Shipment</h4>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-striped">
+                    <tr>
+                        <th>License</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th></th>
+                    </tr>
+                    <tbody>
+                        @foreach (var vehicle in Model.Vehicles)
+                        {
+                        <tr>
+                            <td>@vehicle.licenseId</td>
+                            <td>@vehicle.make</td>
+                            <td>@vehicle.model</td>
+                            <td><a href=""><i class="fa fa-edit"></i></a></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="header">
+                <h4 class="title"><i class="fa fa-cubes"></i> Add New Shipment</h4>
+            </div>
+            <div class="content">
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Vehicle License</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="license">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Make</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="make">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Model</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="model">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pull-left">
+                        <button type="button" class="btn btn-info btn-fill btn-wd" id="submitShipment">Submit</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
