@@ -205,6 +205,13 @@ namespace Shipper.RestGateway.RestClients
             return result;
         }
 
+        public string SavePackageOntoVehicle(Package model)
+        {
+            var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "/shipment");
+            return result;
+        }
+
         #endregion
     }
 }
