@@ -14,7 +14,7 @@
             <div class="content table-responsive table-full-width">
                 <table class="table table-striped">
                     <tr>
-                        @*<th>ID</th>*@
+                        <th>ID</th>
                         <th>License</th>
                         <th>Make</th>
                         <th>Model</th>
@@ -25,12 +25,12 @@
                         @foreach (var car in vehicles)
                         {
                             <tr>
-                                @*<td>@count</td>*@
+                                <td>@car.id</td>
                                 <td>@car.licenseId</td>
                                 <td>@car.make</td>
                                 <td>@car.model</td>
                                 <td>@car.year</td>
-                                <td><a href=""><i class="fa fa-edit"></i></a></td>
+                                <td><a href="/Shipment?id=@car.id"><i class="fa fa-edit"></i></a></td>
                             </tr>
                             //count++;
                         }

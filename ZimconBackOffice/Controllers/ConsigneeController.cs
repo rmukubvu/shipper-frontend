@@ -15,7 +15,6 @@ namespace ZimconBackOffice.Controllers
         public ActionResult Index(string id = null)
         {
             var consignee = _rest.GetConsignee();
-            
             return View(consignee);
         }
     }

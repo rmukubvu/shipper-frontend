@@ -16,7 +16,6 @@ namespace ZimconBackOffice.Controllers
             return _service.Login(userName, password);
         }
 
-
         [Route("api/vehicle")]
         [HttpPost]
         public string SaveVehicle(Vehicle model)
@@ -43,6 +42,13 @@ namespace ZimconBackOffice.Controllers
         public string AllocateDriver(DriverAllocation model)
         {
             return _service.AllocateDriverToVehicle(model);
+        }
+
+        [Route("api/package")]
+        [HttpPost]
+        public string AddPackageOntoVehicle(Package model)
+        {
+            return _service.SavePackageOntoVehicle(model);
         }
     }
 }
