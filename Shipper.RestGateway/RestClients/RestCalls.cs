@@ -64,6 +64,9 @@ namespace Shipper.RestGateway.RestClients
             return result;
         }
 
+        public User ChangePassword(string userName,string password){
+            return GetResponse<User>($"changePassword?email={userName}&password={password}");
+        }
 
         public List<SmartDeviceAllocation> GetSmartDeviceVehicleMapping()
         {
@@ -106,6 +109,19 @@ namespace Shipper.RestGateway.RestClients
             return client.GetResult<DriverAllocation>($"vehicle/driver/allocation?vehicleId={vehicleId}");
         }
 
+        public CurrentStatusByWaybill GetCurrentStatusByWaybill(long waybill)
+        {
+            var client = new Services(_cache, _serializer);
+            return client.GetResult<CurrentStatusByWaybill>($"shipment/status/waybill?waybillNumber={waybill}");
+        }
+
+
+        public List<Consignor> GetConsignor()
+        {
+            var client = new Services(_cache, _serializer);
+            return client.GetResult<List<Consignor>>("consignor");
+        }
+
         public List<Consignee> GetConsignee()
         {
             var client = new Services(_cache, _serializer);
@@ -117,6 +133,27 @@ namespace Shipper.RestGateway.RestClients
             var client = new Services(_cache, _serializer);
             return client.GetResult<List<User>>("users");
         }
+
+        public List<StatusByWaybill> GetStatusByWaybill(long waybill)
+        {
+            var client = new Services(_cache, _serializer);
+            return client.GetResult<List<StatusByWaybill>>($"shipment/status/history?waybillNumber={waybill}");
+        }
+
+        public List<Package> GetPackagesByConsignee(string consigneeId)
+        {
+            //var client = new Services(_cache, _serializer);
+            //return client.GetResult<List<Package>>($"shipment/consignee?consigneeId={consigneeId}");
+            return GetResponse<List<Package>>($"shipment/consignee?consigneeId={consigneeId}");
+        }
+
+        private T GetResponse<T>(string requestQuery) where T : new() {
+            var client = new Services(_cache, _serializer);
+            return client.GetResult<T>(requestQuery);
+        }
+
+        //If you want to create models use https://jsonutils.com/
+
         #endregion
 
         #region Posts
@@ -210,6 +247,48 @@ namespace Shipper.RestGateway.RestClients
             var service = new Services(_cache, _serializer);
             var result = service.Post(model, "/shipment");
             return result;
+        }
+
+        ///notification
+        public string UpdateShipmentStatus(StatusNotification model)
+        {
+            var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "/notification");
+            return result;
+        }
+
+        public string SaveUser(User model)
+        {
+            var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "/user");
+            return result;
+        }
+
+        public string SaveConsignor(Consignor model)
+        {
+            var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "/consignor");
+            return result;
+        }
+
+        public string SaveConsignee(Consignee model)
+        {
+            var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "/consignee");
+            return result;
+        }
+
+        public string SaveConsigneeContacts(ConsigneeContactDetails model){
+            /*var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "/consignee/contacts");
+            return result;*/
+            return PostWithResponse<ConsigneeContactDetails>(model, "/consignee/contacts");
+        }
+
+        private string PostWithResponse<T>(T model,string path) where T : new()
+        {
+            var service = new Services(_cache, _serializer);
+            return service.Post(model, path);
         }
 
         #endregion

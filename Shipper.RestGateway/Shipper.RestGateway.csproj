@@ -79,6 +79,10 @@
     <Compile Include="RestClients\RestCalls.cs" />
     <Compile Include="RestClients\Services.cs" />
     <Compile Include="Model\Package.cs" />
+    <Compile Include="Model\StatusNotification.cs" />
+    <Compile Include="Model\StatusByWaybill.cs" />
+    <Compile Include="Model\CurrentStatusByWaybill.cs" />
+    <Compile Include="Model\Consignor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
