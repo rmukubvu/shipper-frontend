@@ -2,7 +2,8 @@
  * Created by robson on 2017/04/16.
  */
 
-$(document).ready(function() {
+$(document).ready(function () {
+    alert("JS");
     if (localStorage.getItem('shipper.userName') === "" ){
         location.href = "/index.html";
         return;
@@ -55,6 +56,7 @@ $(document).ready(function() {
     $('#vehicleYearOption').empty().append(html);
 
     $("#submitVehicle").click(function (event) {
+       
         if($.trim($('#licenseNumber').val()) === "") {      
             $('#licenseNumberDiv').removeClass("form-group");     
             $('#licenseNumberDiv').addClass("form-group has-error");

@@ -207,6 +207,8 @@
     <Content Include="assets\js\smartdevice.js" />
     <Content Include="assets\js\sweetalert2.js" />
     <Content Include="assets\js\sweetalert2.min.js" />
+    <Content Include="assets\js\consignee.js" />
+    <Content Include="assets\js\user.js" />
     <Content Include="assets\js\vehicle.js" />
     <Content Include="bootstrap\css\bootstrap-theme.css" />
     <Content Include="bootstrap\css\bootstrap-theme.min.css" />
@@ -321,7 +323,6 @@
     <Content Include="js\rest.js" />
     <Content Include="js\sweetalert2.js" />
     <Content Include="js\sweetalert2.min.js" />
-    <Content Include="js\vehicles.js" />
     <Content Include="plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="plugins\bootstrap-slider\slider.css" />
     <Content Include="plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -1223,6 +1224,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />

@@ -24,14 +24,15 @@
                     <tbody>
                         @foreach (var car in vehicles)
                         {
-                            <tr>
-                                <td>@car.id</td>
-                                <td>@car.licenseId</td>
-                                <td>@car.make</td>
-                                <td>@car.model</td>
-                                <td>@car.year</td>
-                                <td><a href="/Shipment?id=@car.id"><i class="fa fa-edit"></i></a></td>
-                            </tr>
+                        <tr>
+                            <td>@car.id</td>
+                            <td>@car.licenseId</td>
+                            <td>@car.make</td>
+                            <td>@car.model</td>
+                            <td>@car.year</td>
+                            @*<td><a href="/Shipment?id=@car.id"><i class="fa fa-edit"></i></a></td>*@
+                            <td><a class="editVehicle"><i class="fa fa-edit"></i></a></td>
+                        </tr>
                             //count++;
                         }
                     </tbody>
@@ -47,6 +48,14 @@
             </div>
             <div class="content">
                 <form>
+                    <div class="row hidden">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>vehicle Id</label>
+                                <input type="text" class="form-control border-input" placeholder="vehicle Id" value="" id="vehicleId">
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -59,7 +68,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Make</label>
-                                <select class="form-control" id="vehicleModelSelector">
+                                <select class="form-control" id="vehicleMakeSelector">
                                     <option>Volvo</option>
                                     <option>Mercedes Benz</option>
                                     <option>Toyota</option>

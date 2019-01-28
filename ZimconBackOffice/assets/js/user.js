@@ -1,8 +1,10 @@
 ﻿/**
- * Created by robson on 2017/04/16.
+ * Created by pamela on 2019/01/28.
  */
 
 $(document).ready(function () {
+    var username = "";
+
 
     var years = [];
     var currentTime = new Date();
@@ -41,63 +43,51 @@ $(document).ready(function () {
             $("#licenseNumberDiv").removeClass("form-group");
             $("#licenseNumberDiv").addClass("form-group has-error");
         } else {
-            var postUrl = "";
             var vehicleId = $("#vehicleId").val();
-            
+
+            var postUrl = "";
             var postData = {
                 'licenseId': $("#licenseNumber").val().toUpperCase(),
                 'make': $("#vehicleMakeSelector").val(),
                 'model': $("#vehicleModelSelector").val(),
                 'year': $("#vehicleYearOption").val()
             };
+
             
-            if (vehicleId === "") {//new vehicle
+            if (vehicleId === "") {
+                //new vehicle
                 postUrl = "../api/vehicle";
-            } else {//edit vehicle
-                postUrl = "../api/vehicle/" + vehicleId;}
+            } else {
+                //edit vehicle
+                postUrl = "../api/vehicle/" + vehicleId;
+            }
 
             submitVehicle(postUrl, postData);
+            //var postJson = JSON.stringify(postData);
+            //$.ajax({
+            //    type: "POST",
+            //    dataType: "json",
+            //    contentType: "application/json; charset=utf-8",
+            //    url: postUrl,
+            //    data: postJson,
+            //    success: function (result) {
+            //        swal(
+            //            "Result",
+            //            "Vehicle added",
+            //            "success"
+            //        );
+            //    },
+            //    error: function (error) {
+            //        swal(
+            //            "Ooops",
+            //            "Failed to add vehicle",
+            //            "error"
+            //        );
+            //        location.reload();
+            //    }
+            //});
         }
     });
-
-    //submit vehicle
-    var submitVehicle = function (postUrl, postData) {
-
-        var postJson = JSON.stringify(postData);
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            url: postUrl,
-            data: postJson,
-            success: function (result) {
-                swal(
-                    "Result",
-                    "Vehicle added",
-                    "success"
-                );
-            },
-            error: function (error) {
-                swal(
-                    "Ooops",
-                    "Failed to add vehicle",
-                    "error"
-                );
-                location.reload();
-            }
-        });
-
-        clearDataFields();
-    };
-
-    //clear input fields
-    var clearDataFields = function () {
-        $("#vehicleId").val("");
-        $("#licenseNumber").val("");
-        $("#vehicleMakeSelector").val("");
-        $("#vehicleModelSelector").val("");
-        $("#vehicleYearOption").val("");
-    }
 
     $("#submitDriver").click(function (event) {
         if ($.trim($("#idPassport").val()) === "") {
@@ -138,4 +128,41 @@ $(document).ready(function () {
             });
         }
     });
+
+    var submitVehicle = function (postUrl, postData) {
+
+        var postJson = JSON.stringify(postData);
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: postUrl,
+            data: postJson,
+            success: function (result) {
+                swal(
+                    "Result",
+                    "Vehicle added",
+                    "success"
+                );
+            },
+            error: function (error) {
+                swal(
+                    "Ooops",
+                    "Failed to add vehicle",
+                    "error"
+                );
+                location.reload();
+            }
+        });
+
+        clearDataFields();
+    };
+
+    var clearDataFields = function () {
+        $("#vehicleId").val("");
+        $("#licenseNumber").val("");
+        $("#vehicleMakeSelector").val("");
+        $("#vehicleModelSelector").val("");
+        $("#vehicleYearOption").val("");
+    }
 });

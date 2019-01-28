@@ -3,102 +3,109 @@
     ViewBag.Title = "Consignee";
 }
 
+
 <div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="header">
-                <h4 class="title">Consignees</h4>
-            </div>
-            <div class="content table-responsive table-full-width">
-                <table class="table table-striped">
-                    <tr>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Address2</th>
-                        <th>Country</th>
-                        <th>Contact</th>
-                        <th></th>
-                    </tr>
-                    <tbody>
-                        @foreach (var consinee in Model)
-                        {
-                            <tr>
-                                <td>@consinee.name</td>
-                                <td>@consinee.address</td>
-                                <td>@consinee.address2</td>
-                                <td>@consinee.country</td>
-                                <td>@consinee.contactNumber</td>
-                                <td><a href=""><i class="fa fa-edit"></i></a></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="header">
-                <h4 class="title"><i class="fa fa-user-tie"></i> Add New Consignee</h4>
-            </div>
-            <div class="content">
-                <form>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control border-input" placeholder="" value="" id="name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Address From</label>
-                                <input type="text" class="form-control border-input" placeholder="" value="" id="name">
-                            </div>
-                        </div>
-                    </div><div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Address To</label>
-                                <input type="text" class="form-control border-input" placeholder="" value="" id="name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Contact</label>
-                                <input type="text" class="form-control border-input" placeholder="" value="" id="name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="countryModelSelector">Select Country</label>
-                                <select class="form-control" id="countryModelSelector">
-                                    <option>South Africa</option>
-                                    <option>Zimbabwe</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="pull-left">
-                        <button type="button" class="btn btn-info btn-fill btn-wd" id="submitConsignee">Submit</button>
-                    </div>
-                    <div class="clearfix"></div>
-                </form>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Consignees</h4>
+                </div>
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Address2</th>
+                            <th>Country</th>
+                            <th>Contact</th>
+                            <th></th>
+                        </tr>
+                        <tbody>
+                            @foreach (var consinee in Model)
+                            {
+                                <tr>
+                                    <td>@consinee.name</td>
+                                    <td>@consinee.address</td>
+                                    <td>@consinee.address2</td>
+                                    <td>@consinee.country</td>
+                                    <td>@consinee.contactNumber</td>
+                                    <td><a class="editConsinee" href=""><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title"><i class="fa fa-user-tie"></i> Add New Consignee</h4>
+                </div>
+                <div class="content">
+                    <form>
+                        <div class="row hidden">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Id</label>
+                                    <input type="text" class="form-control border-input" placeholder="" value="" id="consigneeId">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control border-input" placeholder="" value="" id="name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Address From</label>
+                                    <input type="text" class="form-control border-input" placeholder="" value="" id="address">
+                                </div>
+                            </div>
+                        </div><div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Address To</label>
+                                    <input type="text" class="form-control border-input" placeholder="" value="" id="address2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Contact</label>
+                                    <input type="text" class="form-control border-input" placeholder="" value="" id="contact">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="countryModelSelector">Select Country</label>
+                                    <select class="form-control" id="countrySelector">
+                                        <option>South Africa</option>
+                                        <option>Zimbabwe</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-info btn-fill btn-wd" id="submitConsignee">Submit</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-
-
-
 
 
 
