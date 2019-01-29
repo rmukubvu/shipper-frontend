@@ -23,14 +23,15 @@
                         <tbody>
                             @foreach (var consinee in Model)
                             {
-                                <tr>
-                                    <td>@consinee.name</td>
-                                    <td>@consinee.address</td>
-                                    <td>@consinee.address2</td>
-                                    <td>@consinee.country</td>
-                                    <td>@consinee.contactNumber</td>
-                                    <td><a class="editConsinee" href=""><i class="fa fa-edit"></i></a></td>
-                                </tr>
+                            <tr>
+                                <td class="hidden">@consinee.id</td>
+                                <td>@consinee.name</td>
+                                <td>@consinee.address</td>
+                                <td>@consinee.address2</td>
+                                <td>@consinee.country</td>
+                                <td>@consinee.contactNumber</td>
+                                <td><a class="editConsinee"><i class="fa fa-edit"></i></a></td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -65,14 +66,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Address From</label>
+                                    <label>Address 1</label>
                                     <input type="text" class="form-control border-input" placeholder="" value="" id="address">
                                 </div>
                             </div>
                         </div><div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Address To</label>
+                                    <label>Address 2</label>
                                     <input type="text" class="form-control border-input" placeholder="" value="" id="address2">
                                 </div>
                             </div>
@@ -81,14 +82,14 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Contact</label>
-                                    <input type="text" class="form-control border-input" placeholder="" value="" id="contact">
+                                    <input type="text" class="form-control border-input" placeholder="" value="" id="contactNumber">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="countryModelSelector">Select Country</label>
+                                    <label for="countrySelector">Select Country</label>
                                     <select class="form-control" id="countrySelector">
                                         <option>South Africa</option>
                                         <option>Zimbabwe</option>

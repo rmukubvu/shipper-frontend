@@ -3,133 +3,42 @@
  */
 
 $(document).ready(function () {
-    var username = "";
 
+    $("#submitUser").click(function (event) {
+        var id = $("#consigneeId").val();
 
-    var years = [];
-    var currentTime = new Date();
-    var startYear = currentTime.getFullYear();
-    var html = "";
+        var postUrl = "";
+        var postData = {
+            'consigneeId': $("#name").val(),
+            'createdDate': $("#address").val(),
+            'emailAddress': $("#address2").val(),
+            'id': $("#contact").val(),
+            'password': $("#countrySelector").val()
+        };
 
-    for (var i = 0; i < 20; i++) {
-        years.push(startYear - i);
-    }
+        if (id === "") {//new vehicle
+            postUrl = "../api/user";
+        } else {//edit vehicle
+            postUrl = "../api/user/" + id;
+        }
 
-    $.each(years, function (i) {
-        html += '<option value="' + years[i] + '">'
-            + years[i] + "</option>";
+        submitConsignee(postUrl, postData);
+
     });
-    $("#vehicleYearOption").empty().append(html);
 
-    $(".editVehicle").click(function (event) {
-        clearDataFields();
+    $(".editUser").click(function (event) {
 
+        //get user by ID
+        //getUser();
         var id = $(this).closest("tr").find('td:eq(0)').text();
-        var license = $(this).closest("tr").find('td:eq(1)').text();
-        var make = $(this).closest("tr").find('td:eq(2)').text();
-        var model = $(this).closest("tr").find('td:eq(3)').text();
-        var year = $(this).closest("tr").find('td:eq(4)').text();
+        var email = $(this).closest("tr").find('td:eq(1)').text();
 
-        $("#vehicleId").val(id);
-        $("#licenseNumber").val(license);
-        $("#vehicleMakeSelector").val(make);
-        $("#vehicleModelSelector").val(model);
-        $("#vehicleYearOption").val(year);
+        $("#userId").val(id);
+        $("#name").val(email);
+        $("#email").val(email);
     });
 
-    $("#submitVehicle").click(function (event) {
-
-        if ($.trim($("#licenseNumber").val()) === "") {
-            $("#licenseNumberDiv").removeClass("form-group");
-            $("#licenseNumberDiv").addClass("form-group has-error");
-        } else {
-            var vehicleId = $("#vehicleId").val();
-
-            var postUrl = "";
-            var postData = {
-                'licenseId': $("#licenseNumber").val().toUpperCase(),
-                'make': $("#vehicleMakeSelector").val(),
-                'model': $("#vehicleModelSelector").val(),
-                'year': $("#vehicleYearOption").val()
-            };
-
-            
-            if (vehicleId === "") {
-                //new vehicle
-                postUrl = "../api/vehicle";
-            } else {
-                //edit vehicle
-                postUrl = "../api/vehicle/" + vehicleId;
-            }
-
-            submitVehicle(postUrl, postData);
-            //var postJson = JSON.stringify(postData);
-            //$.ajax({
-            //    type: "POST",
-            //    dataType: "json",
-            //    contentType: "application/json; charset=utf-8",
-            //    url: postUrl,
-            //    data: postJson,
-            //    success: function (result) {
-            //        swal(
-            //            "Result",
-            //            "Vehicle added",
-            //            "success"
-            //        );
-            //    },
-            //    error: function (error) {
-            //        swal(
-            //            "Ooops",
-            //            "Failed to add vehicle",
-            //            "error"
-            //        );
-            //        location.reload();
-            //    }
-            //});
-        }
-    });
-
-    $("#submitDriver").click(function (event) {
-        if ($.trim($("#idPassport").val()) === "") {
-            $("#passportDiv").removeClass("form-group");
-            $("#passportDiv").addClass("form-group has-error");
-        } else {
-            var postUrl = "../api/driver";
-            var postData = {
-                'firstName': $("#firstName").val().toUpperCase(),
-                'lastName': $("#lastName").val().toUpperCase(),
-                'nationalId': $("#idPassport").val().toUpperCase(),
-                'passportNumber': $("#idPassport").val().toUpperCase(),
-                'telephone': $("#driverTelephone").val().toUpperCase(),
-                'country': $("#countryOptions").val(),
-            };
-
-            var postJson = JSON.stringify(postData);
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                url: postUrl,
-                data: postJson,
-                success: function (result) {
-                    swal(
-                        "Result",
-                        "Driver added",
-                        "success"
-                    );
-                },
-                error: function (error) {
-                    swal(
-                        "Ooops",
-                        "Failed to add driver",
-                        "error"
-                    );
-                }
-            });
-        }
-    });
-
-    var submitVehicle = function (postUrl, postData) {
+    var submitUser = function (postUrl, postData) {
 
         var postJson = JSON.stringify(postData);
         $.ajax({
@@ -141,28 +50,58 @@ $(document).ready(function () {
             success: function (result) {
                 swal(
                     "Result",
-                    "Vehicle added",
+                    "Consignee added",
                     "success"
                 );
             },
             error: function (error) {
                 swal(
                     "Ooops",
-                    "Failed to add vehicle",
+                    "Failed to add consignee",
                     "error"
                 );
                 location.reload();
             }
         });
 
-        clearDataFields();
+
+    };
+
+    var getUser = function (postUrl, postData) {
+
+        var postJson = JSON.stringify(postData);
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: postUrl,
+            data: postJson,
+            success: function (result) {
+                swal(
+                    "Result",
+                    "User added",
+                    "success"
+                );
+            },
+            error: function (error) {
+                swal(
+                    "Ooops",
+                    "Failed to add user",
+                    "error"
+                );
+                location.reload();
+            }
+        });
+
+
     };
 
     var clearDataFields = function () {
-        $("#vehicleId").val("");
-        $("#licenseNumber").val("");
-        $("#vehicleMakeSelector").val("");
-        $("#vehicleModelSelector").val("");
-        $("#vehicleYearOption").val("");
-    }
+        $("#consigneeId").val("");
+        $("#name").val("");
+        $("#address").val("");
+        $("#address2").val("");
+        $("#contact").val("");
+        $("#countrySelector").val("");
+    };
 });

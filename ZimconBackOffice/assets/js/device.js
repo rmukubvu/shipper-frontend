@@ -4,44 +4,47 @@
 
 $(document).ready(function () {
 
+    $("#submitConsignee").click(function (event) {
+        var id = $("#consigneeId").val();
+
+        var postUrl = "";
+        var postData = {
+            'name': $("#name").val(),
+            'address': $("#address").val(),
+            'address2': $("#address2").val(),
+            'contactNumber': $("#contact").val(),
+            'country': $("#countrySelector").val()
+        };
+
+        if (id === "") {//new vehicle
+            postUrl = "../api/consignee";
+        } else {//edit vehicle
+            postUrl = "../api/consignee/" + id;}
+
+        submitConsignee(postUrl, postData);
+        
+    });
+
     $(".editConsinee").click(function (event) {
-        $('#AjaxLoader').show();
         var id = $(this).closest("tr").find('td:eq(0)').text();
         var name = $(this).closest("tr").find('td:eq(1)').text();
         var address = $(this).closest("tr").find('td:eq(2)').text();
         var address2 = $(this).closest("tr").find('td:eq(3)').text();
-        var country = $(this).closest("tr").find('td:eq(4)').text();
-        var contactNumber = $(this).closest("tr").find('td:eq(5)').text();
+        var contactNumber = $(this).closest("tr").find('td:eq(4)').text();
+        var country = $(this).closest("tr").find('td:eq(5)').text();
+        
+       
 
         $("#consigneeId").val(id);
         $("#name").val(name);
         $("#address").val(address);
         $("#address2").val(address2);
-        $("#contactNumber").val(contactNumber);
+        $("#contact").val(contact);
         $("#countrySelector").val(country);
-        $('#AjaxLoader').hide();
     });
-
-    $("#submitConsignee").click(function (event) {
-
-        var postUrl = "../api/consignee";
-        var postData = {
-            'id': $("#consigneeId").val(),
-            'name': $("#name").val(),
-            'address': $("#address").val(),
-            'address2': $("#address2").val(),
-            'contactNumber': $("#contactNumber").val(),
-            'country': $("#countrySelector").val()
-        };
-
-        submitConsignee(postUrl, postData);        
-    });
-
-   
 
     var submitConsignee = function (postUrl, postData) {
-        $('#AjaxLoader').show(); 
-        
+
         var postJson = JSON.stringify(postData);
         $.ajax({
             type: "POST",
@@ -55,8 +58,6 @@ $(document).ready(function () {
                     "Consignee added",
                     "success"
                 );
-                location.reload();
-                $('#AjaxLoader').hide();  
             },
             error: function (error) {
                 swal(
@@ -65,17 +66,18 @@ $(document).ready(function () {
                     "error"
                 );
                 location.reload();
-                $('#AjaxLoader').show();  
             }
         });
+
+       
     };
 
-    //var clearDataFields = function () {
-    //    $("#consigneeId").val("");
-    //    $("#name").val("");
-    //    $("#address").val("");
-    //    $("#address2").val("");
-    //    $("#contact").val("");
-    //    $("#countrySelector").val("");
-    //};
+    var clearDataFields = function () {
+        $("#consigneeId").val("");
+        $("#name").val("");
+        $("#address").val("");
+        $("#address2").val("");
+        $("#contact").val("");
+        $("#countrySelector").val("");
+    };
 });

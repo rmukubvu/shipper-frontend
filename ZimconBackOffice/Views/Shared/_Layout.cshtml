@@ -18,8 +18,16 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/site.css" rel="stylesheet" />
+
+
 </head>
 <body>
+    <div class="loader" id="AjaxLoader" style="display:none;">
+        <div class="strip-holder">
+            <img src="../../assets/img/loading.gif" style="width: 100px;" />
+        </div>
+    </div>
     <div class="wrapper">
         <div class="sidebar" data-background-color="white" data-active-color="danger">
             <div class="sidebar-wrapper">
@@ -42,7 +50,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/Vehicle">
+                        <a id="vehicleLink" href="/Vehicle">
                             <i class="ti-truck"></i>
                             <p>Vehicles</p>
                         </a>
@@ -144,20 +152,21 @@
     <script src="../../assets/js/demo.js"></script>
     <script type="application/javascript">
         $(document).ready(function () {
-          var displayName = localStorage.getItem('shipper.userName');
-          $('#loggedUser').html(displayName);
+                  var displayName = localStorage.getItem('shipper.userName');
+                  $('#loggedUser').html(displayName);
         });
     </script>
     <!-- idle time -->
     <script src="../../js/rest.js"></script>
     <!-- user -->
-    <script src="../../assets/js/user.js"></script>
-    <!--consignee-->
-    @*<script src="../../assets/js/consignee.js"></script>*@
-    <!-- vehicle -->
+    @*<script src="../../assets/js/user.js"></script>*@
+    <!-- vehicle-->
     <script src="../../assets/js/vehicle.js"></script>
+
+    <!--consignee-->
+    <script src="../../assets/js/consignee.js"></script>
     <!-- smart device -->
-    <script src="../../assets/js/smartdevice.js"></script>
+    @*<script src="../../assets/js/smartdevice.js"></script>*@
 
     @*<script src="../../Scripts/pagination.js"></script>*@
 </body>

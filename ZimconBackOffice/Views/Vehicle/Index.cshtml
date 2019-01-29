@@ -1,5 +1,7 @@
 ﻿@using Shipper.RestGateway.Model
 @{
+    /**/
+
     ViewBag.Title = "Index";
     List<Vehicle> vehicles = Model;
     var count = 1;
@@ -24,15 +26,15 @@
                     <tbody>
                         @foreach (var car in vehicles)
                         {
-                        <tr>
-                            <td>@car.id</td>
-                            <td>@car.licenseId</td>
-                            <td>@car.make</td>
-                            <td>@car.model</td>
-                            <td>@car.year</td>
-                            @*<td><a href="/Shipment?id=@car.id"><i class="fa fa-edit"></i></a></td>*@
-                            <td><a class="editVehicle"><i class="fa fa-edit"></i></a></td>
-                        </tr>
+                            <tr>
+                                <td>@car.id</td>
+                                <td>@car.licenseId</td>
+                                <td>@car.make</td>
+                                <td>@car.model</td>
+                                <td>@car.year</td>
+                                @*<td><a href="/Shipment?id=@car.id"><i class="fa fa-edit"></i></a></td>*@
+                                <td><a class="editVehicle"><i class="fa fa-edit"></i></a></td>
+                            </tr>
                             //count++;
                         }
                     </tbody>
@@ -44,7 +46,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="header">
-                <h4 class="title" ><i class="fas fa-truck-moving"></i> Add New Vehicle</h4>
+                <h4 class="title"><i class="fas fa-truck-moving"></i> Add New Vehicle</h4>
             </div>
             <div class="content">
                 <form>
@@ -109,6 +111,5 @@
         </div>
     </div>
 </div>
-
 
 

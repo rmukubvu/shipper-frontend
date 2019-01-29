@@ -16,6 +16,13 @@ namespace ZimconBackOffice.Controllers
             return _service.Login(userName, password);
         }
 
+        [Route("api/consignee")]
+        [HttpPost]
+        public string SaveConsignee(Consignee model)
+        {
+            return _service.SaveConsignee(model);
+        }
+
         [Route("api/vehicle")]
         [HttpPost]
         public string SaveVehicle(Vehicle model)
