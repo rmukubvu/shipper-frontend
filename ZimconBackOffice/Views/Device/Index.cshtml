@@ -14,21 +14,28 @@
                 <table class="table table-striped">
                     <tr>
                         @*<th>ID</th>*@
-                        <th>Device Id</th>
+                        <th>Telegram</th>
                         <th>Make</th>
                         <th>Model</th>
+                        <th>Vehicle</th>
                         <th></th>
                     </tr>
                     <tbody>
-                        @foreach (var item in deviceAllocationViewModel.Devices)
+                        @foreach (var item in deviceAllocationViewModel.Allocations)
                         {
-                            <tr>
-                                @*<td>@count</td>*@
-                                <td>@item.make</td>
-                                <td>@item.model</td>
-                                <td>@item.deviceId</td>
-                                <td><a class="editUser" href=""><i class="fa fa-edit"></i></a></td>
-                            </tr>
+                        <tr>
+                            @*<td>@count</td>*@
+                            <td class="hidden">@item.allocationId</td>
+                            <td class="hidden">@item.vehicleId</td>
+                            <td>@item.deviceId</td>
+                            <td>@item.deviceMake</td>
+                            <td>@item.deviceModel</td>
+                            <td>@item.vehicleLicense</td>
+                            <td class="hidden">@item.vehicleMake</td>
+                            <td class="hidden">@item.vehicleModel</td>
+
+                            <td><a class="editDeviceAllocation"><i class="fa fa-edit"></i></a></td>
+                        </tr>
                             //count++;
                         }
                     </tbody>
@@ -51,7 +58,7 @@
                                 <select class="form-control" id="deviceSelector">
                                     @foreach (var device in deviceAllocationViewModel.Devices)
                                     {
-                                        <option value="@device.deviceId">@device.make - @device.deviceId</option>
+                                    <option value="@device.deviceId">@device.make - @device.model - @device.deviceId</option>
                                     }
                                 </select>
                             </div>
@@ -64,7 +71,7 @@
                                 <select class="form-control" id="vehicleSelector">
                                     @foreach (var vehicle in deviceAllocationViewModel.Vehicles)
                                     {
-                                        <option value="@vehicle.id">@vehicle.model - @vehicle.licenseId</option>
+                                    <option value="@vehicle.id">@vehicle.model - @vehicle.licenseId</option>
                                     }
                                 </select>
                             </div>

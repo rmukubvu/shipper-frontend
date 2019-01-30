@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Shipper.RestGateway.BaseClient;
 using Shipper.RestGateway.Cache;
 using Shipper.RestGateway.Model;
@@ -37,11 +38,20 @@ namespace Shipper.RestGateway.RestClients
             return client.GetResult<List<SmartDevice>>("smartdevice");
         }
 
+        public SmartDevice GetDeviceById(string id)
+        {
+            List<SmartDevice> devices = new List<SmartDevice>();
+            devices= GetSmartDevices();
+            return devices.FirstOrDefault(e => e.deviceId == id);
+        }
+
         public List<Vehicle> GetVehicles()
         {
             var client = new Services(_cache, _serializer);
             return client.GetResult<List<Vehicle>>("vehicle");
         }
+
+
 
         public List<VehicleLocationHistory> GetVehicleLocationHistory(string vehicleId)
         {
@@ -83,6 +93,13 @@ namespace Shipper.RestGateway.RestClients
         {
             var client = new Services(_cache, _serializer);
             return client.GetResult<Vehicle>($"vehicle/device/id?deviceId={telegramId}");
+        }
+
+        public Vehicle GetVehicleByDeviceId(string deviceId)
+        {
+            var client = new Services(_cache, _serializer);
+
+            return client.GetResult<Vehicle>($"vehicle/device/id?deviceId={deviceId}");
         }
 
         public DashboardStatus GetDashboardStatusByWaybill(long waybill)
@@ -128,6 +145,12 @@ namespace Shipper.RestGateway.RestClients
             return client.GetResult<List<Consignee>>("consignee");
         }
 
+        public Consignee GetConsigneeById(string id)
+        {
+            var client = new Services(_cache, _serializer);
+            return client.GetResult<Consignee>($"/consignee/id?id={id}");
+        }
+
         public List<User> GetUser()
         {
             var client = new Services(_cache, _serializer);
@@ -146,6 +169,14 @@ namespace Shipper.RestGateway.RestClients
             //return client.GetResult<List<Package>>($"shipment/consignee?consigneeId={consigneeId}");
             return GetResponse<List<Package>>($"shipment/consignee?consigneeId={consigneeId}");
         }
+
+        public List<DeviceAllocation> GetSmartDeviceAllocation()
+        {
+            var client = new Services(_cache, _serializer);
+            return client.GetResult<List<DeviceAllocation>>("smartdevice/allocation");
+        }
+
+       
 
         private T GetResponse<T>(string requestQuery) where T : new() {
             var client = new Services(_cache, _serializer);

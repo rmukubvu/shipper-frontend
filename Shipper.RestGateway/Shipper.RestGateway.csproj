@@ -66,6 +66,7 @@
     <Compile Include="Model\ConsigneeContactDetails.cs" />
     <Compile Include="Model\DashboardStatus.cs" />
     <Compile Include="Model\Driver.cs" />
+    <Compile Include="Model\DeviceAllocation.cs" />
     <Compile Include="Model\DriverAllocation.cs" />
     <Compile Include="Model\Shipment.cs" />
     <Compile Include="Model\ShipmentStatus.cs" />

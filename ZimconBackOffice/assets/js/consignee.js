@@ -65,7 +65,7 @@ $(document).ready(function () {
                     "error"
                 );
                 location.reload();
-                $('#AjaxLoader').show();  
+                $('#AjaxLoader').hide();  
             }
         });
     };

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Shipper.RestGateway.Model.User>
+﻿@model IEnumerable<ZimconBackOffice.Models.UserViewModel>
 @{
     ViewBag.Title = "User";
 }
@@ -12,24 +12,34 @@
             <div class="content table-responsive table-full-width">
                 <table class="table table-striped">
                     <tr>
-                        <th>Name</th>
-                        <th>Email Address</th>
+
                         <th>Created Date</th>
+                        <th>Consignee</th>
+                        <th>Email Address</th>
+                        <th>Contact</th>
+                        <th>Country</th>
                         <th></th>
                     </tr>
                     <tbody>
                         @foreach (var user in Model)
                         {
-                            <tr>
-                                <td>@user.consigneeId</td>
-                                <td>@user.emailAddress</td>
-                                <td>@user.createdDate</td>
-                                <td>
-                                    <a class="editUser" href="">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td class="hidden">@user.id</td>
+                            <td class="hidden">@user.consigneeId</td>
+                            <td class="hidden">@user.password</td>
+                            <td>@user.createdDate.ToShortDateString()</td>
+                            <td>@user.consignee.name</td>
+
+                            <td>@user.emailAddress</td>
+
+                            <td>@user.consignee.contactNumber</td>
+                            <td>@user.consignee.country</td>
+                            <td>
+                                <a class="editUser">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -44,7 +54,7 @@
             </div>
             <div class="content">
                 <form>
-                    <div class="row">
+                    <div class="row hidden">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>UserId</label>
@@ -52,14 +62,35 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row hidden">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control border-input" placeholder="" value="" id="name">
+                                <label>UserId</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="consigneeId">
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Consignee</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="consigneeName">
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Device</label>
+                                <select class="form-control" id="deviceSelector">
+                                    @foreach (var device in deviceAllocationViewModel.Devices)
+                                    {
+                                        <option value="@device.deviceId">@device.make - @device.model - @device.deviceId</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>*@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -68,7 +99,30 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="password2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row hidden">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Created date</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="createdDate">
+                            </div>
+                        </div>
+                    </div>
                     <div class="pull-left">
                         <button type="button" class="btn btn-info btn-fill btn-wd" id="submitUser">Submit</button>
                     </div>
@@ -77,6 +131,8 @@
             </div>
         </div>
     </div>
+
+
 </div>
 
 

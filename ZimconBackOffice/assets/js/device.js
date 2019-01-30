@@ -3,48 +3,15 @@
  */
 
 $(document).ready(function () {
-
-    $("#submitConsignee").click(function (event) {
-        var id = $("#consigneeId").val();
-
-        var postUrl = "";
+    $("#submitDeviceAllocation").click(function (event) {
+        //console.log($('#deviceSelector').val());vehicleSelector
+        var postUrl = "../api/devicealloc";
         var postData = {
-            'name': $("#name").val(),
-            'address': $("#address").val(),
-            'address2': $("#address2").val(),
-            'contactNumber': $("#contact").val(),
-            'country': $("#countrySelector").val()
+            'vehicleId': $('#vehicleSelector').val(),
+            'deviceId': $('#deviceSelector').val(),
+            'allocationDate': new Date()
         };
-
-        if (id === "") {//new vehicle
-            postUrl = "../api/consignee";
-        } else {//edit vehicle
-            postUrl = "../api/consignee/" + id;}
-
-        submitConsignee(postUrl, postData);
-        
-    });
-
-    $(".editConsinee").click(function (event) {
-        var id = $(this).closest("tr").find('td:eq(0)').text();
-        var name = $(this).closest("tr").find('td:eq(1)').text();
-        var address = $(this).closest("tr").find('td:eq(2)').text();
-        var address2 = $(this).closest("tr").find('td:eq(3)').text();
-        var contactNumber = $(this).closest("tr").find('td:eq(4)').text();
-        var country = $(this).closest("tr").find('td:eq(5)').text();
-        
-       
-
-        $("#consigneeId").val(id);
-        $("#name").val(name);
-        $("#address").val(address);
-        $("#address2").val(address2);
-        $("#contact").val(contact);
-        $("#countrySelector").val(country);
-    });
-
-    var submitConsignee = function (postUrl, postData) {
-
+        $('#AjaxLoader').show(); 
         var postJson = JSON.stringify(postData);
         $.ajax({
             type: "POST",
@@ -54,30 +21,53 @@ $(document).ready(function () {
             data: postJson,
             success: function (result) {
                 swal(
-                    "Result",
-                    "Consignee added",
-                    "success"
+                    'Result',
+                    'Device has been allocated',
+                    'success'
                 );
+                location.reload();
+                $('#AjaxLoader').hide();  
             },
             error: function (error) {
                 swal(
-                    "Ooops",
-                    "Failed to add consignee",
-                    "error"
+                    'Ooops',
+                    'Failed to allocate device',
+                    'error'
                 );
                 location.reload();
+                $('#AjaxLoader').hide();  
             }
         });
 
-       
-    };
+    });
 
-    var clearDataFields = function () {
-        $("#consigneeId").val("");
-        $("#name").val("");
-        $("#address").val("");
-        $("#address2").val("");
-        $("#contact").val("");
-        $("#countrySelector").val("");
-    };
+    $(".editDeviceAllocation").click(function (event) {
+        var allocationId = $(this).closest("tr").find('td:eq(0)').text();
+        var vehicleId = $(this).closest("tr").find('td:eq(1)').text();
+        var deviceId = $(this).closest("tr").find('td:eq(2)').text();
+        var deviceMake = $(this).closest("tr").find('td:eq(3)').text();
+        var deviceModel = $(this).closest("tr").find('td:eq(4)').text();
+        var vehicleLicense = $(this).closest("tr").find('td:eq(5)').text();
+        var vehicleMake = $(this).closest("tr").find('td:eq(6)').text();
+        var vehicleModel= $(this).closest("tr").find('td:eq(7)').text();
+
+        $('#deviceSelector > option:selected').text("" + deviceMake + ' - ' + deviceModel + ' - ' + deviceId + "");
+        $('#vehicleSelector > option:selected').text("" + vehicleModel + ' - ' + vehicleLicense + "");
+        //$('#deviceSelector option[value='+deviceId+']').html("" + deviceMake + ' - ' + deviceModel + ' - ' + deviceId + "");
+        ////$('#select option[value="someValue"]').text("newText")
+        //$('#vehicleSelector option').html("" + vehicleModel + ' - ' + vehicleLicense + "");
+
+        //var selectedOption = '<option>' + deviceMake + ' - ' + deviceModel + ' - '+deviceId+'</option>';
+        //$("#deviceSelector").append('<option>' + deviceMake + ' - ' + deviceModel + ' - ' + deviceId + '</option>');
+
+    });
+
+    //var clearDataFields = function () {
+    //    $("#consigneeId").val("");
+    //    $("#name").val("");
+    //    $("#address").val("");
+    //    $("#address2").val("");
+    //    $("#contact").val("");
+    //    $("#countrySelector").val("");
+    //};
 });
