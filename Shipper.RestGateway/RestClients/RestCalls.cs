@@ -102,6 +102,13 @@ namespace Shipper.RestGateway.RestClients
             return client.GetResult<Vehicle>($"vehicle/device/id?deviceId={deviceId}");
         }
 
+        public Vehicle GetVehicleById(string vehicleId)
+        {
+            var client = new Services(_cache, _serializer);
+
+            return client.GetResult<Vehicle>($"vehicle/id?vehicleId={vehicleId}");
+        }
+
         public DashboardStatus GetDashboardStatusByWaybill(long waybill)
         {
             var client = new Services(_cache, _serializer);

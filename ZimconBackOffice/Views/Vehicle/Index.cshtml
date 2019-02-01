@@ -16,7 +16,7 @@
             <div class="content table-responsive table-full-width">
                 <table class="table table-striped">
                     <tr>
-                        <th>ID</th>
+                        <th class="hidden">ID</th>
                         <th>License</th>
                         <th>Make</th>
                         <th>Model</th>
@@ -27,7 +27,7 @@
                         @foreach (var car in vehicles)
                         {
                             <tr>
-                                <td>@car.id</td>
+                                <td class="hidden">@car.id</td>
                                 <td>@car.licenseId</td>
                                 <td>@car.make</td>
                                 <td>@car.model</td>
@@ -71,6 +71,7 @@
                             <div class="form-group">
                                 <label>Make</label>
                                 <select class="form-control" id="vehicleMakeSelector">
+                                    <option>--- Select Make ---</option>
                                     <option>Volvo</option>
                                     <option>Mercedes Benz</option>
                                     <option>Toyota</option>
@@ -85,6 +86,7 @@
                             <div class="form-group">
                                 <label for="vehicleModelSelector">Model</label>
                                 <select class="form-control" id="vehicleModelSelector">
+                                    <option>--- Select Model ---</option>
                                     <option>Volvo</option>
                                     <option>Mercedes Benz</option>
                                     <option>Toyota</option>

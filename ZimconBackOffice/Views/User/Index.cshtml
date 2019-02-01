@@ -74,7 +74,7 @@
                             <div class="form-group">
                                 <label>Consignee</label>
                                 <select class="form-control" id="consigneeSelector">
-                                    <option value="">Select Consignee</option>
+                                    <option>--- Select Consignee ---</option>
                                     @foreach (var consignee in Model.consignees)
                                     {
                                         <option value="@consignee.id">@consignee.name</option>

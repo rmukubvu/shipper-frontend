@@ -27,9 +27,11 @@
                             <div class="form-group">
                                 <label>Consignee</label>
                                 <select class="form-control" id="consigneeSelector">
+                                    <option>--- Select Consignee ---</option>
                                     @foreach (var consignee in Model.Consignees)
                                     {
-                                        if (consignee.address != null){
+                                        if (consignee.address != null)
+                                        {
                                             <option value="@consignee.id">@consignee.name</option>
                                         }
                                     }
@@ -42,9 +44,10 @@
                             <div class="form-group">
                                 <label>Vehicle</label>
                                 <select class="form-control" id="vehicleSelector">
+                                    <option>--- Select Vehicle ---</option>
                                     @foreach (var vehicle in Model.Vehicles)
                                     {
-                                       <option value="@vehicle.id">@vehicle.model - @vehicle.licenseId</option>
+                                        <option value="@vehicle.id">@vehicle.model - @vehicle.licenseId</option>
                                     }
                                 </select>
                             </div>

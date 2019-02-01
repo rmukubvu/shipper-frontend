@@ -16,7 +16,9 @@ namespace ZimconBackOffice.Controllers
         {
             var devices = _rest.GetSmartDevices();
             var vehicles = _rest.GetVehicles();
-            var deviceAllocationsView = GetAllocatedSmartDevicesView();
+            var allocations = _rest.GetSmartDeviceAllocation();
+
+            var deviceAllocationsView = GetAllocatedSmartDevicesView(allocations);
 
             var model = new DeviceAllocationViewModel()
             {
@@ -27,30 +29,35 @@ namespace ZimconBackOffice.Controllers
             return View(model);
         }
 
-        public List<Models.AllocatedVehicleDeviceViewModel> GetAllocatedSmartDevicesView()
+        public List<Models.AllocatedVehicleDeviceViewModel> GetAllocatedSmartDevicesView(List<DeviceAllocation> allocations)
         {
-            var allocations = _rest.GetSmartDeviceAllocation();
 
             List<Models.AllocatedVehicleDeviceViewModel> allocatedDevices = new List<Models.AllocatedVehicleDeviceViewModel>();
 
+            if (allocations == null)
+                return null;
+
             foreach (var allocate in allocations)
             {
-                var vehicle = _rest.GetVehicleByDeviceId(allocate.deviceId);
+                var vehicle = _rest.GetVehicleById(allocate.vehicleId);
                 var device = _rest.GetDeviceById(allocate.deviceId);
 
-                Models.AllocatedVehicleDeviceViewModel vm = new Models.AllocatedVehicleDeviceViewModel
+                if (vehicle != null && device != null)
                 {
-                    allocationDate = allocate.allocationDate,
-                    allocationId = allocate.id,
-                    deviceId = allocate.deviceId,
-                    vehicleId = vehicle.id,
-                    vehicleLicense = vehicle.licenseId,
-                    vehicleMake=vehicle.make,
-                    vehicleModel=vehicle.model,
-                    deviceMake = device.make,
-                    deviceModel = device.model
-                };
-                allocatedDevices.Add(vm);
+                    Models.AllocatedVehicleDeviceViewModel vm = new Models.AllocatedVehicleDeviceViewModel
+                    {
+                        allocationDate = allocate.allocationDate,
+                        allocationId = allocate.id,
+                        deviceId = allocate.deviceId,
+                        vehicleId = vehicle.id,
+                        vehicleLicense = vehicle.licenseId,
+                        vehicleMake = vehicle.make,
+                        vehicleModel = vehicle.model,
+                        deviceMake = device.make,
+                        deviceModel = device.model
+                    };
+                    allocatedDevices.Add(vm);
+                }
             }
 
             return allocatedDevices;
