@@ -16,10 +16,15 @@ namespace ZimconBackOffice.Controllers
         public ActionResult Index(string id = null)
         {
             var users = _rest.GetUser();
-
             var userView = getUserViewModel(users);
 
-            return View(userView);
+            UserConsigneeViewModel viewModel = new UserConsigneeViewModel
+            {
+                users = userView,
+                consignees = _rest.GetConsignee()
+            };
+
+            return View(viewModel);
         }
 
         public List<UserViewModel> getUserViewModel(List<User> users)
@@ -29,11 +34,14 @@ namespace ZimconBackOffice.Controllers
             foreach (var user in users)
             {
                 var consignee = _rest.GetConsigneeById(user.consigneeId);
+
                 UserViewModel vm = new UserViewModel
                 {
                     id = user.id,
                     consigneeId = user.consigneeId,
                     consignee = consignee,
+                    firstName=user.firstName,
+                    lastName=user.lastName,
                     emailAddress = user.emailAddress,
                     password = user.password,
                     createdDate = user.createdDate
@@ -45,13 +53,10 @@ namespace ZimconBackOffice.Controllers
         }
     }
 
-    //public class UserViewModel
-    //{
-    //    public string id { get; set; }
-    //    public string consigneeId { get; set; }
-    //    public Consignee consignee { get; set; }
-    //    public string emailAddress { get; set; }
-    //    public string password { get; set; }
-    //    public DateTime createdDate { get; set; }
-    //}
+    public class UserConsigneeViewModel
+    {
+        public List<UserViewModel> users { get; set; }
+        public List<Consignee> consignees { get; set; }
+    }
+
 }

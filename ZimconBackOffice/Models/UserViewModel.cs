@@ -12,6 +12,8 @@ namespace ZimconBackOffice.Models
         public string id { get; set; }
         public string consigneeId { get; set; }
         public Consignee consignee { get; set; }
+        public string  firstName { get; set; }
+        public string  lastName { get; set; }
         public string emailAddress { get; set; }
         public string password { get; set; }
         public DateTime createdDate { get; set; }

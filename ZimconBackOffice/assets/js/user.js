@@ -8,18 +8,36 @@ $(document).ready(function () {
 
         //get user by ID
         //getUser();
-        var userId = $(this).closest("tr").find('td:eq(0)').text();
-        var consigneeId = $(this).closest("tr").find('td:eq(1)').text();
-        var password = $(this).closest("tr").find('td:eq(2)').text();
-        var createdDate = $(this).closest("tr").find('td:eq(3)').text();
-        var consigneeName = $(this).closest("tr").find('td:eq(4)').text();
-        var email = $(this).closest("tr").find('td:eq(5)').text();
-        var contact = $(this).closest("tr").find('td:eq(6)').text();
-        var country = $(this).closest("tr").find('td:eq(7)').text();
+        //var userId = $(this).closest("tr").find('td:eq(0)').text();
+        //var consigneeId = $(this).closest("tr").find('td:eq(1)').text();
+        //var password = $(this).closest("tr").find('td:eq(2)').text();
+        //var createdDate = $(this).closest("tr").find('td:eq(3)').text();
+        //var consigneeName = $(this).closest("tr").find('td:eq(4)').text();
+        //var name = $(this).closest("tr").find('td:eq(5)').text();
+        //var firstName = $(this).closest("tr").find('td:eq(6)').text();
+        //var lastName = $(this).closest("tr").find('td:eq(7)').text();
+        //var email = $(this).closest("tr").find('td:eq(8)').text();
+        //var contact = $(this).closest("tr").find('td:eq(9)').text();
+        //var country = $(this).closest("tr").find('td:eq(10)').text();
+
+        var userId = $('#userUserId').text();
+        var consigneeId = $('#userConsigneeId').text();
+        var password = $('#userPassword').text();
+        var createdDate = $('#userCreatedDate').text();
+        var consigneeName = $('#userConsigneeName').text();
+        var name = $('#userUsername').text();
+        var firstName = $('#userFirstName').text();
+        var lastName = $('#userLastName').text();
+        var email = $('#userEmail').text();
+        var contact = $('#userContact').text();
+        var country = $('#userCountry').text();
 
         $("#userId").val(userId);
         $("#consigneeId").val(consigneeId);
-        $("#consigneeName").val(consigneeName);
+        //$("#consigneeName").val(consigneeName);
+        //$("#consigneeSelector option:selected").val(); 
+        $("#firstName").val(firstName);
+        $("#lastName").val(lastName);
         $("#email").val(email);
         $("#password").val(password);
         $("#password2").val(password);
@@ -32,8 +50,10 @@ $(document).ready(function () {
         var postUrl = "../api/user";
         var postData = {
             'id': $("#userId").val(),
-            'consigneeId': $("#consigneeId").val(),
-            'createdDate': new Date($.now()),//$("#createdDate").val(),
+            'consigneeId': $('#consigneeSelector').val(),
+            'createdDate': new Date($.now()),
+            'firstName': $("#firstName").val(),
+            'lastName': $("#lastName").val(),
             'emailAddress': $("#email").val(),
             'password': $("#password").val()
         };

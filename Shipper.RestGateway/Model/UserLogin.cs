@@ -6,6 +6,8 @@ namespace Shipper.RestGateway.Model
     {
         public string consigneeId { get; set; }
         public DateTime createdDate { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
         public string emailAddress { get; set; }
         public string id { get; set; }
         public string password { get; set; }
