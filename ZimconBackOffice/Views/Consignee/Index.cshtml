@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Shipper.RestGateway.Model.Consignee>
+﻿@*@model IEnumerable<Shipper.RestGateway.Model.Consignee>*@
 @{
     ViewBag.Title = "Consignee";
 }
@@ -41,12 +41,12 @@
 
 
         <div class="col-md-4">
-            <div class="card">
+            <div class="card crud" style="padding: 15px 15px 10px 15px;">
                 <div class="header">
                     <h4 class="title"><i class="fa fa-user-tie"></i> Add New Consignee</h4>
                 </div>
                 <div class="content">
-                    <form>
+                    <form id="consigneeForm" method="post" class="form-horizontal">
                         <div class="row hidden">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -59,7 +59,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control border-input" placeholder="" value="" id="name">
+                                    <input type="text" class="form-control border-input" placeholder="" value="" id="name" name="name">
                                 </div>
                             </div>
                         </div>
@@ -67,14 +67,14 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Address 1</label>
-                                    <input type="text" class="form-control border-input" placeholder="" value="" id="address">
+                                    <input type="text" class="form-control border-input" placeholder="" value="" id="address" name="address">
                                 </div>
                             </div>
                         </div><div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Address 2</label>
-                                    <input type="text" class="form-control border-input" placeholder="" value="" id="address2">
+                                    <input type="text" class="form-control border-input" placeholder="" value="" id="address2" name="address2">
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Contact</label>
-                                    <input type="text" class="form-control border-input" placeholder="" value="" id="contactNumber">
+                                    <input type="tel" class="form-control border-input" placeholder="" value="" id="contactNumber" name="contactNumber">
                                 </div>
                             </div>
                         </div>
@@ -90,17 +90,17 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="countrySelector">Select Country</label>
-                                    <select class="form-control" id="countrySelector">
-                                        <option>--- Select Device ---</option>
-                                        <option>South Africa</option>
-                                        <option>Zimbabwe</option>
+                                    <select class="form-control" id="countrySelector" name="countrySelector">
+                                        <option value="">--- Select Country ---</option>
+                                        <option value="South Africa">South Africa</option>
+                                        <option value="Zimbabwe">Zimbabwe</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
                         <div class="pull-left">
-                            <button type="button" class="btn btn-info btn-fill btn-wd" id="submitConsignee">Submit</button>
+                            <button type="submit" class="btn btn-info btn-fill btn-wd" id="submitConsignee">Submit</button>
                         </div>
                         <div class="clearfix"></div>
                     </form>

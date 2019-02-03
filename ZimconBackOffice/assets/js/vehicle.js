@@ -20,9 +20,54 @@ $(document).ready(function () {
 
     $("#vehicleYearOption").empty().append(html);
 
+    $('#vehicleForm').bootstrapValidator({
+        message: 'This value is not valid',
+        //feedbackIcons: {
+        //    valid: 'glyphicon glyphicon-ok',
+        //    invalid: 'glyphicon glyphicon-remove',
+        //    validating: 'glyphicon glyphicon-refresh'
+        //},
+        fields: {
+            vehicleMakeSelector: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select vehicle make'
+                    }
+                }
+            },
+            vehicleModelSelector: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select vehicle model'
+                    }
+
+                }
+            },
+            vehicleYearOption: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select vehicle model'
+                    }
+                }
+            },
+            licenseNumber: {
+                message: 'The License Number is not valid',
+                validators: {
+                    notEmpty: {
+                        message: '* License Number is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 10,
+                        message: 'Invalid License Number'
+                    }
+                }
+            }
+        }
+    });
+
     $(".editVehicle").click(function (event) {
-        //clearDataFields();
-        $('#AjaxLoader').show();  
+        $('#AjaxLoader').show();
         var id = $(this).closest("tr").find('td:eq(0)').text();
         var license = $(this).closest("tr").find('td:eq(1)').text();
         var make = $(this).closest("tr").find('td:eq(2)').text();
@@ -34,34 +79,33 @@ $(document).ready(function () {
         $("#vehicleMakeSelector").val(make);
         $("#vehicleModelSelector").val(model);
         $("#vehicleYearOption").val(year);
-        $('#AjaxLoader').hide();  
+        $('#AjaxLoader').hide();
     });
 
+    $('#vehicleForm').validator().on('submit', function (e) {
+        if (!e.isDefaultPrevented()) {
+            if ($.trim($("#licenseNumber").val()) === "") {
+                $("#licenseNumberDiv").removeClass("form-group");
+                $("#licenseNumberDiv").addClass("form-group has-error");
+            }
+            else {
+                var postUrl = "../api/vehicle";
+                var postData = {
+                    'id': $("#vehicleId").val(),
+                    'licenseId': $("#licenseNumber").val().toUpperCase(),
+                    'make': $("#vehicleMakeSelector").val(),
+                    'model': $("#vehicleModelSelector").val(),
+                    'year': $("#vehicleYearOption").val()
+                };
 
-    $("#submitVehicle").click(function (event) {
-
-        if ($.trim($("#licenseNumber").val()) === "") {
-            $("#licenseNumberDiv").removeClass("form-group");
-            $("#licenseNumberDiv").addClass("form-group has-error");
-        }
-        else
-        {
-            var postUrl = "../api/vehicle";
-            var postData = {
-                'id': $("#vehicleId").val(),
-                'licenseId': $("#licenseNumber").val().toUpperCase(),
-                'make': $("#vehicleMakeSelector").val(),
-                'model': $("#vehicleModelSelector").val(),
-                'year': $("#vehicleYearOption").val()
-            };
-
-            submitVehicle(postUrl, postData);
+                submitVehicle(postUrl, postData);
+            }
         }
     });
 
     //submit vehicle
     var submitVehicle = function (postUrl, postData) {
-        $('#AjaxLoader').show();  
+        $('#AjaxLoader').show();
         var postJson = JSON.stringify(postData);
         $.ajax({
             type: "POST",
@@ -75,9 +119,8 @@ $(document).ready(function () {
                     "Vehicle added",
                     "success"
                 );
-                clearDataFields();
                 location.reload();
-                $('#AjaxLoader').hide();  
+                $('#AjaxLoader').hide();
             },
             error: function (error) {
                 swal(
@@ -87,19 +130,12 @@ $(document).ready(function () {
                 );
 
                 location.reload();
-                $('#AjaxLoader').hide(); 
+                $('#AjaxLoader').hide();
             }
         });
     };
 
-    //clear input fields
-    var clearDataFields = function () {
-        $("#vehicleId").val("");
-        $("#licenseNumber").val("");
-        $("#vehicleMakeSelector").val("");
-        $("#vehicleModelSelector").val("");
-        $("#vehicleYearOption").val("");
-    };
+
 
     $("#submitDriver").click(function (event) {
         if ($.trim($("#idPassport").val()) === "") {

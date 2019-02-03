@@ -4,6 +4,65 @@
 
 $(document).ready(function () {
 
+    $('#userForm').bootstrapValidator({
+        message: 'This value is not valid',
+        //feedbackIcons: {
+        //    valid: 'glyphicon glyphicon-ok',
+        //    invalid: 'glyphicon glyphicon-remove',
+        //    validating: 'glyphicon glyphicon-refresh'
+        //},
+        fields: {
+            consigneeSelector: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select consignee'
+                    }
+                }
+            },
+            firstName: {
+                message: 'The first name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: '* First name is required and cannot be empty'
+                    }
+                }
+            },
+            lastName: {
+                message: 'The last name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: '* Last name is required and cannot be empty'
+                    }
+                }
+            },
+            email: {
+
+            },
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: '* Password is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 6,
+                        message: 'Password must be more than 6 characters long'
+                    }
+                }
+            },
+            password2: {
+                validators: {
+                    notEmpty: {
+                        message: '* Password is required and cannot be empty'
+                    },
+                    identical: {
+                        field: 'password',
+                        message: 'Passwords do not match'
+                    }
+                }
+            }
+        }
+    });
+
     $(".editUser").click(function (event) {
 
         //get user by ID
@@ -22,7 +81,7 @@ $(document).ready(function () {
 
         $("#userId").val(userId);
         $("#consigneeId").val(consigneeId);
-        $("#consigneeSelector").val(consigneeId); 
+        $("#consigneeSelector").val(consigneeId);
         $("#firstName").val(firstName);
         $("#lastName").val(lastName);
         $("#email").val(email);
@@ -30,27 +89,27 @@ $(document).ready(function () {
         $("#password2").val(password);
         $("#createdDate").val(createdDate);
     });
+    
 
-    $("#submitUser").click(function (event) {
-        var id = $("#userId").val();
+    $('#userForm').validator().on('submit', function (e) {
+        if (!e.isDefaultPrevented()) {
+            var postUrl = "../api/user";
+            var postData = {
+                'id': $("#userId").val(),
+                'consigneeId': $('#consigneeSelector').val(),
+                'createdDate': new Date($.now()),
+                'firstName': $("#firstName").val(),
+                'lastName': $("#lastName").val(),
+                'emailAddress': $("#email").val(),
+                'password': $("#password").val()
+            };
 
-        var postUrl = "../api/user";
-        var postData = {
-            'id': $("#userId").val(),
-            'consigneeId': $('#consigneeSelector').val(),
-            'createdDate': new Date($.now()),
-            'firstName': $("#firstName").val(),
-            'lastName': $("#lastName").val(),
-            'emailAddress': $("#email").val(),
-            'password': $("#password").val()
-        };
-
-        submitUser(postUrl, postData);
-
+            submitUser(postUrl, postData);
+        }
     });
 
     var submitUser = function (postUrl, postData) {
-        $('#AjaxLoader').show(); 
+        $('#AjaxLoader').show();
         var postJson = JSON.stringify(postData);
         $.ajax({
             type: "POST",
@@ -65,7 +124,7 @@ $(document).ready(function () {
                     "success"
                 );
                 location.reload();
-                $('#AjaxLoader').hide();  
+                $('#AjaxLoader').hide();
             },
             error: function (error) {
                 swal(
@@ -74,7 +133,7 @@ $(document).ready(function () {
                     "error"
                 );
                 location.reload();
-                $('#AjaxLoader').hide();  
+                $('#AjaxLoader').hide();
             }
         });
 
@@ -97,7 +156,7 @@ $(document).ready(function () {
                     "success"
                 );
                 location.reload();
-                $('#AjaxLoader').show();  
+                $('#AjaxLoader').show();
             },
             error: function (error) {
                 swal(
@@ -106,19 +165,10 @@ $(document).ready(function () {
                     "error"
                 );
                 location.reload();
-                $('#AjaxLoader').hide();  
+                $('#AjaxLoader').hide();
             }
         });
 
 
     };
-
-    //var clearDataFields = function () {
-    //    $("#consigneeId").val("");
-    //    $("#name").val("");
-    //    $("#address").val("");
-    //    $("#address2").val("");
-    //    $("#contact").val("");
-    //    $("#countrySelector").val("");
-    //};
 });

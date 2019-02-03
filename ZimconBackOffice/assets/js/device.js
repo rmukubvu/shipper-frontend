@@ -3,6 +3,32 @@
  */
 
 $(document).ready(function () {
+
+    $('#deviceForm').bootstrapValidator({
+        message: 'This value is not valid',
+        //feedbackIcons: {
+        //    valid: 'glyphicon glyphicon-ok',
+        //    invalid: 'glyphicon glyphicon-remove',
+        //    validating: 'glyphicon glyphicon-refresh'
+        //},
+        fields: {
+            deviceSelector: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select smart device'
+                    }
+                }
+            },
+            vehicleSelector: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select vehicle'
+                    }
+                }
+            }
+        }
+    });
+
     $(".editDeviceAllocation").click(function (event) {
         var allocationId = $(this).closest("tr").find('td:eq(0)').text();
         var vehicleId = $(this).closest("tr").find('td:eq(1)').text();
@@ -19,54 +45,44 @@ $(document).ready(function () {
 
     });
 
-    $("#submitDeviceAllocation").click(function (event) {
-        //console.log($('#deviceSelector').val());vehicleSelector
-        var postUrl = "../api/devicealloc";
-        var postData = {
-            'id': $("#allocationId").val(),
-            'vehicleId': $("#vehicleSelector").val(),
-            'deviceId': $("#deviceSelector").val(),
-            'allocationDate': new Date()
-        };
 
-        $('#AjaxLoader').show(); 
-        var postJson = JSON.stringify(postData);
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            url: postUrl,
-            data: postJson,
-            success: function (result) {
-                swal(
-                    'Result',
-                    'Device has been allocated',
-                    'success'
-                );
-                location.reload();
-                $('#AjaxLoader').hide();  
-            },
-            error: function (error) {
-                swal(
-                    'Ooops',
-                    'Failed to allocate device',
-                    'error'
-                );
-                location.reload();
-                $('#AjaxLoader').hide();  
-            }
-        });
+    $('#deviceForm').validator().on('submit', function (e) {
+        if (!e.isDefaultPrevented()) {
+            var postUrl = "../api/devicealloc";
+            var postData = {
+                'id': $("#allocationId").val(),
+                'vehicleId': $("#vehicleSelector").val(),
+                'deviceId': $("#deviceSelector").val(),
+                'allocationDate': new Date()
+            };
 
+            $('#AjaxLoader').show();
+            var postJson = JSON.stringify(postData);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                url: postUrl,
+                data: postJson,
+                success: function (result) {
+                    swal(
+                        'Result',
+                        'Device has been allocated',
+                        'success'
+                    );
+                    location.reload();
+                    $('#AjaxLoader').hide();
+                },
+                error: function (error) {
+                    swal(
+                        'Ooops',
+                        'Failed to allocate device',
+                        'error'
+                    );
+                    location.reload();
+                    $('#AjaxLoader').hide();
+                }
+            });
+        }
     });
-
-    
-
-    //var clearDataFields = function () {
-    //    $("#consigneeId").val("");
-    //    $("#name").val("");
-    //    $("#address").val("");
-    //    $("#address2").val("");
-    //    $("#contact").val("");
-    //    $("#countrySelector").val("");
-    //};
 });

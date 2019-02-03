@@ -204,6 +204,7 @@
     <Content Include="assets\img\tim_80x80.png" />
     <Content Include="assets\js\bootstrap-checkbox-radio.js" />
     <Content Include="assets\js\bootstrap-notify.js" />
+    <Content Include="assets\js\bootstrap-validate.js" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\chartist.min.js" />
     <Content Include="assets\js\device.js" />

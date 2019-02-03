@@ -4,7 +4,7 @@
 
     ViewBag.Title = "Index";
     List<Vehicle> vehicles = Model;
-    var count = 1;
+    //var count = 1;
 }
 
 <div class="row">
@@ -32,24 +32,21 @@
                                 <td>@car.make</td>
                                 <td>@car.model</td>
                                 <td>@car.year</td>
-                                @*<td><a href="/Shipment?id=@car.id"><i class="fa fa-edit"></i></a></td>*@
                                 <td><a class="editVehicle"><i class="fa fa-edit"></i></a></td>
                             </tr>
-                            //count++;
                         }
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
     <div class="col-md-4">
-        <div class="card">
+        <div class="card crud" style="padding: 15px 15px 10px 15px;">
             <div class="header">
                 <h4 class="title"><i class="fas fa-truck-moving"></i> Add New Vehicle</h4>
             </div>
             <div class="content">
-                <form>
+                <form id="vehicleForm" method="post" class="form-horizontal">
                     <div class="row hidden">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -62,7 +59,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>License Number</label>
-                                <input type="text" class="form-control border-input" placeholder="License Number" value="" id="licenseNumber">
+                                <input type="text" class="form-control border-input" placeholder="License Number" value="" id="licenseNumber" name="licenseNumber">
                             </div>
                         </div>
                     </div>
@@ -70,13 +67,13 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Make</label>
-                                <select class="form-control" id="vehicleMakeSelector">
-                                    <option>--- Select Make ---</option>
-                                    <option>Volvo</option>
-                                    <option>Mercedes Benz</option>
-                                    <option>Toyota</option>
-                                    <option>Nissan</option>
-                                    <option>Mahindra</option>
+                                <select class="form-control" id="vehicleMakeSelector" name="vehicleMakeSelector">
+                                    <option value="">--- Select Make ---</option>
+                                    <option value="Volvo">Volvo</option>
+                                    <option value="Mercedes Benz">Mercedes Benz</option>
+                                    <option value="Toyota">Toyota</option>
+                                    <option value="Nissan">Nissan</option>
+                                    <option value="Mahindra">Mahindra</option>
                                 </select>
                             </div>
                         </div>
@@ -85,13 +82,13 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="vehicleModelSelector">Model</label>
-                                <select class="form-control" id="vehicleModelSelector">
-                                    <option>--- Select Model ---</option>
-                                    <option>Volvo</option>
-                                    <option>Mercedes Benz</option>
-                                    <option>Toyota</option>
-                                    <option>Nissan</option>
-                                    <option>Mahindra</option>
+                                <select class="form-control" id="vehicleModelSelector" name="vehicleModelSelector">
+                                    <option value="">--- Select Model ---</option>
+                                    <option value="Volvo">Volvo</option>
+                                    <option value="Mercedes Benz">Mercedes Benz</option>
+                                    <option value="Toyota">Toyota</option>
+                                    <option value="Nissan">Nissan</option>
+                                    <option value="Mahindra">Mahindra</option>
                                 </select>
                             </div>
                         </div>
@@ -100,12 +97,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Year</label>
-                                <select class="form-control" id="vehicleYearOption"></select>
+                                <select class="form-control" id="vehicleYearOption" name="vehicleYearOption"></select>
                             </div>
                         </div>
                     </div>
                     <div class="pull-left">
-                        <button type="button" class="btn btn-info btn-fill btn-wd" id="submitVehicle">Submit</button>
+                        <button type="submit" class="btn btn-info btn-fill btn-wd" id="submitVehicle">Submit</button>
                     </div>
                     <div class="clearfix"></div>
                 </form>

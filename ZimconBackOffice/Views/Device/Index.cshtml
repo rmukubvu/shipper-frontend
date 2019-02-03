@@ -13,7 +13,6 @@
             <div class="content table-responsive table-full-width">
                 <table class="table table-striped">
                     <tr>
-                        @*<th>ID</th>*@
                         <th>Telegram</th>
                         <th>Make</th>
                         <th>Model</th>
@@ -24,7 +23,7 @@
                         @foreach (var item in deviceAllocationViewModel.Allocations)
                         {
                         <tr>
-                            @*<td>@count</td>*@
+                            
                             <td class="hidden">@item.allocationId</td>
                             <td class="hidden">@item.vehicleId</td>
                             <td>@item.deviceId</td>
@@ -36,7 +35,7 @@
 
                             <td><a class="editDeviceAllocation"><i class="fa fa-edit"></i></a></td>
                         </tr>
-                            //count++;
+                          
                         }
                     </tbody>
                 </table>
@@ -45,52 +44,54 @@
 
     </div>
     <div class="col-md-4">
-        <div class="card">
+        <div class="card crud" style="padding: 15px 15px 10px 15px;">
             <div class="header">
                 <h4 class="title"><i class="fa fa-mobile-alt"></i> Allocate Device</h4>
             </div>
             <div class="content">
-                <form>
-                    <div class="row hidden">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Allocation Id</label>
-                                <input type="text" class="form-control border-input" placeholder="" value="" id="allocationId">
+                <form id="deviceForm" method="post" class="form-horizontal">
+                    <div class="crud">
+                        <div class="row hidden">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Allocation Id</label>
+                                    <input type="text" class="form-control border-input" placeholder="" value="" id="allocationId">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Device</label>
-                                <select class="form-control" id="deviceSelector">
-                                    <option>--- Select Device ---</option>
-                                    @foreach (var device in deviceAllocationViewModel.Devices)
-                                    {
-                                        <option value="@device.deviceId">@device.make - @device.model - @device.deviceId</option>
-                                    }
-                                </select>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Device</label>
+                                    <select class="form-control" id="deviceSelector" name="deviceSelector">
+                                        <option value="">--- Select Device ---</option>
+                                        @foreach (var device in deviceAllocationViewModel.Devices)
+                                        {
+                                            <option value="@device.deviceId">@device.make - @device.model - @device.deviceId</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Vehicle</label>
-                                <select class="form-control" id="vehicleSelector">
-                                    <option>--- Select Vehicle ---</option>
-                                    @foreach (var vehicle in deviceAllocationViewModel.Vehicles)
-                                    {
-                                        <option value="@vehicle.id">@vehicle.model - @vehicle.licenseId</option>
-                                    }
-                                </select>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Vehicle</label>
+                                    <select class="form-control" id="vehicleSelector" name="vehicleSelector">
+                                        <option value="">--- Select Vehicle ---</option>
+                                        @foreach (var vehicle in deviceAllocationViewModel.Vehicles)
+                                        {
+                                            <option value="@vehicle.id">@vehicle.model - @vehicle.licenseId</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
                         </div>
+                        <div class="pull-left">
+                            <button type="submit" class="btn btn-info btn-fill btn-wd" id="submitDeviceAllocation">Submit</button>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="pull-left">
-                        <button type="button" class="btn btn-info btn-fill btn-wd" id="submitDeviceAllocation">Submit</button>
-                    </div>
-                    <div class="clearfix"></div>
                 </form>
             </div>
         </div>
