@@ -106,7 +106,7 @@ $(document).ready(function () {
             success: function (result) {
                 swal(
                     "Result",
-                    "Consignee added",
+                    "Consignee successfully saved",
                     "success"
                 );
                 location.reload();

@@ -120,7 +120,7 @@ $(document).ready(function () {
             success: function (result) {
                 swal(
                     "Result",
-                    "Consignee added",
+                    "User successfully saved",
                     "success"
                 );
                 location.reload();

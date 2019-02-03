@@ -67,7 +67,7 @@ $(document).ready(function () {
                 success: function (result) {
                     swal(
                         'Result',
-                        'Device has been allocated',
+                        'Device successfully allocated',
                         'success'
                     );
                     location.reload();

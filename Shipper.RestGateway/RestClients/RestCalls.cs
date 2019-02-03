@@ -17,12 +17,12 @@ namespace Shipper.RestGateway.RestClients
             _cache = new InMemoryCache();
             _serializer = new JsonSerializer();
         }
-        
+
         #region Get calls
 
         public UserLogin Login(string userName, string password)
         {
-            var client = new Services(_cache,_serializer);
+            var client = new Services(_cache, _serializer);
             return client.GetResult<UserLogin>($"login?email={userName}&password={password}");
         }
 
@@ -41,7 +41,7 @@ namespace Shipper.RestGateway.RestClients
         public SmartDevice GetDeviceById(string id)
         {
             List<SmartDevice> devices = new List<SmartDevice>();
-            devices= GetSmartDevices();
+            devices = GetSmartDevices();
             return devices.FirstOrDefault(e => e.deviceId == id);
         }
 
@@ -74,7 +74,8 @@ namespace Shipper.RestGateway.RestClients
             return result;
         }
 
-        public User ChangePassword(string userName,string password){
+        public User ChangePassword(string userName, string password)
+        {
             return GetResponse<User>($"changePassword?email={userName}&password={password}");
         }
 
@@ -84,7 +85,8 @@ namespace Shipper.RestGateway.RestClients
             return client.GetResult<List<SmartDeviceAllocation>>("smartdevice/allocation");
         }
 
-        public SmartDeviceAllocation GetSmartDeviceMappingByDeviceId(string deviceId){
+        public SmartDeviceAllocation GetSmartDeviceMappingByDeviceId(string deviceId)
+        {
             var client = new Services(_cache, _serializer);
             return client.GetResult<SmartDeviceAllocation>($"smartdevice/device/?deviceId={deviceId}");
         }
@@ -109,6 +111,13 @@ namespace Shipper.RestGateway.RestClients
             return client.GetResult<Vehicle>($"vehicle/id?vehicleId={vehicleId}");
         }
 
+        //uses waybill
+        public WaybillShipment GetShipment(string waybill)
+        {
+            var client = new Services(_cache, _serializer);
+            return client.GetResult<WaybillShipment>($"shipment/waybill?waybill={waybill}");
+        }
+
         public DashboardStatus GetDashboardStatusByWaybill(long waybill)
         {
             var client = new Services(_cache, _serializer);
@@ -126,7 +135,7 @@ namespace Shipper.RestGateway.RestClients
             var client = new Services(_cache, _serializer);
             return client.GetResult<List<Driver>>("driver");
         }
-        
+
         public DriverAllocation GetDriverAllocationByVehicleId(string vehicleId)
         {
             var client = new Services(_cache, _serializer);
@@ -183,9 +192,10 @@ namespace Shipper.RestGateway.RestClients
             return client.GetResult<List<DeviceAllocation>>("smartdevice/allocation");
         }
 
-       
 
-        private T GetResponse<T>(string requestQuery) where T : new() {
+
+        private T GetResponse<T>(string requestQuery) where T : new()
+        {
             var client = new Services(_cache, _serializer);
             return client.GetResult<T>(requestQuery);
         }
@@ -206,13 +216,41 @@ namespace Shipper.RestGateway.RestClients
                 model = "P20 Lite"
             };
 
-            var service= new Services(_cache, _serializer);
+            var service = new Services(_cache, _serializer);
             var result = service.Post(smartDevice, "smartdevice");
             Console.WriteLine(result);
         }
 
+        public string SaveUser(User model)
+        {
+            var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "/user");
+            return result;
+        }
 
-        public void SaveVehicleLocation(int telegramId,string vehicleId,double latitude,double longitude)
+        public string SaveConsignor(Consignor model)
+        {
+            var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "/consignor");
+            return result;
+        }
+
+        public string SaveConsignee(Consignee model)
+        {
+            var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "/consignee");
+            return result;
+        }
+
+        public string SaveConsigneeContacts(ConsigneeContactDetails model)
+        {
+            /*var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "/consignee/contacts");
+            return result;*/
+            return PostWithResponse<ConsigneeContactDetails>(model, "/consignee/contacts");
+        }
+
+        public void SaveVehicleLocation(int telegramId, string vehicleId, double latitude, double longitude)
         {
             var model = new VehicleLocation()
             {
@@ -227,34 +265,9 @@ namespace Shipper.RestGateway.RestClients
             Console.WriteLine(result);
         }
 
-        public void SaveShipmentStatus(string vehicleId, int statusId)
-        {
-            var shipments = GetShipmentOnVehicle(vehicleId);
-            foreach (var shipment in shipments)
-            {
-                SaveShipmentStatus(vehicleId, shipment.manifestReference, shipment.wayBill, statusId);
-            }
-        }
-
-        public void SaveShipmentStatus(string vehicleId,string manifestReference,long waybill,int statusId)
-        {
-            var model = new ShipmentStatus()
-            {
-                vehicleId = vehicleId,
-                manifestReference = manifestReference,
-                wayBillNumber = waybill,
-                statusId = statusId,
-                createdDate = DateTime.Now
-            };
-
-            var service = new Services(_cache, _serializer);
-            var result = service.Post(model, "notification");
-            Console.WriteLine(result);
-        }
-
         public string SaveVehicle(Vehicle model)
         {
-            var service  = new Services(_cache,_serializer);
+            var service = new Services(_cache, _serializer);
             var result = service.Post(model, "vehicle");
             return result;
         }
@@ -287,6 +300,38 @@ namespace Shipper.RestGateway.RestClients
             return result;
         }
 
+        public string SaveShipment(Shipment model)
+        {
+            var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "shipment");
+            return result;
+        }
+
+        public void SaveShipmentStatus(string vehicleId, int statusId)
+        {
+            var shipments = GetShipmentOnVehicle(vehicleId);
+            foreach (var shipment in shipments)
+            {
+                SaveShipmentStatus(vehicleId, shipment.manifestReference, shipment.wayBill, statusId);
+            }
+        }
+
+        public void SaveShipmentStatus(string vehicleId, string manifestReference, long waybill, int statusId)
+        {
+            var model = new ShipmentStatus()
+            {
+                vehicleId = vehicleId,
+                manifestReference = manifestReference,
+                wayBillNumber = waybill,
+                statusId = statusId,
+                createdDate = DateTime.Now
+            };
+
+            var service = new Services(_cache, _serializer);
+            var result = service.Post(model, "notification");
+            Console.WriteLine(result);
+        }
+
         ///notification
         public string UpdateShipmentStatus(StatusNotification model)
         {
@@ -295,35 +340,9 @@ namespace Shipper.RestGateway.RestClients
             return result;
         }
 
-        public string SaveUser(User model)
-        {
-            var service = new Services(_cache, _serializer);
-            var result = service.Post(model, "/user");
-            return result;
-        }
+      
 
-        public string SaveConsignor(Consignor model)
-        {
-            var service = new Services(_cache, _serializer);
-            var result = service.Post(model, "/consignor");
-            return result;
-        }
-
-        public string SaveConsignee(Consignee model)
-        {
-            var service = new Services(_cache, _serializer);
-            var result = service.Post(model, "/consignee");
-            return result;
-        }
-
-        public string SaveConsigneeContacts(ConsigneeContactDetails model){
-            /*var service = new Services(_cache, _serializer);
-            var result = service.Post(model, "/consignee/contacts");
-            return result;*/
-            return PostWithResponse<ConsigneeContactDetails>(model, "/consignee/contacts");
-        }
-
-        private string PostWithResponse<T>(T model,string path) where T : new()
+        private string PostWithResponse<T>(T model, string path) where T : new()
         {
             var service = new Services(_cache, _serializer);
             return service.Post(model, path);

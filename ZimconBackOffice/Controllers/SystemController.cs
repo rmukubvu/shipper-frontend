@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Web.Http;
 using Shipper.RestGateway.Model;
 using Shipper.RestGateway.RestClients;
 
@@ -16,6 +17,13 @@ namespace ZimconBackOffice.Controllers
             return _service.Login(userName, password);
         }
 
+        [Route("api/getShipment")]
+        [HttpGet]
+        public WaybillShipment GetShipment(string waybill)
+        {
+            return  _service.GetShipment(waybill);
+        }
+        
         [Route("api/user")]
         [HttpPost]
         public string SaveUser(User model)
@@ -57,6 +65,15 @@ namespace ZimconBackOffice.Controllers
         {
             return _service.AllocateDriverToVehicle(model);
         }
+
+
+        [Route("api/shipment")]
+        [HttpPost]
+        public string saveShipment(Shipment model)
+        {
+            return _service.SaveShipment(model);
+        }
+
 
         [Route("api/package")]
         [HttpPost]
