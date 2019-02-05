@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+    List<Shipper.RestGateway.Model.User> users = Model;
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="box">
+            <div class="box-header with-border">
+                <h4 class="title">User</h4>
+            </div>
+            <div class="box-body">
+                <table class="table table-striped">
+                    <tr>                        
+                        <th>Created On</th>                        
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email Address</th>                       
+                        <th></th>
+                    </tr>
+                    <tbody>
+                        @foreach (var user in users)
+                        {
+                            <tr>             
+                                <td class="hidden">@user.id</td>
+                                <td>@user.createdDate.ToShortDateString()</td>                                
+                                <td>@user.firstName</td>
+                                <td>@user.lastName</td>
+                                <td>@user.emailAddress</td>                                
+                                <td><a class="editUserForUpdate"><i class="fa fa-edit"></i></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box">
+            <div class="box-header with-border">
+                <h4 class="title"><i class="fa fa-user-circle"></i> Assign As Admin</h4>
+            </div>
+            <div class="box-body">
+                <form id="userForm">
+                    <div class="row hidden">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>UserId</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="userId">
+                            </div>
+                        </div>
+                    </div>              
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="firstName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="lastName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="email">
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="pull-left">
+                        <button type="button" class="btn btn-info btn-fill btn-wd" id="submitAdminUser">Submit</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function hideOverLay() {
+        window.FakeLoader.hideOverlay();
+    }
+    window.onload = hideOverLay;
+</script>

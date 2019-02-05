@@ -1,0 +1,167 @@
+/**
+ * Created by robson on 2017/04/17.
+ */
+$(document).ready(function() {
+
+    if (localStorage.getItem('shipper.userName') === "" ){
+        location.href = "/login.html";
+        return;
+    }
+         
+    var map;
+    var map_marker;
+    var lat =-26.195246;
+    var lng =28.034088;
+    var serialNumber;
+    var lineCoordinatesArray = [];
+    var vehicles = [];
+    
+    //var url = new URL(window.location.href);
+    //var waybillFromQueryString = url.searchParams.get("waybill");
+    // user has directly clicked to this page without going through
+    // the home page
+    var cachedShipmentsResults = localStorage.getItem('shipper.Shipments');          
+    if (cachedShipmentsResults === null || cachedShipmentsResults === ""){
+          //fetch from ajax call
+        var consigneeId = localStorage.getItem('shipper.consignee');
+        var getUrlShipmentsWithStatus = restEndPoint + "/shipment/status/consignee?consigneeId=" + consigneeId;
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: getUrlShipmentsWithStatus,
+            success: function (result) {
+                localStorage.setItem('shipper.Shipments',JSON.stringify(result));
+                initialize();                                    
+            },
+            error: function () {
+                swal(
+                    'Ooops',
+                    'Something went terribly wrong!',
+                    'error'
+                );
+            }               
+        });
+    }
+
+    var result = JSON.parse(localStorage.getItem('shipper.Shipments'));
+    var trHTML = '';
+    $.each(result, function (i, item) {        
+        trHTML += '<tr><td>' + displayVehicleDetails(item.shipment.vehicleId) + '</td><td>' + item.shipment.manifestReference + '</td><td>' + item.shipment.wayBillNumber + '</td><td><a href=javascript:void(0); onclick="displayStatusChanges(' + item.shipment.wayBillNumber + ');">View</a></td></tr>';
+        if (vehicles.indexOf(item.shipment.vehicleId) === -1) {
+            vehicles.push(item.shipment.vehicleId);
+            initialize();
+            displayMetrics(item.shipment.wayBillNumber);
+        }                
+    });
+    $('#shipmentsDataTable').append(trHTML);        
+
+    /*if (waybillFromQueryString != null || waybillFromQueryString != 'undefined'){
+        //query status using waybill
+        displayStatusChanges(Number(waybillFromQueryString));
+    }*/    
+    
+
+    function displayVehicleDetails(vehicleId){
+        var json = JSON.parse(localStorage.getItem(vehicleId));
+        return json.make + " - " + json.licenseId;
+    }    
+
+    /*function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] === variable) { return pair[1]; }
+        }
+        return ("");
+    }*/
+
+    function initialize() {
+        console.log("Google Maps Initialized");
+        // calls PubNub
+        // pubs();
+
+        map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 13,
+            center: { lat: lat, lng: lng, alt: 0 }
+        });
+
+        map_marker = new google.maps.Marker({
+            position: { lat: lat, lng: lng },
+            map: map,
+            title: serialNumber
+        });
+        map_marker.setMap(map);
+    }
+
+    // moves the marker and center of map
+    function redraw() {
+        map.setCenter({ lat: lat, lng: lng, alt: 0 });
+        map_marker.setPosition({ lat: lat, lng: lng, alt: 0 });
+        pushCoordToArray(lat, lng);
+    }
+
+    function pushCoordToArray(latIn, lngIn) {
+        lineCoordinatesArray.push(new google.maps.LatLng(latIn, lngIn));
+    }
+
+    function displayMetrics(waybill){
+        var urlAnalytics = restEndPoint + "/analytics?waybill=" + waybill;
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: urlAnalytics,
+            success: function (result) {                
+               var message = "Distance from Origin : " + result.distanceFromOrigin + "\n" 
+               + "Distance to Destination : " + result.distanceToDestination + "\n" 
+               + "Total distance : " + result.completeDistanceToDestination + "\n" 
+               + "Estimated time of arrival : " + result.estimatedTimeOfArrival;
+               document.getElementById("analytics_details").value = message;
+               lat = parseFloat(result.latitude);
+               lng = parseFloat(result.longitude);
+               redraw();
+            },
+            error: function () {
+                swal(
+                    'Ooops',
+                    'Something went terribly wrong!',
+                    'error'
+                );
+            }
+        });
+    }
+
+    function pubs() {
+        var  pubnub = new PubNub({
+            publishKey : 'pub-c-26c98eaa-87d4-4c69-80aa-085bd2372633',
+            subscribeKey : 'sub-c-dc4b053a-9a41-11e3-b726-02ee2ddab7fe',
+            origin        : 'pubsub.pubnub.com'
+        });
+
+        var schoolChannel1 = localStorage.getItem("shipper.selectedChannel");
+        pubnub.addListener({
+            status: function(statusEvent) {
+                if (statusEvent.category === "PNConnectedCategory") {
+                    console.log("PubNub Connected on channel " + schoolChannel1);
+                }
+            },
+            message: function(message) {
+                console.log("New Message!!", message.message);
+                var res = message.message.split("|");
+                serialNumber = res[0];
+                lat = parseFloat(res[1]);
+                lng = parseFloat(res[2]);
+                //custom method
+                redraw();
+            },
+            presence: function(presenceEvent) {
+                // handle presence
+            }
+        })
+        console.log("Subscribing..");
+        pubnub.subscribe({
+            channels: [schoolChannel1]
+        });
+    }
+    //window.onload = initialize;
+});

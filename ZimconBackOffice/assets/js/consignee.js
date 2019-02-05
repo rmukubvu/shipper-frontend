@@ -5,7 +5,7 @@
 $(document).ready(function () {
 
     $(".editConsinee").click(function (event) {
-        $('#AjaxLoader').show();
+        $("#fakeloader").fakeLoader();
         var id = $(this).closest("tr").find('td:eq(0)').text();
         var name = $(this).closest("tr").find('td:eq(1)').text();
         var address = $(this).closest("tr").find('td:eq(2)').text();
@@ -40,7 +40,7 @@ $(document).ready(function () {
    
 
     var submitConsignee = function (postUrl, postData) {
-        $('#AjaxLoader').show(); 
+        $("#fakeloader").fakeLoader();
         
         var postJson = JSON.stringify(postData);
         $.ajax({

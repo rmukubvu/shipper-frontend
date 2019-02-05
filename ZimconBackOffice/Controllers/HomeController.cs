@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Shipper.RestGateway.Model;
 using Shipper.RestGateway.RestClients;
+using ZimconBackOffice.Models;
 
 namespace ZimconBackOffice.Controllers
 {
@@ -32,6 +33,7 @@ namespace ZimconBackOffice.Controllers
 
     public class DashboardViewModel
     {
+        public List<TruckCoordinates> VehicleLocations { get; set; }
         public int vehicleCount { get; set; }
         public int smartDevicesCount { get; set; }
         public List<SmartDevice> devices { get; set; }

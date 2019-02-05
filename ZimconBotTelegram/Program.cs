@@ -65,8 +65,8 @@ namespace ZimconBotTelegram
                 //do the menu
                 ReplyKeyboardMarkup replyKeyboard = new[]
                 {
-                    new[] { "/menu", "/shipments" },
-                    new[] { "/status", "/location" },
+                    new[] { "/menu", "/location" },
+                    //new[] { "/status", "/location" },
                 };
 
                 var vehicleInfor = Business.GetVehicleInfor(message.From.Id);
@@ -81,11 +81,19 @@ namespace ZimconBotTelegram
         {
             if (message.Type != MessageType.Location) return;
             await Task.Run(() => {
-                Business.SaveLocation(message.From.Id, message.Location.Latitude, message.Location.Longitude);
+                //Business.SaveLocation(message.From.Id, message.Location.Latitude, message.Location.Longitude);
+                Console.WriteLine($"{message.Location.Latitude},{message.Location.Longitude}");
             });
-            await Bot.SendTextMessageAsync(
-                message.Chat.Id,"Thank you for updating the location",
-                replyMarkup: new ReplyKeyboardRemove());
+            await Bot.SendLocationAsync(
+                       message.From.Id,
+                       message.Location.Latitude,
+                       message.Location.Longitude,
+                       60,
+                       replyMarkup: new ReplyKeyboardRemove()
+                       );
+            /* await Bot.SendTextMessageAsync(
+                 message.Chat.Id,"Thank you for updating the location",
+                 replyMarkup: new ReplyKeyboardRemove()); */
         }
 
         private static async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)

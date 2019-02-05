@@ -141,7 +141,7 @@ function MarkerClusterer(map, opt_markers, opt_options) {
      */
     this.zoomOnClick_ = true;
 
-    if (options['zoomOnClick'] != undefined) {
+    if (options['zoomOnClick'] !== undefined) {
         this.zoomOnClick_ = options['zoomOnClick'];
     }
 
@@ -151,7 +151,7 @@ function MarkerClusterer(map, opt_markers, opt_options) {
      */
     this.averageCenter_ = false;
 
-    if (options['averageCenter'] != undefined) {
+    if (options['averageCenter'] !== undefined) {
         this.averageCenter_ = options['averageCenter'];
     }
 
@@ -472,14 +472,14 @@ MarkerClusterer.prototype.removeMarker_ = function(marker) {
         index = this.markers_.indexOf(marker);
     } else {
         for (var i = 0, m; m = this.markers_[i]; i++) {
-            if (m == marker) {
+            if (m === marker) {
                 index = i;
                 break;
             }
         }
     }
 
-    if (index == -1) {
+    if (index === -1) {
         // Marker is not in our list of markers.
         return false;
     }

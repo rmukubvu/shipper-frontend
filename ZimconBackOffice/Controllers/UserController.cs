@@ -15,41 +15,39 @@ namespace ZimconBackOffice.Controllers
         // GET: Device
         public ActionResult Index(string id = null)
         {
-            var users = _rest.GetUser();
+            var users = _rest.GetUsers();
             var userView = getUserViewModel(users);
-
-            UserConsigneeViewModel viewModel = new UserConsigneeViewModel
+            var viewModel = new UserConsigneeViewModel
             {
                 users = userView,
                 consignees = _rest.GetConsignee()
             };
-
             return View(viewModel);
+        }
+
+        public ActionResult Admin()
+        {
+            var users = _rest.GetUsers();
+            //allow search of user
+            return View(users);
         }
 
         public List<UserViewModel> getUserViewModel(List<User> users)
         {
-            List<UserViewModel> userView = new List<UserViewModel>();
-
-            foreach (var user in users)
-            {
-                var consignee = _rest.GetConsigneeById(user.consigneeId);
-
-                UserViewModel vm = new UserViewModel
-                {
-                    id = user.id,
-                    consigneeId = user.consigneeId,
-                    consignee = consignee,
-                    firstName=user.firstName,
-                    lastName=user.lastName,
-                    emailAddress = user.emailAddress,
-                    password = user.password,
-                    createdDate = user.createdDate
-                };
-                userView.Add(vm);
-            }
-
-            return userView;
+            return (from user in users
+                    let consignee = _rest.GetConsigneeById(user.consigneeId)
+                    let userViewModel = new UserViewModel
+                    {
+                        id = user.id,
+                        consigneeId = user.consigneeId,
+                        consignee = consignee,
+                        firstName = user.firstName,
+                        lastName = user.lastName,
+                        emailAddress = user.emailAddress,
+                        password = user.password,
+                        createdDate = user.createdDate
+                    }
+                    select userViewModel).ToList();
         }
     }
 

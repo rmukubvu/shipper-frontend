@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Google.Maps, Version=0.25.0.0, Culture=neutral, PublicKeyToken=4aa992bb5d22d4ff, processorArchitecture=MSIL">
+      <HintPath>..\packages\gmaps-api-net.0.25.0\lib\net461\Google.Maps.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -163,7 +166,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\PasswordController.cs" />
     <Compile Include="Controllers\ShipmentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -178,6 +183,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModelError.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\AllocatedVehicleDeviceViewModel.cs" />
     <Compile Include="Models\TruckCoordinates.cs" />
@@ -204,6 +210,7 @@
     <Content Include="assets\img\tim_80x80.png" />
     <Content Include="assets\js\bootstrap-checkbox-radio.js" />
     <Content Include="assets\js\bootstrap-notify.js" />
+    <Content Include="assets\js\bootstrap-validate.js" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\chartist.min.js" />
     <Content Include="assets\js\device.js" />
@@ -241,6 +248,14 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\chartist.css" />
+    <Content Include="css\fakeloader.css" />
+    <Content Include="css\odometer-theme-car.css" />
+    <Content Include="css\odometer-theme-default.css" />
+    <Content Include="css\odometer-theme-digital.css" />
+    <Content Include="css\odometer-theme-minimal.css" />
+    <Content Include="css\odometer-theme-plaza.css" />
+    <Content Include="css\odometer-theme-slot-machine.css" />
+    <Content Include="css\odometer-theme-train-station.css" />
     <Content Include="css\style.css" />
     <Content Include="css\sweetalert2.css" />
     <Content Include="css\sweetalert2.min.css" />
@@ -320,7 +335,9 @@
     <Content Include="img\location-pin.png" />
     <Content Include="img\logo-not-white-175x.png" />
     <Content Include="js\._jquery-3.2.1.min.js" />
+    <Content Include="js\dashboard.js" />
     <Content Include="js\errortemp.js" />
+    <Content Include="js\fakeloader.min.js" />
     <Content Include="js\idle.js" />
     <Content Include="js\index.js" />
     <Content Include="js\jquery-3.2.1.min.js" />
@@ -328,10 +345,14 @@
     <Content Include="js\login.js" />
     <Content Include="js\markerclusterer.js" />
     <Content Include="js\moment.js" />
+    <Content Include="js\mqttws31.js" />
     <Content Include="js\npm.js" />
+    <Content Include="js\odometer.js" />
     <Content Include="js\pace.min.js" />
+    <Content Include="js\recover.js" />
     <Content Include="js\reports.js" />
     <Content Include="js\rest.js" />
+    <Content Include="js\shipments.js" />
     <Content Include="js\sweetalert2.js" />
     <Content Include="js\sweetalert2.min.js" />
     <Content Include="plugins\bootstrap-slider\bootstrap-slider.js" />
@@ -1303,6 +1324,12 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Password\Index.cshtml" />
+    <Content Include="Views\Shipment\Search.cshtml" />
+    <Content Include="Views\Password\Recover.cshtml" />
+    <Content Include="Views\User\Admin.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Client\Shipment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

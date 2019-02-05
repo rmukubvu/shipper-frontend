@@ -15,8 +15,9 @@ namespace Shipper.RestGateway.Model
 
     public class UserLogin
     {
+        public bool admin { get; set; }
         public bool error { get; set; }
         public string loginErrorMessage { get; set; }
-        public User user { get; set; }
+        public User user { get; set; }        
     }
 }

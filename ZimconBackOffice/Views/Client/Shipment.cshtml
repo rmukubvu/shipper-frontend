@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Shipment";
+}
+<div class="row box-body">
+    <!-- left column -->
+    <div class="col-md-6">
+        <div class="row">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Shipment Details</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <table id="shipmentsDataTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Manifest Reference</th>
+                                    <th>Waybill</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Estimated Time of Arrival</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <textarea class="form-control" rows="6" id="analytics_details" disabled></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Shipment Status</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <table id="statusChangeTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Waybill</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tfoot>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div id="map-canvas" style="width:100%;height:800px;"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function hideOverLay() {
+        window.FakeLoader.hideOverlay();
+    }
+    window.onload = hideOverLay;
+</script>
+
+

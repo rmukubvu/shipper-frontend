@@ -21,8 +21,10 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="../../plugins/iCheck/square/blue.css">
     <link rel="stylesheet" href="../../css/sweetalert2.css">
+    <link href="~/css/fakeloader.css" rel="stylesheet" />
 </head>
 <body class="hold-transition login-page">
+    <div id="fakeloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner"><div class="loader"></div></div></div></div>
     <div class="login-box">
         <div class="login-logo">
             <a href="#"><b>Shipper</b>Tracking</a>
@@ -55,7 +57,7 @@
                 </div>
             </form>
 
-            <a href="#">I forgot my password</a><br>
+            <a href="/Password/Recover">I forgot my password</a><br>
 
         </div>
         <!-- /.login-box-body -->
@@ -67,14 +69,22 @@
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
     <!-- iCheck -->
     <script src="../../plugins/iCheck/icheck.min.js"></script>
+    <script src="~/js/fakeloader.min.js"></script>
     <script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
-    });
-  });
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(
+            function () {
+                window.FakeLoader.init({ auto_hide: true });
+            }
+        );
     </script>
     <script src="../../js/sweetalert2.js"></script>
     <script src="../../js/rest.js"></script>

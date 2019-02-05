@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using RestSharp.Deserializers;
 using RestSharp.Serializers;
+using Shipper.RestGateway.Model;
+using System;
 
 namespace Shipper.RestGateway.BaseClient
 {
@@ -56,7 +58,14 @@ namespace Shipper.RestGateway.BaseClient
             {
                 using (var jsonTextReader = new JsonTextReader(stringReader))
                 {
-                    return _serializer.Deserialize<T>(jsonTextReader);
+                    try
+                    {
+                        return _serializer.Deserialize<T>(jsonTextReader);
+                    }
+                    catch (Exception)
+                    {
+                        return default(T);
+                    }
                 }
             }
         }

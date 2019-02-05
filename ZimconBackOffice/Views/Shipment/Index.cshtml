@@ -6,21 +6,30 @@
 
 <div class="row">
     <div class="col-md-8">
-        <div class="card card-map">
-        <div class="header">
-            <h4 class="title">Shipment</h4>
+        <div class="box">
+            <div class="box-header with-border">
+                <h4 class="title">Cargo on Truck</h4>
+            </div>
+            <div class="box-body">
+                <table class="table table-striped" id="loadedShipmentTable">
+                    <tr>
+                        <th>Consignee</th>
+                        <th>Manifest Reference</th>
+                        <th>Status</th>
+                        <th>Waybill</th>
+                    </tr>
+                    <tbody>                       
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="map">
-            <div id="map"></div>
-        </div>
-    </div>
     </div>
     <div class="col-md-4">
-        <div class="card">
-            <div class="header">
+        <div class="box">
+            <div class="box-header with-border">
                 <h4 class="title"><i class="fa fa-cubes"></i> Add New Shipment</h4>
             </div>
-            <div class="content">
+            <div class="box-body">
                 <form>
                     <div class="row">
                         <div class="col-md-12">
@@ -79,150 +88,24 @@
         </div>
     </div>
 </div>
-<!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDJTEHW57RdhCXwM6xLcFsmcSeK9ldaGUQ&sensor=false&libraries=places&language=en-AU"></script>
-<script type="text/javascript">
-    function initMap() {
-        var autocomplete = new google.maps.places.Autocomplete($("#address")[0], {});
-        var geocoder = new google.maps.Geocoder();
-        var map = new google.maps.Map(document.getElementById('map'));
-
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            var place = autocomplete.getPlace();
-            console.log(place.formatted_address);
-            var placesAddress = place.formatted_address;
-            geocodeAddress(geocoder,placesAddress,map);
-        });
-    }
-
-    function geocodeAddress(geocoder,address,resultsMap) {                
-        geocoder.geocode({'address': address}, function(results, status) {
-          if (status === 'OK') {
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({ 
-              map: resultsMap,
-              position: results[0].geometry.location
-            });
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-        });
-    }
+@*<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDJTEHW57RdhCXwM6xLcFsmcSeK9ldaGUQ&sensor=false&libraries=places&language=en-AU"></script>*@
+<script type="text/javascript">    
+    var autocompleteSource = new google.maps.places.Autocomplete($("#address")[0], {});  
+    var autocompleteDestination = new google.maps.places.Autocomplete($("#search_location")[0], {});  
+    google.maps.event.addListener(autocompleteSource, 'place_changed', function() {
+        var place = autocompleteSource.getPlace();
+        console.log('source ' + place.formatted_address);              
+    }); 
+    google.maps.event.addListener(autocompleteDestination, 'place_changed', function() {
+        var place = autocompleteDestination.getPlace();
+        console.log('destination ' + place.formatted_address);              
+    }); 
 </script>
-<!--<script asyc defer src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDJTEHW57RdhCXwM6xLcFsmcSeK9ldaGUQ&callback=initMap"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDJTEHW57RdhCXwM6xLcFsmcSeK9ldaGUQ&libraries=places&language=en-AU"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJTEHW57RdhCXwM6xLcFsmcSeK9ldaGUQ&callback=initMap"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places​&sensor=false"></scr‌​ipt>-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDJTEHW57RdhCXwM6xLcFsmcSeK9ldaGUQ&libraries=places&language=en-AU"></script>
+
 <script type="text/javascript">
-var geocoder;
-var map;
-var marker;
-
-/*
- * Google Map with marker
- */
-function initialize() {
-    console.log('in init');
-    var latlng = new google.maps.LatLng(-26.2221409,28.0733135); //default cooordinates of Zimcon ...
-    var options = {
-        zoom: 16,
-        center: latlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    map = new google.maps.Map(document.getElementById("map"), options);
-
-    geocoder = new google.maps.Geocoder();
-
-    marker = new google.maps.Marker({
-        map: map,
-        draggable: true,
-        position: latlng
-    });
-
-    google.maps.event.addListener(marker, "dragend", function () {
-        var point = marker.getPosition();
-        map.panTo(point);
-        geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                marker.setPosition(results[0].geometry.location);
-                console.log(results[0].formatted_address);
-                    console.log(marker.getPosition().lat());
-                    console.log(marker.getPosition().lng());
-            }
-        });
-    });
-
-}
-
-$(document).ready(function () {
-    //load google map
-    initialize();
-    
-    /*
-     * autocomplete location search
-     */
-    var PostCodeid = '#search_location';
-    $(function () {
-        $('#search_location').autocomplete({
-            source: function (request, response) {
-                geocoder.geocode({
-                    'address': request.term
-                }, function (results, status) {
-                    response($.map(results, function (item) {
-                        return {
-                            label: item.formatted_address,
-                            value: item.formatted_address,
-                            lat: item.geometry.location.lat(),
-                            lon: item.geometry.location.lng()
-                        };
-                    }));
-                });
-            },
-            select: function (event, ui) {
-                console.log(ui.item.value);
-                console.log(ui.item.lat);
-                console.log(ui.item.lon);
-                var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
-                marker.setPosition(latlng);
-                initialize();
-            }
-        });
-    });
-    
-    /*
-     * Point location on google map
-     */
-    $('.get_map').click(function (e) {
-        var address = $(PostCodeid).val();
-        geocoder.geocode({'address': address}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                marker.setPosition(results[0].geometry.location);
-                    console.log(results[0].formatted_address);
-                    console.log(marker.getPosition().lat());
-                    console.log(marker.getPosition().lng());
-            } else {
-                alert("Geocode was not successful for the following reason: " + status);
-            }
-        });
-        e.preventDefault();
-    });
-
-    //Add listener to marker for reverse geocoding
-    google.maps.event.addListener(marker, 'drag', function () {
-        geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                if (results[0]) {
-                    console.log(results[0].formatted_address);
-                    console.log(marker.getPosition().lat());
-                    console.log(marker.getPosition().lng());
-                }
-            }
-        });
-    });
-});
+    function hideOverLay() {
+        window.FakeLoader.hideOverlay();
+    }
+    window.onload = hideOverLay;
 </script>
 

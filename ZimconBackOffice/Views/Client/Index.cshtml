@@ -1,0 +1,94 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "Client Dashboard";
+}
+<div class="row">
+    <div class="col-md-6">
+        <!-- AREA CHART -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title" id="company_header_name">Company Details</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <!--<p id="company_address_1"></p>
+                <p id="company_address_2"></p>
+                <p id="company_address_country"></p>
+                <p id="company_address_phone"></p>  -->
+                <div class="mapouter">
+                    <div class="gmap_canvas"><iframe width="100%" height="500" id="gmap_canvas" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.pureblack.de"></a></div>
+                    <style>
+                        .mapouter {
+                            text-align: right;
+                            height: 500px;
+                            width: 100%;
+                        }
+
+                        .gmap_canvas {
+                            overflow: hidden;
+                            background: none !important;
+                            height: 500px;
+                            width: 100%;
+                        }
+                    </style>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- DONUT CHART -->
+        <!-- /.box -->
+
+    </div>
+    <!-- /.col (LEFT) -->
+    <div class="col-md-6">
+        <!-- LINE CHART -->
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Shipments</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <table class="table table-bordered" id="dashboard_table">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Waybill</th>
+                            <th>Status</th>
+                            <th>Progress</th>
+                            <th style="width: 40px">Label</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col (RIGHT) -->
+</div>
+<!-- /.row -->
+<script type="text/javascript">
+    function hideOverLay() {
+        window.FakeLoader.hideOverlay();
+    }
+    window.onload = hideOverLay;
+</script>
+
+@*<script src="../../js/dashboard.js"></script>*@
+

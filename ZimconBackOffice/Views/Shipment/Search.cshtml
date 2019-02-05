@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    ZimconBackOffice.Controllers.SearchViewModel shipment = Model;
+}
+
+@if (shipment.IsError)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                <p>@shipment.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-aqua-active">
+                    <h3 class="widget-user-username">@shipment.Owner.name</h3>                   
+                    <h5 class="widget-user-desc">On @shipment.Truck.make with License Number @shipment.Truck.licenseId</h5>
+                </div>
+                <div class="widget-user-image">
+                    <img class="img-circle" src="../dist/img/avatar.png" alt="User Avatar">
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="gmap_canvas">
+                            <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=@shipment.Shipment.destinationLatitude,@shipment.Shipment.destinationLongitude&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                        </div>
+                        <style>
+                            .mapouter {
+                                text-align: right;
+                                height: 400px;
+                                width: 100%;
+                            }
+
+                            .gmap_canvas {
+                                overflow: hidden;
+                                background: none !important;
+                                height: 400px;
+                                width: 100%;
+                            }
+                        </style>
+                    </div>                   
+                    <div class="row">
+                        <div class="col-sm-4 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">@shipment.Shipment.wayBillNumber</h5>
+                                <span class="description-text">WAYBILL</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">@shipment.Status.currentStatus</h5>
+                                <span class="description-text">STATUS</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4">
+                            <div class="description-block">
+                                <h5 class="description-header">@shipment.Shipment.manifestReference</h5>
+                                <span class="description-text">MANIFEST</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+            <!-- /.widget-user -->
+        </div>
+        <div class="col-md-4">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="title"><i class="fa fa-mobile-alt"></i> Update Status - @shipment.Shipment.manifestReference</h4>
+                </div>
+                <div class="box-body">
+                    <form>
+                        <div class="row hidden">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-input" placeholder="" value="@shipment.Shipment.manifestReference" id="manifestReference">
+                                    <input type="text" class="form-control border-input" placeholder="" value="@shipment.Shipment.wayBillNumber" id="wayBillNumber">
+                                    <input type="text" class="form-control border-input" placeholder="" value="@shipment.Shipment.vehicleId" id="vehicleId">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control" id="statusSelector">
+                                        <option>--- Select Status ---</option>
+                                        @foreach (var s in shipment.clearingStatuses)
+                                        {
+                                            <option value="@s.statusId">@s.status</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-info btn-fill btn-wd" id="submitUpdateStatus">Submit</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    function hideOverLay() {
+        window.FakeLoader.hideOverlay();
+    }
+    window.onload = hideOverLay;
+</script>
+
+
+

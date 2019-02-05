@@ -12,8 +12,8 @@ namespace ZimconBotTelegram.MenuHandlers
         {
             ReplyKeyboardMarkup ReplyKeyboard = new[]
             {
-                new[] {"/menu", "/shipments"},
-                new[] {"/status", "/location"},
+                new[] {"/menu", "/location"},
+                //new[] {"/status", "/location"},
             };
             return (ReplyKeyboard, message.Chat.Id, "Choose");
         }

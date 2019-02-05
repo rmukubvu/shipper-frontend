@@ -20,9 +20,55 @@ $(document).ready(function () {
 
     $("#vehicleYearOption").empty().append(html);
 
+    $('#vehicleForm').bootstrapValidator({
+        message: 'This value is not valid',
+        //feedbackIcons: {
+        //    valid: 'glyphicon glyphicon-ok',
+        //    invalid: 'glyphicon glyphicon-remove',
+        //    validating: 'glyphicon glyphicon-refresh'
+        //},
+        fields: {
+            vehicleMakeSelector: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select vehicle make'
+                    }
+                }
+            },
+            vehicleModelSelector: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select vehicle model'
+                    }
+
+                }
+            },
+            vehicleYearOption: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select vehicle model'
+                    }
+                }
+            },
+            licenseNumber: {
+                message: 'The License Number is not valid',
+                validators: {
+                    notEmpty: {
+                        message: '* License Number is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 10,
+                        message: 'Invalid License Number'
+                    }
+                }
+            }
+        }
+    });
+
     $(".editVehicle").click(function (event) {
         //clearDataFields();
-        $('#AjaxLoader').show();  
+        $("#fakeloader").fakeLoader();  
         var id = $(this).closest("tr").find('td:eq(0)').text();
         var license = $(this).closest("tr").find('td:eq(1)').text();
         var make = $(this).closest("tr").find('td:eq(2)').text();

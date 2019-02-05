@@ -3,20 +3,20 @@
     ViewBag.Title = "User";
 }
 
-<div class="row container">
+<div class="row">
     <div class="col-md-8">
-        <div class="card">
-            <div class="header">
+        <div class="box">
+            <div class="box-header with-border">
                 <h4 class="title">User</h4>
             </div>
-            <div class="content table-responsive table-full-width">
+            <div class="box-body">
                 <table class="table table-striped">
                     <tr>
                         <th>Created</th>
                         <th>Consignee</th>
                         <th>Name</th>
-                        <th class="hidden">First Name</th>
-                          <th class="hidden">Last Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Email Address</th>
                         <th>Contact</th>
                         <th>Country</th>
@@ -32,8 +32,8 @@
                                 <td>@user.createdDate.ToShortDateString()</td>
                                 <td>@user.consignee.name</td>
                                 <td>@user.firstName @user.lastName</td>
-                                <td class="hidden">@user.firstName</td>
-                                <td class="hidden">@user.lastName</td>
+                                <td>@user.firstName</td>
+                                <td>@user.lastName</td>
                                 <td>@user.emailAddress</td>
                                 <td>@user.consignee.contactNumber</td>
                                 <td>@user.consignee.country</td>
@@ -44,15 +44,14 @@
                 </table>
             </div>
         </div>
-
     </div>
     <div class="col-md-4">
-        <div class="card">
-            <div class="header">
+        <div class="box">
+            <div class="box-header with-border">
                 <h4 class="title"><i class="fa fa-user-circle"></i> Add New User</h4>
             </div>
-            <div class="content">
-                <form>
+            <div class="box-body">
+                <form id="userForm">
                     <div class="row hidden">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -139,10 +138,14 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
+<script type="text/javascript">
+    function hideOverLay() {
+        window.FakeLoader.hideOverlay();
+    }
+    window.onload = hideOverLay;
+</script>
 
 
 

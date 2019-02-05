@@ -5,8 +5,8 @@ $(document).ready(function() {
 
     localStorage.clear();
 
-    $("#shipper_login_button").click(function (event) {
-       
+    $("#shipper_login_button").click(function (event) { 
+        window.FakeLoader.showOverlay();
         var userName = $('#shipper_username').val();
         var password = $('#shipper_password').val();
 
@@ -15,23 +15,32 @@ $(document).ready(function() {
             type: "GET",
             dataType: "json",
             url: getUrl,
-            success: function (result) {       
-                //var result = JSON.parse(json);
+            success: function (result) {   
+                console.log(result);
+                window.FakeLoader.hideOverlay();
                 if (result.error === false) {
-                    var sessionTimeout = 1; //hours
-                    var loginDuration = new Date();
-                    loginDuration.setTime(loginDuration.getTime()+(sessionTimeout*60*60*1000));
-                    //localStorage.setItem('shipper.consignee',result.user.consigneeId);
-                    localStorage.setItem('shipper.userName',result.user.emailAddress);
-                    document.cookie = "ShipperSession=Valid; "+ loginDuration.toGMTString()+ "; path=/";
-                    window.location.href = "/Dashboard";
+                    if (result.admin === true) {
+                        var sessionTimeout = 1; //hours
+                        var loginDuration = new Date();
+                        loginDuration.setTime(loginDuration.getTime() + (sessionTimeout * 60 * 60 * 1000));
+                        localStorage.setItem('shipper.isAdmin', true);
+                        localStorage.setItem('shipper.fullName', result.user.firstName + " " + result.user.lastName);
+                        localStorage.setItem('shipper.userName', result.user.emailAddress);
+                        document.cookie = "ShipperSession=Valid; " + loginDuration.toGMTString() + "; path=/";
+                        window.location.href = "/Dashboard";
+                    } else {
+                        localStorage.setItem('shipper.isAdmin', false);
+                        localStorage.setItem('shipper.consignee', result.user.consigneeId);
+                        localStorage.setItem('shipper.fullName', result.user.firstName + " " + result.user.lastName);
+                        localStorage.setItem('shipper.userName', result.user.emailAddress);
+                        window.location.href = "/Client";
+                    }                 
                 } else {
                     swal(
                         'Ooops',
                         result.loginErrorMessage,
                         'error'
-                    );
-                    //window.location.href = "/Home";
+                    );                   
                 }
             },
             error: function () {
