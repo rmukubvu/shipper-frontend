@@ -47,7 +47,7 @@ if (isAdmin === true) {
 
 function connectToForNotificationsMqtt() {
     //Using the HiveMQ public Broker, with a random client Id
-    var client = new Paho.MQTT.Client("localhost", 8083, "myclientid_" + parseInt(Math.random() * 100, 10));
+    var client = new Paho.MQTT.Client("154.0.174.76", 8083, "myclientid_" + parseInt(Math.random() * 100, 10));
     //Gets  called if the websocket/mqtt connection gets disconnected for any reason
     client.onConnectionLost = function (responseObject) {
         //Depending on your scenario you could implement a reconnect logic here
