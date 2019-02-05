@@ -22,7 +22,7 @@ $(document).idle({
 
 var isAdmin = localStorage.getItem('shipper.isAdmin');
 console.log('is admin ' + isAdmin);
-if (isAdmin === true) {
+if (isAdmin === "true") {
     $('#side_main_menu').append(
         `<li class="header">MENU</li>
          <li><a href="/Dashboard"><i class="fa fa-location-arrow"></i><span>Dashboard</span></a>
