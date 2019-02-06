@@ -15,9 +15,7 @@ $(document).ready(function() {
             type: "GET",
             dataType: "json",
             url: getUrl,
-            success: function (result) {   
-                console.log(result);
-                window.FakeLoader.hideOverlay();
+            success: function (result) {                
                 if (result.error === false) {
                     if (result.admin === true) {
                         var sessionTimeout = 1; //hours

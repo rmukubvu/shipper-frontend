@@ -63,8 +63,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Device</label>
-                                <select class="form-control" id="deviceSelector">
-                                    <option>--- Select Device ---</option>
+                                <select class="form-control" id="deviceSelector"  name="deviceSelector">
+                                    <option value="">--- Select Device ---</option>
                                     @foreach (var device in deviceAllocationViewModel.Devices)
                                     {
                                         <option value="@device.deviceId">@device.make - @device.model - @device.deviceId</option>
@@ -77,7 +77,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Vehicle</label>
-                                <select class="form-control" id="vehicleSelector">
+                                <select class="form-control" id="vehicleSelector" name="vehicleSelector">
                                     <option>--- Select Vehicle ---</option>
                                     @foreach (var vehicle in deviceAllocationViewModel.Vehicles)
                                     {
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <div class="pull-left">
-                        <button type="button" class="btn btn-info btn-fill btn-wd" id="submitDeviceAllocation">Submit</button>
+                        <button type="submit" class="btn btn-info btn-fill btn-wd" id="submitDeviceAllocation">Submit</button>
                     </div>
                     <div class="clearfix"></div>
                 </form>

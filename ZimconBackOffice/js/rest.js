@@ -21,7 +21,6 @@ $(document).idle({
 });
 
 var isAdmin = localStorage.getItem('shipper.isAdmin');
-console.log('is admin ' + isAdmin);
 if (isAdmin === "true") {
     $('#side_main_menu').append(
         `<li class="header">MENU</li>

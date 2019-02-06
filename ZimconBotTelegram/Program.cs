@@ -81,7 +81,7 @@ namespace ZimconBotTelegram
         {
             if (message.Type != MessageType.Location) return;
             await Task.Run(() => {
-                //Business.SaveLocation(message.From.Id, message.Location.Latitude, message.Location.Longitude);
+                Business.SaveLocation(message.From.Id, message.Location.Latitude, message.Location.Longitude);
                 Console.WriteLine($"{message.Location.Latitude},{message.Location.Longitude}");
             });
             await Bot.SendLocationAsync(
