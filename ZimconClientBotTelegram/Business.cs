@@ -149,7 +149,7 @@ namespace ZimconClientBotTelegram
 
         public void SaveShipmentStatus(int telegramId,string manifestReference, int waybill, int statusId){
             var vehicleId = GetVehicleId(telegramId);
-            _restCalls.SaveShipmentStatus(vehicleId,manifestReference,waybill,statusId);
+            //_restCalls.SaveShipmentStatus(vehicleId,manifestReference,waybill,statusId);
         }
 
         private void RefreshCache()

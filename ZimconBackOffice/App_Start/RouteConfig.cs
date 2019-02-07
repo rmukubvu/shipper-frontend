@@ -23,6 +23,11 @@ namespace ZimconBackOffice
                 defaults: new { controller = "Device", action = "Index", id = UrlParameter.Optional }
             );
             routes.MapRoute(
+               name: "Consignee",
+               url: "consignee/{id}",
+               defaults: new { controller = "Consignee", action = "Index", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional }

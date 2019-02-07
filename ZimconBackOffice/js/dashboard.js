@@ -31,7 +31,7 @@ $(document).ready(function() {
                     error: function () {
                         swal(
                             'Ooops',
-                            'Something went terribly wrong!',
+                            'Something went terribly wrong! getUrlShipmentsWithStatus',
                             'error'
                         );
                     }               
@@ -58,7 +58,7 @@ $(document).ready(function() {
                 error: function () {
                     swal(
                         'Ooops',
-                        'Something went terribly wrong!',
+                        'Something went wrong! getUrlVehicles',
                         'error'
                     );
                 }
@@ -85,7 +85,7 @@ $(document).ready(function() {
                 error: function () {
                     swal(
                         'Ooops',
-                        'Something went terribly wrong!',
+                        'Something went wrong getUrlConsigneeDetails !' + result.message,
                         'error'
                     );
                 }

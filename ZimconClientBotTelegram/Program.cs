@@ -25,7 +25,7 @@ namespace ZimconClientBotTelegram
             Bot.OnMessage += BotOnMessageReceived;
             Bot.OnMessageEdited += BotOnMessageReceived;
             Bot.OnCallbackQuery += BotOnCallbackQueryReceived;
-            Bot.OnInlineQuery += BotOnInlineQueryReceived;
+            //Bot.OnInlineQuery += BotOnInlineQueryReceived;
             Bot.OnInlineResultChosen += BotOnChosenInlineResultReceived;
             Bot.OnReceiveError += BotOnReceiveError;
             Bot.StartReceiving(Array.Empty<UpdateType>());
@@ -35,18 +35,10 @@ namespace ZimconClientBotTelegram
         }
 
         private static async void DoDeviceLinking(Telegram.Bot.Types.Message message)
-        {
-            /*if (message.Type == MessageType.Contact)
-            {
-                var phoneNumber = message.Contact.PhoneNumber;
-                //register this device
-                business.SaveDevice(message.From.Id);
-            }*/
-            //do normal check
+        {            
             //check device id is linked
             if (!Business.IsDeviceLinked(message.From.Id))
             {
-                //await Bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
                 //register this device
                 if (message.Contact == null)
                 {                    //request phone number
@@ -82,15 +74,27 @@ namespace ZimconClientBotTelegram
             }
         }
 
-        private static async void DoLocationUpdates(Telegram.Bot.Types.Message message)
+        private static async void DoReply(Telegram.Bot.Types.Message message)
         {
-            if (message.Type != MessageType.Location) return;
-            await Task.Run(() => {
-                Business.SaveLocation(message.From.Id, message.Location.Latitude, message.Location.Longitude);
-            });
+            if (String.CompareOrdinal(message.Text, "/start") == 0)
+                DoDeviceLinking(message);
+            else
+            {
+                var (keyboard, chatId, dialog) = MenuResponseFactory.DoAction(message.Text, message);
+                await Bot.SendTextMessageAsync(
+                    chatId,
+                    dialog,
+                    replyMarkup: keyboard);
+            }
+        }
+
+        private static async void DoDefault(Telegram.Bot.Types.Message message)
+        {
+            var (keyboard, chatId, dialog) = MenuResponseFactory.DoAction("/default", message);
             await Bot.SendTextMessageAsync(
-                message.Chat.Id, "Thank you for updating the location",
-                replyMarkup: new ReplyKeyboardRemove());
+                chatId,
+                dialog,
+                replyMarkup: keyboard);
         }
 
         private static async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
@@ -101,27 +105,20 @@ namespace ZimconClientBotTelegram
             try
             {
 
-                //DoDeviceLinking(message);
-                //do location updates
-                //DoLocationUpdates(message);
-                //do menu updates
-                if (message.Text == null && message.Type != MessageType.Contact) return;
-                var menuItem = message.Text.Split(' ').First();
-                //do device linking
-                if (String.CompareOrdinal(menuItem, "/start") == 0 ||
-                    message.Type == MessageType.Contact)
-                    DoDeviceLinking(message);
-                else
-                {
-                    if (message.Type != MessageType.Text) return;
-                    if (String.CompareOrdinal(menuItem, "/start") == 0) return;
-                    var (keyboard, chatId, dialog) = MenuResponseFactory.DoAction(menuItem, message);                      
-                    await Bot.SendTextMessageAsync(
-                        chatId,
-                        dialog,
-                        replyMarkup: keyboard);
-                    
-                }
+                switch (message.Type)
+                {                    
+                    case MessageType.Text:
+                        DoReply(message);
+                        break;
+                    case MessageType.Contact:
+                        DoDeviceLinking(message);
+                        break;
+                    case MessageType.Unknown:                        
+                    default:
+                        DoDefault(message);
+                        break;
+                }              
+                
             }
             catch (Exception ex)
             {
@@ -135,15 +132,6 @@ namespace ZimconClientBotTelegram
             CallbackQueryEventArgs callbackQueryEventArgs)
         {
             var callbackQuery = callbackQueryEventArgs.CallbackQuery;
-            //make sure it does it only once ...
-            /*var statusId = int.Parse(callbackQuery.Data);
-            //await Task.Run(() =>
-            //{
-            Console.WriteLine("doing something {0}", statusId);
-            //Business.SaveShipmentStatus(callbackQuery.From.Id, statusId);
-            //});
-            //to handle menu responses here ...
-            */
             var concatenatedString = callbackQuery.Data;
             var split = concatenatedString.Split(';');
             await Bot.SendLocationAsync(
@@ -157,43 +145,8 @@ namespace ZimconClientBotTelegram
 
             await Bot.SendTextMessageAsync(
                 callbackQuery.Message.Chat.Id,
-                $"Status-> {split[2]}");
-        }
-
-        private static async void BotOnInlineQueryReceived(object sender, InlineQueryEventArgs inlineQueryEventArgs)
-        {
-            Console.WriteLine($"Received inline query from: {inlineQueryEventArgs.InlineQuery.From.Id}");
-
-            InlineQueryResultBase[] results = {
-                new InlineQueryResultLocation(
-                    id: "1",
-                    latitude: 40.7058316f,
-                    longitude: -74.2581888f,
-                    title: "New York")   // displayed result
-                    {
-                        InputMessageContent = new InputLocationMessageContent(
-                            latitude: 40.7058316f,
-                            longitude: -74.2581888f)    // message if result is selected
-                    },
-
-                new InlineQueryResultLocation(
-                    id: "2",
-                    latitude: 13.1449577f,
-                    longitude: 52.507629f,
-                    title: "Berlin") // displayed result
-                    {
-
-                        InputMessageContent = new InputLocationMessageContent(
-                            latitude: 13.1449577f,
-                            longitude: 52.507629f)   // message if result is selected
-                    }
-            };
-
-            await Bot.AnswerInlineQueryAsync(
-                inlineQueryEventArgs.InlineQuery.Id,
-                results,
-                isPersonal: true,
-                cacheTime: 0);
+                $"Status-> {split[2]}",
+                replyMarkup: new ReplyKeyboardRemove());
         }
 
         private static void BotOnChosenInlineResultReceived(object sender, ChosenInlineResultEventArgs chosenInlineResultEventArgs)

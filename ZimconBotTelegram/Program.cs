@@ -29,7 +29,7 @@ namespace ZimconBotTelegram
             Bot.OnMessage += BotOnMessageReceived;
             Bot.OnMessageEdited += BotOnMessageReceived;
             Bot.OnCallbackQuery += BotOnCallbackQueryReceived;
-            Bot.OnInlineQuery += BotOnInlineQueryReceived;
+           // Bot.OnInlineQuery += BotOnInlineQueryReceived;
             Bot.OnInlineResultChosen += BotOnChosenInlineResultReceived;
             Bot.OnReceiveError += BotOnReceiveError;
             Bot.StartReceiving(Array.Empty<UpdateType>());
@@ -40,13 +40,6 @@ namespace ZimconBotTelegram
 
         private static async void DoDeviceLinking(Telegram.Bot.Types.Message message)
         {
-            /*if (message.Type == MessageType.Contact)
-            {
-                var phoneNumber = message.Contact.PhoneNumber;
-                //register this device
-                business.SaveDevice(message.From.Id);
-            }*/
-            //do normal check
             //check device id is linked
             if (!Business.IsDeviceLinked(message.From.Id))
             {
@@ -84,6 +77,7 @@ namespace ZimconBotTelegram
                 Business.SaveLocation(message.From.Id, message.Location.Latitude, message.Location.Longitude);
                 Console.WriteLine($"{message.Location.Latitude},{message.Location.Longitude}");
             });
+           
             await Bot.SendLocationAsync(
                        message.From.Id,
                        message.Location.Latitude,
@@ -91,9 +85,7 @@ namespace ZimconBotTelegram
                        60,
                        replyMarkup: new ReplyKeyboardRemove()
                        );
-            /* await Bot.SendTextMessageAsync(
-                 message.Chat.Id,"Thank you for updating the location",
-                 replyMarkup: new ReplyKeyboardRemove()); */
+           
         }
 
         private static async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
@@ -148,42 +140,7 @@ namespace ZimconBotTelegram
                 "Thank you for updating the status");
         }
 
-        private static async void BotOnInlineQueryReceived(object sender, InlineQueryEventArgs inlineQueryEventArgs)
-        {
-            Console.WriteLine($"Received inline query from: {inlineQueryEventArgs.InlineQuery.From.Id}");
-
-            InlineQueryResultBase[] results = {
-                new InlineQueryResultLocation(
-                    id: "1",
-                    latitude: 40.7058316f,
-                    longitude: -74.2581888f,
-                    title: "New York")   // displayed result
-                    {
-                        InputMessageContent = new InputLocationMessageContent(
-                            latitude: 40.7058316f,
-                            longitude: -74.2581888f)    // message if result is selected
-                    },
-
-                new InlineQueryResultLocation(
-                    id: "2",
-                    latitude: 13.1449577f,
-                    longitude: 52.507629f,
-                    title: "Berlin") // displayed result
-                    {
-
-                        InputMessageContent = new InputLocationMessageContent(
-                            latitude: 13.1449577f,
-                            longitude: 52.507629f)   // message if result is selected
-                    }
-            };
-
-            await Bot.AnswerInlineQueryAsync(
-                inlineQueryEventArgs.InlineQuery.Id,
-                results,
-                isPersonal: true,
-                cacheTime: 0);
-        }
-
+        
         private static void BotOnChosenInlineResultReceived(object sender, ChosenInlineResultEventArgs chosenInlineResultEventArgs)
         {
             Console.WriteLine($"Received inline result: {chosenInlineResultEventArgs.ChosenInlineResult.ResultId}");

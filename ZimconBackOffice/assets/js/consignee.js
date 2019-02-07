@@ -6,11 +6,11 @@ $(document).ready(function () {
 
     $('#consigneeForm').bootstrapValidator({
         message: 'This value is not valid',
-        //feedbackIcons: {
-        //    valid: 'glyphicon glyphicon-ok',
-        //    invalid: 'glyphicon glyphicon-remove',
-        //    validating: 'glyphicon glyphicon-refresh'
-        //},
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
         fields: {
             countrySelector: {
                 validators: {
@@ -57,9 +57,8 @@ $(document).ready(function () {
             }
         }
     });
-
     $(".editConsinee").click(function (event) {
-        $("#fakeloader").fakeLoader();
+        //$("#fakeloader").fakeLoader();
         var id = $(this).closest("tr").find('td:eq(0)').text();
         var name = $(this).closest("tr").find('td:eq(1)').text();
         var address = $(this).closest("tr").find('td:eq(2)').text();
@@ -75,8 +74,6 @@ $(document).ready(function () {
         $("#countrySelector").val(country);
         $('#AjaxLoader').hide();
     });
-
-    //$("#submitConsignee").click(function (event) {
     $('#consigneeForm').validator().on('submit', function (e) {
         if (!e.isDefaultPrevented()) {
             var postUrl = "../api/consignee";
@@ -93,9 +90,84 @@ $(document).ready(function () {
         }
     });
 
-    var submitConsignee = function (postUrl, postData) {
-        $("#fakeloader").fakeLoader();
-        
+   
+
+    //Consignee contact person
+    $('#consigneeContactForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            countryCode: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select country code'
+                    }
+                }
+            },
+            contactName: {
+                message: 'The name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: '* Name is required and cannot be empty'
+                    }
+                }
+            },
+            contactEmailAddress: {
+                message: 'The email address is not valid',
+                validators: {
+                    notEmpty: {
+                        message: '* Email address is required and cannot be empty'
+                    }
+                }
+            },
+            telephone: {
+                validators: {
+                    notEmpty: {
+                        message: '* Contact number is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 10,
+                        max: 10,
+                        message: 'Contact number must be more than 10 digits long'
+                    }
+                }
+            }
+        }
+    });
+    $(".viewContacts").click(function (event) {
+        var consigneeId = $(this).closest("tr").find('td:eq(0)').text();
+        var consigneeName = $(this).closest("tr").find('td:eq(1)').text();
+        localStorage.setItem('shipper.consigneeName', consigneeName);
+
+        location.pathname = "/Consignee/" + consigneeId;
+        $('#contactName').text(localStorage.getItem('shipper.consigneeName'));
+    });
+
+    $('#consigneeContactForm').validator().on('submit', function (e) {
+        if (!e.isDefaultPrevented()) {
+            var postUrl = "../api/consignee";
+
+            var postData = {
+                'id': $("#consigneeId").val(),
+                'name': $("#contactName").val(),
+                'emailAddress': $("#contactEmailAddress").val(),
+                'countryCode': $("#countryCode").val(),
+                'telephone': $("#telephone").val(),
+            };
+            
+            submitConsigneeContact(postUrl, postData);
+
+            location.pathname = "/Consignee/";
+        }
+    });
+    
+    
+    //Submit consignee and consignee contact person
+    var submitConsignee = function (postUrl, postData) {               
         var postJson = JSON.stringify(postData);
         $.ajax({
             type: "POST",
@@ -123,4 +195,35 @@ $(document).ready(function () {
             }
         });
     };
+
+    var submitConsigneeContact = function (postUrl, postData) {
+        var postJson = JSON.stringify(postData);
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: postUrl,
+            data: postJson,
+            success: function (result) {
+                swal(
+                    "Result",
+                    "Consignee successfully saved",
+                    "success"
+                );
+                location.reload();
+                //$('#AjaxLoader').hide();
+            },
+            error: function (error) {
+                swal(
+                    "Ooops",
+                    "Failed to add consignee",
+                    "error"
+                );
+                location.reload();
+                //$('#AjaxLoader').hide();
+            }
+        });
+    };
+
+
 });

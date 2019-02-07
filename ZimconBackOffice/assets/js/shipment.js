@@ -6,11 +6,11 @@ $(document).ready(function () {
 
     $('#shipmentForm').bootstrapValidator({
         message: 'This value is not valid',
-        //feedbackIcons: {
-        //    valid: 'glyphicon glyphicon-ok',
-        //    invalid: 'glyphicon glyphicon-remove',
-        //    validating: 'glyphicon glyphicon-refresh'
-        //},
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
         fields: {
             consigneeSelector: {
                 validators: {

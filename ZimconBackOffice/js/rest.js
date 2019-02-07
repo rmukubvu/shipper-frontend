@@ -184,15 +184,25 @@ $("#search-btn-waybill").click(function (event) {
 $("#submitUpdateStatus").click(function (event) {
     window.FakeLoader.showOverlay();
     var manifestReference = $("#manifestReference").val();
-    var wayBillNumber = $("#wayBillNumber").val();
+    var waybill = $("#wayBillNumber").val();
     var vehicleId = $("#vehicleId").val();
     var statusId = $("#statusSelector").val();
 
-    var getUrl = "../api/updateStatus?vehicleId=" + vehicleId + "&manifestReference=" + manifestReference + "&waybill=" + wayBillNumber + "&statusId=" + statusId;
+    var postModel = {
+        'vehicleId': vehicleId,
+        'manifestReference': manifestReference,
+        'wayBillNumber': waybill,
+        'statusId': statusId,
+        'createdDate': new Date()
+    };
+
+    var postUrl = "../api/updateStatus";
     $.ajax({
-        type: "GET",
+        type: "POST",
         dataType: "json",
-        url: getUrl,
+        contentType: "application/json; charset=utf-8",
+        url: postUrl,
+        data: postModel,
         success: function (result) {
             window.FakeLoader.hideOverlay();
             swal(

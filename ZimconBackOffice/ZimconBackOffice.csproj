@@ -185,6 +185,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelError.cs" />
+    <Compile Include="Models\ConsigneeViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\AllocatedVehicleDeviceViewModel.cs" />
     <Compile Include="Models\TruckCoordinates.cs" />

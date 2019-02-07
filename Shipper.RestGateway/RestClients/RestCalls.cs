@@ -171,6 +171,12 @@ namespace Shipper.RestGateway.RestClients
             return client.GetResult<Consignee>($"consignee/id?id={id}");
         }
 
+        public List<ConsigneeContactDetails> GetConsigneeContactDetails(string id)
+        {
+            var client = new Services(_cache, _serializer);
+            return client.GetResult<List<ConsigneeContactDetails>>($"consignee/contacts?id={id}");
+        }
+
         public Consignee GetConsigneeByTelegramId(long telegramId)
         {
             return GetResponse<Consignee>($"consigneeByTelegram?telegramId={telegramId}");          
@@ -244,19 +250,19 @@ namespace Shipper.RestGateway.RestClients
             var shipments = GetShipmentOnVehicle(vehicleId);
             foreach (var shipment in shipments)
             {
-                SaveShipmentStatus(vehicleId, shipment.manifestReference, shipment.wayBill, statusId);
+                var model = new ShipmentStatus()
+                {
+                    vehicleId = vehicleId,
+                    manifestReference = shipment.manifestReference,
+                    wayBillNumber = shipment.wayBill,
+                    statusId = statusId,
+                    createdDate = DateTime.Now
+                };
+                SaveShipmentStatus(model);
             }
         }
-        public string SaveShipmentStatus(string vehicleId,string manifestReference,long waybill,int statusId)
-        {
-            var model = new ShipmentStatus()
-            {
-                vehicleId = vehicleId,
-                manifestReference = manifestReference,
-                wayBillNumber = waybill,
-                statusId = statusId,
-                createdDate = DateTime.Now
-            };
+        public string SaveShipmentStatus(ShipmentStatus model)
+        {            
             var service = new Services(_cache, _serializer);
             return service.Post(model, "notification");
         }

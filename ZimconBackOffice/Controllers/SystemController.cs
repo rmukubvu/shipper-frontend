@@ -45,6 +45,12 @@ namespace ZimconBackOffice.Controllers
             return _service.RecoverPassword(userName);
         }
 
+        [Route("api/getConsigneeContacts"), HttpGet]
+        public List<ConsigneeContactDetails> GetConsigneeContacts(string consigneeId)
+        {
+            return _service.GetConsigneeContactDetails(consigneeId);
+        }
+
         #endregion
 
         #region Posts
@@ -83,6 +89,12 @@ namespace ZimconBackOffice.Controllers
         public string AllocateDriver(DriverAllocation model)
         {
             return _service.AllocateDriverToVehicle(model);
+        }
+
+        [Route("api/consigneeContact"), HttpPost]
+        public string SaveConsigneeContacts(ConsigneeContactDetails model)
+        {
+            return _service.SaveConsigneeContacts(model);
         }
 
         [Route("api/package"), HttpPost]
@@ -134,9 +146,9 @@ namespace ZimconBackOffice.Controllers
         }
 
         [Route("api/updateStatus"),HttpPost]
-        public string SaveShipmentStatus(string vehicleId, string manifestReference, long waybill, int statusId)
+        public string SaveShipmentStatus(ShipmentStatus model)
         {
-            return _service.SaveShipmentStatus(vehicleId, manifestReference, waybill, statusId);
+            return _service.SaveShipmentStatus(model);
         }
 
         #endregion
