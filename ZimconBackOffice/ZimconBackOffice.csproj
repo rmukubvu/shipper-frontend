@@ -215,7 +215,6 @@
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\chartist.min.js" />
     <Content Include="assets\js\shipment.js" />
-    <Content Include="assets\js\device.js" />
     <Content Include="assets\js\demo.js" />
     <Content Include="assets\js\jquery.min.js" />
     <Content Include="assets\js\paper-dashboard.js" />
