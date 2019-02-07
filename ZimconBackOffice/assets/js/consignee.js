@@ -4,6 +4,60 @@
 
 $(document).ready(function () {
 
+    $('#consigneeForm').bootstrapValidator({
+        message: 'This value is not valid',
+        //feedbackIcons: {
+        //    valid: 'glyphicon glyphicon-ok',
+        //    invalid: 'glyphicon glyphicon-remove',
+        //    validating: 'glyphicon glyphicon-refresh'
+        //},
+        fields: {
+            countrySelector: {
+                validators: {
+                    notEmpty: {
+                        message: '* Please select consignee'
+                    }
+                }
+            },
+            name: {
+                message: 'The name is not valid',
+                validators: {
+                    notEmpty: {
+                        message: '* Name is required and cannot be empty'
+                    }
+                }
+            },
+            address: {
+                message: 'The address is not valid',
+                validators: {
+                    notEmpty: {
+                        message: '* Address is required and cannot be empty'
+                    }
+                }
+            },
+            address2: {
+                message: 'The address is not valid',
+                validators: {
+                    notEmpty: {
+                        message: '* Address is required and cannot be empty'
+                    }
+                }
+            },
+            contactNumber: {
+                validators: {
+                    notEmpty: {
+                        message: '* Contact number is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 10,
+                        max: 10,
+                        message: 'Contact number must be more than 10 digits long'
+                    }
+                }
+            }
+        }
+    });
+
     $(".editConsinee").click(function (event) {
         $("#fakeloader").fakeLoader();
         var id = $(this).closest("tr").find('td:eq(0)').text();
@@ -22,22 +76,22 @@ $(document).ready(function () {
         $('#AjaxLoader').hide();
     });
 
-    $("#submitConsignee").click(function (event) {
+    //$("#submitConsignee").click(function (event) {
+    $('#consigneeForm').validator().on('submit', function (e) {
+        if (!e.isDefaultPrevented()) {
+            var postUrl = "../api/consignee";
+            var postData = {
+                'id': $("#consigneeId").val(),
+                'name': $("#name").val(),
+                'address': $("#address").val(),
+                'address2': $("#address2").val(),
+                'contactNumber': $("#contactNumber").val(),
+                'country': $("#countrySelector").val()
+            };
 
-        var postUrl = "../api/consignee";
-        var postData = {
-            'id': $("#consigneeId").val(),
-            'name': $("#name").val(),
-            'address': $("#address").val(),
-            'address2': $("#address2").val(),
-            'contactNumber': $("#contactNumber").val(),
-            'country': $("#countrySelector").val()
-        };
-
-        submitConsignee(postUrl, postData);        
+            submitConsignee(postUrl, postData);
+        }
     });
-
-   
 
     var submitConsignee = function (postUrl, postData) {
         $("#fakeloader").fakeLoader();
@@ -52,7 +106,7 @@ $(document).ready(function () {
             success: function (result) {
                 swal(
                     "Result",
-                    "Consignee added",
+                    "Consignee successfully saved",
                     "success"
                 );
                 location.reload();
@@ -69,13 +123,4 @@ $(document).ready(function () {
             }
         });
     };
-
-    //var clearDataFields = function () {
-    //    $("#consigneeId").val("");
-    //    $("#name").val("");
-    //    $("#address").val("");
-    //    $("#address2").val("");
-    //    $("#contact").val("");
-    //    $("#countrySelector").val("");
-    //};
 });

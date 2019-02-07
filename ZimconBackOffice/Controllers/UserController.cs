@@ -12,7 +12,7 @@ namespace ZimconBackOffice.Controllers
     public class UserController : Controller
     {
         private readonly RestCalls _rest = new RestCalls();
-        // GET: Device
+        
         public ActionResult Index(string id = null)
         {
             var users = _rest.GetUsers();
