@@ -20,7 +20,6 @@ $(document).ready(function() {
                     if (result.admin === true) {
                         var sessionTimeout = 1; //hours
                         var loginDuration = new Date();
-                        loginDuration.setTime(loginDuration.getTime() + (sessionTimeout * 60 * 60 * 1000));
                         localStorage.setItem('shipper.isAdmin', true);
                         localStorage.setItem('shipper.fullName', result.user.firstName + " " + result.user.lastName);
                         localStorage.setItem('shipper.userName', result.user.emailAddress);

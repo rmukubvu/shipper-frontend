@@ -7,7 +7,7 @@
             'deviceId': $('#deviceSelector').val(),
             'allocationDate': new Date()
         };
-        $('#AjaxLoader').show(); 
+          
         var postJson = JSON.stringify(postData);
         $.ajax({
             type: "POST",
@@ -22,7 +22,7 @@
                     'success'
                 );
                 location.reload();
-                $('#AjaxLoader').hide();  
+                   
             },
             error: function (error) {
                 swal(
@@ -31,7 +31,7 @@
                     'error'
                 );
                 location.reload();
-                $('#AjaxLoader').hide();  
+                   
             }
         });
     
@@ -112,7 +112,7 @@
                     'allocationDate': new Date()
                 };
 
-                $('#AjaxLoader').show();
+                 
                 var postJson = JSON.stringify(postData);
                 $.ajax({
                     type: "POST",
@@ -127,7 +127,7 @@
                             'success'
                         );
                         location.reload();
-                        $('#AjaxLoader').hide();
+                         
                     },
                     error: function (error) {
                         swal(
@@ -136,7 +136,7 @@
                             'error'
                         );
                         location.reload();
-                        $('#AjaxLoader').hide();
+                         
                     }
                 });
             }

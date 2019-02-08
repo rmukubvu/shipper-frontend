@@ -47,7 +47,7 @@ $(document).ready(function () {
 
     //edit waybill
     $('#sizing-addon1').click(function (event) {
-        $('#AjaxLoader').show();
+         
 
         var waybillNumber = $('#searchShipment').val();
 
@@ -66,7 +66,7 @@ $(document).ready(function () {
                             result.loginErrorMessage,
                             'error'
                         );
-                        $('#AjaxLoader').hide();
+                         
                     } else {
                         $('#shipmentId').val(result.id);
                         $('#wayBillNumber').val(result.wayBillNumber);
@@ -77,7 +77,7 @@ $(document).ready(function () {
                         $('#address').val(result.sourceLatitude);
                         $('#search_location').val(result.destinationLatitude);
                     }
-                    $('#AjaxLoader').hide();
+                     
                 },
                 error: function (xhr, status, error) {
                     swal(
@@ -85,7 +85,7 @@ $(document).ready(function () {
                         'Something went terribly wrong!',
                         'error'
                     );
-                    $('#AjaxLoader').hide();
+                     
                 }
             });
         }
@@ -107,7 +107,7 @@ $(document).ready(function () {
                 'wayBillNumber': $("#wayBillNumber").val()
             };
 
-            $('#AjaxLoader').show();
+             
             var postJson = JSON.stringify(postData);
             $.ajax({
                 type: "POST",
@@ -122,7 +122,7 @@ $(document).ready(function () {
                         'success'
                     );
                     location.reload();
-                    $('#AjaxLoader').hide();
+                     
                 },
                 error: function (error) {
                     swal(
@@ -131,7 +131,7 @@ $(document).ready(function () {
                         'error'
                     );
                     location.reload();
-                    $('#AjaxLoader').hide();
+                     
                 }
             });
         }

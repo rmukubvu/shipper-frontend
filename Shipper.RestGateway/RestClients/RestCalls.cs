@@ -145,6 +145,12 @@ namespace Shipper.RestGateway.RestClients
             var client = new Services(_cache, _serializer);
             return client.GetResult<List<Driver>>("driver");
         }        
+
+        public List<VehicleDriverAllocation> GetVehicleDriverViewModel()
+        {
+            return GetResponse<List<VehicleDriverAllocation>>("vehicleDriverModel");
+        }
+
         public DriverAllocation GetDriverAllocationByVehicleId(string vehicleId)
         {
             var client = new Services(_cache, _serializer);

@@ -62,6 +62,7 @@
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Helper\WebConfigHelper.cs" />
     <Compile Include="Model\ClearingStatus.cs" />
+    <Compile Include="Model\VehicleDriverAllocation.cs" />
     <Compile Include="Model\WaybillShipment.cs" />
     <Compile Include="Model\Consignee.cs" />
     <Compile Include="Model\ConsigneeContactDetails.cs" />

@@ -27,11 +27,12 @@ if (isAdmin === "true") {
          <li><a href="/Dashboard"><i class="fa fa-location-arrow"></i><span>Dashboard</span></a>
          <li><a href="/User"><i class="fa fa-user"></i><span>Users</span></a></li>
          <li><a href="/User/Admin"><i class="fa fa-user"></i><span>Admin User</span></a></li>
-         <li><a href="/Vehicle"><i class="fa fa-gears"></i> <span>Vehicles</span></a></li>
-         <li><a href="/Consignee"><i class="fa fa-gears"></i> <span>Consignee</span></a></li>
-         <li><a href="/Device"><i class="fa fa-gears"></i> <span>Device</span></a></li>
-         <li><a href="/Shipment"><i class="fa fa-gears"></i> <span>Shipment</span></a></li>
-         <li><a href="/Notification"><i class="fa fa-gears"></i> <span>Notifications</span></a></li>
+         <li><a href="/Vehicle"><i class="fa fa-automobile"></i> <span>Vehicles</span></a></li>
+         <li><a href="/Driver"><i class="fa fa-user"></i> <span>Driver</span></a></li>
+         <li><a href="/Consignee"><i class="fa fa-database"></i> <span>Consignee</span></a></li>
+         <li><a href="/Device"><i class="fa fa-mobile"></i> <span>Device</span></a></li>
+         <li><a href="/Shipment"><i class="fa fa-truck"></i> <span>Shipment</span></a></li>
+         <li><a href="/Notification"><i class="fa fa-exchange"></i> <span>Notifications</span></a></li>
          <li><a href="/Login"><i class="fa fa-sign-out"></i> <span>Log out</span></a></li>
         `);
 } else {
@@ -206,7 +207,7 @@ $("#submitUpdateStatus").click(function (event) {
         success: function (result) {
             window.FakeLoader.hideOverlay();
             swal(
-                "Ooops",
+                "Result",
                 "Status Updated Successfully",
                 "success"
             );
@@ -258,7 +259,7 @@ $("#submitAdminUser").click(function (event) {
         success: function (result) {
             window.FakeLoader.hideOverlay();
             swal(
-                "Ooops",
+                "Result",
                 "User is now an Admin",
                 "success"
             );
@@ -285,7 +286,7 @@ $("#submitDeviceAllocation").click(function (event) {
         'allocationDate': new Date()
     };
 
-    //$('#AjaxLoader').show(); 
+    //  
     var postJson = JSON.stringify(postData);
     $.ajax({
         type: "POST",
@@ -315,13 +316,14 @@ $("#submitShipment").click(function (event) {
     var postUrl = "../api/package";
     var vehicleId = $("#vehicleSelector").val();
     var consigneeId = $("#consigneeSelector").val();
-    var destinationAddress = $("#consigneeSelector").val();
-    var sourceAddress = $("#consigneeSelector").val();
+    var destinationAddress = $("#search_location").val();
+    var sourceAddress = $("#address").val();
+    var contents = $("#shipmentContents").val();
     /*var destinationLatitude = $("#vehicleSelector").val();
     var destinationLongitude = $("#vehicleSelector").val();
     var sourceLatitude = $("#vehicleSelector").val();
     var sourceLongitude = $("#vehicleSelector").val();*/
-
+    //https://stackoverflow.com/questions/1042885/using-google-maps-api-to-get-travel-time-data to get estimated time of arrivval
     var postData = {
         'consigneeId': consigneeId,        
         'destinationAddress': destinationAddress,
@@ -329,15 +331,16 @@ $("#submitShipment").click(function (event) {
         'manifestReference': "",
         'sourceAddress': sourceAddress,
         'wayBillNumber': 0,
-        'vehicleId': vehicleId
+        'vehicleId': vehicleId,
+        'contents' : contents
     };
-
+    var postJson = JSON.stringify(postData);
     $.ajax({
         type: "POST",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         url: postUrl,
-        data: postData,
+        data: postJson,
         success: function (result) {
             window.FakeLoader.hideOverlay();
             swal("Result", "Shipment loaded", "success").then(function () {
@@ -362,7 +365,7 @@ function reloadCargo(vehicleId) {
         dataType: "json",
         url: cargoUrl,
         success: function (result) {
-            $('#loadedShipmentTable').text("");
+            //$('#loadedShipmentTable').text(""); clear table or body contents and overwrite with loaded ones
             var trHTML = '';
             $.each(result, function (i, item) {
                 trHTML += '<tr><td>' + item.consignee + '</td><td>' + item.manifestReference + '</td><td>' + item.status + '</td><td>' + item.wayBill + '</td></tr>';

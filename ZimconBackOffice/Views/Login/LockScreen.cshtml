@@ -20,12 +20,14 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="../../css/sweetalert2.css">
+    <link href="~/css/fakeloader.css" rel="stylesheet" />
 </head>
 <body class="hold-transition lockscreen">
+    <div id="fakeloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner"><div class="loader"></div></div></div></div>
     <!-- Automatic element centering -->
     <div class="lockscreen-wrapper">
         <div class="lockscreen-logo">
-            <a href="#"><b>Shipper</b>Tracking</a>
+            <a href="#"><b>Logistics </b>Tracking</a>
         </div>
         <!-- User name -->
         <div class="lockscreen-name" id="lockedUserName"></div>
@@ -43,7 +45,7 @@
                     <input type="password" class="form-control" placeholder="password" id="lockscreen_password">
 
                     <div class="input-group-btn">
-                        <button type="button" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
+                        <button type="button" class="btn"><i class="fa fa-arrow-right text-muted" id="lockScreenButton"></i></button>
                     </div>
                 </div>
             </form>
@@ -58,8 +60,8 @@
             <a href="/Login">Or sign in as a different user</a>
         </div>
         <div class="lockscreen-footer text-center">
-          Copyright &copy; 2019 <b><a href="http://www.zimcon.co.za" class="text-black">Shipment Tracking</a></b><br>
-          All rights reserved
+            Copyright &copy; 2019 <b><a href="http://www.zimcon.co.za" class="text-black">Zimbabwe Consolidators</a></b><br>
+            All rights reserved
         </div>
     </div>
     <!-- /.center -->
@@ -67,8 +69,16 @@
     <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../js/sweetalert2.js"></script>
-    <script src="../../js/rest.js"></script>
-    <script src="../../js/lockscreen.js"></script>
+    <script src="~/js/fakeloader.min.js"></script>
+    <script>
+        $(document).ready(
+            function () {
+                window.FakeLoader.init({ auto_hide: true });
+            }
+        );
+    </script>
+    <script src="~/js/sweetalert2.js"></script>
+    <script src="~/js/lockscreen.js"></script>
+
 </body>
 </html>

@@ -80,7 +80,7 @@ $(document).ready(function () {
         $("#vehicleMakeSelector").val(make);
         $("#vehicleModelSelector").val(model);
         $("#vehicleYearOption").val(year);
-        $('#AjaxLoader').hide();  
+           
     });
 
 
@@ -107,7 +107,7 @@ $(document).ready(function () {
 
     //submit vehicle
     var submitVehicle = function (postUrl, postData) {
-        $('#AjaxLoader').show();  
+           
         var postJson = JSON.stringify(postData);
         $.ajax({
             type: "POST",
@@ -123,7 +123,7 @@ $(document).ready(function () {
                 );
                 clearDataFields();
                 location.reload();
-                $('#AjaxLoader').hide();  
+                   
             },
             error: function (error) {
                 swal(
@@ -133,7 +133,7 @@ $(document).ready(function () {
                 );
 
                 location.reload();
-                $('#AjaxLoader').hide(); 
+                  
             }
         });
     };

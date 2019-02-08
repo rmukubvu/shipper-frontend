@@ -20,7 +20,7 @@ namespace ZimconBackOffice
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             //always need to use YOUR_API_KEY for requests.  Do this in App_Start.
-            GoogleSigned.AssignAllServices(new GoogleSigned("AIzaSyDJTEHW57RdhCXwM6xLcFsmcSeK9ldaGU"));
+            GoogleSigned.AssignAllServices(new GoogleSigned("AIzaSyDJTEHW57RdhCXwM6xLcFsmcSeK9ldaGUQ"));
         }
     }
 }

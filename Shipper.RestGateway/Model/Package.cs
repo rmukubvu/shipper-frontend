@@ -11,6 +11,7 @@ namespace Shipper.RestGateway.Model
         public double sourceLatitude { get; set; }
         public double sourceLongitude { get; set; }
         public string vehicleId { get; set; }
+        public string contents { get; set; }
         public int wayBillNumber { get; set; }
     }
 
@@ -23,20 +24,22 @@ namespace Shipper.RestGateway.Model
         public string sourceAddress { get; set; }
         public string vehicleId { get; set; }
         public int wayBillNumber { get; set; }
+        public string contents { get; set; }
 
         public Package getPackageFromViewModel(double dLat, double dLon, double sLat, double sLon)
         {
             return new Package()
             {
-                consigneeId = consigneeId,
+                consigneeId = this.consigneeId,
                 destinationLatitude = dLat,
                 destinationLongitude = dLon,
                 loadedDate = DateTime.Now,
-                manifestReference = manifestReference,
+                manifestReference = this.manifestReference,
                 sourceLatitude = sLat,
                 sourceLongitude = sLon,
-                vehicleId = vehicleId,
-                wayBillNumber = wayBillNumber
+                vehicleId = this.vehicleId,
+                wayBillNumber = wayBillNumber,
+                contents = this.contents
             };
         }
     }

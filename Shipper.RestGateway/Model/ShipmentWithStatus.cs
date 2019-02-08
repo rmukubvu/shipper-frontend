@@ -23,6 +23,7 @@ namespace Shipper.RestGateway.Model
         public double sourceLongitude { get; set; }
         public double destinationLatitude { get; set; }
         public double destinationLongitude { get; set; }
+        public string contents { get; set; }
         public DateTime loadedDate { get; set; }
     }
 }

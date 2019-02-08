@@ -168,7 +168,7 @@ demo = {
           },
           low: 0,
           high: 16,
-          height: "250px"
+          //height: "250px"
         };
 
         Chartist.Line('#chartPerformance', dataPerformance, optionsPerformance);

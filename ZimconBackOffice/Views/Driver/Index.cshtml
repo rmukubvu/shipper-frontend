@@ -1,7 +1,200 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Drivers";
+    ZimconBackOffice.Controllers.DriverController.DriverViewModel viewModel = Model;
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-md-8">
+        <div class="box">
+            <div class="box-header with-border">
+                <h4 class="title">Drivers</h4>
+            </div>
+            <div class="box-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Telephone</th>
+                        <th>Country</th>
+                        <th>Edit</th>
+                    </tr>
+                    <tbody>
+                        @foreach (var item in viewModel.Drivers)
+                        {
+                            <tr>
+                                <td class="hidden">@item.id</td>
+                                <td>@item.firstName</td>
+                                <td>@item.lastName</td>
+                                <td>@item.telephone</td>
+                                <td>@item.country</td>
+                                <td><a class="editDriver"><i class="fa fa-edit"></i></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h4 class="title">Driver Allocations</h4>
+            </div>
+            <div class="box-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>License</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Telephone</th>
+                    </tr>
+                    <tbody>
+                        @foreach (var item in viewModel.DriverVehicleAllocation)
+                        {
+                        <tr>
+                            <td>@item.make</td>
+                            <td>@item.model</td>
+                            <td>@item.licenseId</td>
+                            <td>@item.firstName</td>
+                            <td>@item.lastName</td>
+                            <td>@item.telephone</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box">
+            <div class="box-header with-border">
+                <h4 class="title"><i class="fa fa-mobile-alt"></i> Allocate Driver</h4>
+            </div>
+            <div class="box-body" style="padding-left: 25px;padding-right: 25px;">
+                <form id="deviceForm" method="post" class="form-horizontal">
+                    <div class="row hidden">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Allocation Id</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="allocationId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Driver:</label>
+                                <select class="form-control" id="driverSelector" name="driverSelector">
+                                    <option value="">--- Select Driver ---</option>
+                                    @foreach (var device in viewModel.Drivers)
+                                    {
+                                        <option value="@device.id">@device.firstName @device.lastName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Vehicle:</label>
+                                <select class="form-control" id="vehicleSelector" name="vehicleSelector">
+                                    <option>--- Select Vehicle ---</option>
+                                    @foreach (var vehicle in viewModel.Vehicles)
+                                    {
+                                        <option value="@vehicle.id">@vehicle.model - @vehicle.licenseId</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left">
+                        <button type="submit" class="btn btn-info btn-fill btn-wd" id="submitDriverAllocation">Submit</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-header with-border">
+                <h4 class="title"><i class="fa fa-mobile-alt"></i> Add Driver</h4>
+            </div>
+            <div class="box-body" style="padding-left: 25px;padding-right: 25px;">
+                <form id="deviceForm" method="post" class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>First Name:</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="firstName" @*name="firstName"*@>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Last Name:</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="lastName" @*name="lastName"*@>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>ID:</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="saId" @*name="saId"*@>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Passport:</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="passport" @*name="passport"*@>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Telephone Number:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask id="telephone" @*name="telephone"*@>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Country:</label>
+                                <select class="form-control" id="countrySelector" name="countrySelector">
+                                    <option value="">--- Select Country ---</option>
+                                    @foreach (var country in viewModel.Countries)
+                                    {
+                                        <option value="@country.countryName">@country.countryName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left">
+                        <button type="submit" class="btn btn-info btn-fill btn-wd" id="submitDriver">Submit</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function hideOverLay() {
+        window.FakeLoader.hideOverlay();
+    }
+    window.onload = hideOverLay;
+</script>
 
