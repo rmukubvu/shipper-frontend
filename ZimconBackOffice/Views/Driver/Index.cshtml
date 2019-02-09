@@ -11,28 +11,30 @@
                 <h4 class="title">Drivers</h4>
             </div>
             <div class="box-body">
-                <table class="table table-striped">
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Telephone</th>
-                        <th>Country</th>
-                        <th>Edit</th>
-                    </tr>
-                    <tbody>
-                        @foreach (var item in viewModel.Drivers)
-                        {
-                            <tr>
-                                <td class="hidden">@item.id</td>
-                                <td>@item.firstName</td>
-                                <td>@item.lastName</td>
-                                <td>@item.telephone</td>
-                                <td>@item.country</td>
-                                <td><a class="editDriver"><i class="fa fa-edit"></i></a></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <div style="display: block;max-height: 200px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Telephone</th>
+                            <th>Country</th>
+                            <th>Edit</th>
+                        </tr>
+                        <tbody>
+                            @foreach (var item in viewModel.Drivers)
+                            {
+                                <tr>
+                                    <td class="hidden">@item.id</td>
+                                    <td>@item.firstName</td>
+                                    <td>@item.lastName</td>
+                                    <td>@item.telephone</td>
+                                    <td>@item.country</td>
+                                    <td><a class="editDriver"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="box">
@@ -40,29 +42,31 @@
                 <h4 class="title">Driver Allocations</h4>
             </div>
             <div class="box-body">
-                <table class="table table-striped">
-                    <tr>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>License</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Telephone</th>
-                    </tr>
-                    <tbody>
-                        @foreach (var item in viewModel.DriverVehicleAllocation)
-                        {
+                <div style="display: block;max-height: 200px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
+                    <table class="table table-striped">
                         <tr>
-                            <td>@item.make</td>
-                            <td>@item.model</td>
-                            <td>@item.licenseId</td>
-                            <td>@item.firstName</td>
-                            <td>@item.lastName</td>
-                            <td>@item.telephone</td>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>License</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Telephone</th>
                         </tr>
-                        }
-                    </tbody>
-                </table>
+                        <tbody>
+                            @foreach (var item in viewModel.DriverVehicleAllocation)
+                            {
+                                <tr>
+                                    <td>@item.make</td>
+                                    <td>@item.model</td>
+                                    <td>@item.licenseId</td>
+                                    <td>@item.firstName</td>
+                                    <td>@item.lastName</td>
+                                    <td>@item.telephone</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

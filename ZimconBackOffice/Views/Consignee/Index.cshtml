@@ -11,32 +11,34 @@
                 <h4 class="title">Consignees</h4>
             </div>
             <div class="box-body">
-                <table class="table table-striped">
-                    <tr>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Address2</th>
-                        <th>Country</th>
-                        <th>Contact</th>
-                        <th>Edit</th>
-                        <th>View Contacts</th>
-                    </tr>
-                    <tbody>
-                        @foreach (var consinee in Model.Consignees)
-                        {
-                            <tr>
-                                <td class="hidden">@consinee.id</td>
-                                <td>@consinee.name</td>
-                                <td>@consinee.address</td>
-                                <td>@consinee.address2</td>
-                                <td>@consinee.country</td>
-                                <td>@consinee.contactNumber</td>
-                                <td><a class="editConsinee"><i class="fa fa-edit"></i></a></td>
-                                <td><a class="viewContacts"><i class="fa fa-eye"></i></a></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <div style="display: block;max-height: 200px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Address2</th>
+                            <th>Country</th>
+                            <th>Contact</th>
+                            <th>Edit</th>
+                            <th>View Contacts</th>
+                        </tr>
+                        <tbody>
+                            @foreach (var consinee in Model.Consignees)
+                            {
+                                <tr>
+                                    <td class="hidden">@consinee.id</td>
+                                    <td>@consinee.name</td>
+                                    <td>@consinee.address</td>
+                                    <td>@consinee.address2</td>
+                                    <td>@consinee.country</td>
+                                    <td>@consinee.contactNumber</td>
+                                    <td><a class="editConsinee"><i class="fa fa-edit"></i></a></td>
+                                    <td><a class="viewContacts"><i class="fa fa-eye"></i></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!--List consignees contacts-->
@@ -51,29 +53,31 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Country</th>
-                            <th>Telephone</th>
-                            <th>Edit</th>
-                        </tr>
-                        <tbody>
-                            @foreach (var contacts in Model.ConsigneeContacts)
-                            {
-                                <tr>
-                                    <td class="hidden">@contacts.id</td>
-                                    <td class="hidden">@contacts.consigneeId</td>
-                                    <td>@contacts.name</td>
-                                    <td>@contacts.emailAddress</td>
-                                    <td>@contacts.countryCode</td>
-                                    <td>@contacts.telephone</td>
-                                    <td><a class="editcontact"><i class="fa fa-edit"></i></a></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                    <div style="display: block;max-height: 200px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Country</th>
+                                <th>Telephone</th>
+                                <th>Edit</th>
+                            </tr>
+                            <tbody>
+                                @foreach (var contacts in Model.ConsigneeContacts)
+                                {
+                                    <tr>
+                                        <td class="hidden">@contacts.id</td>
+                                        <td class="hidden">@contacts.consigneeId</td>
+                                        <td>@contacts.name</td>
+                                        <td>@contacts.emailAddress</td>
+                                        <td>@contacts.countryCode</td>
+                                        <td>@contacts.telephone</td>
+                                        <td><a class="editcontact"><i class="fa fa-edit"></i></a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         }

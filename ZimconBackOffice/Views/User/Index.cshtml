@@ -10,38 +10,40 @@
                 <h4 class="title">User</h4>
             </div>
             <div class="box-body">
-                <table class="table table-striped">
-                    <tr>
-                        <th>Created</th>
-                        <th>Consignee</th>
-                        <th>Name</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email Address</th>
-                        <th>Contact</th>
-                        <th>Country</th>
-                        <th></th>
-                    </tr>
-                    <tbody>
-                        @foreach (var user in Model.users)
-                        {
-                            <tr>
-                                <td class="hidden">@user.id</td>
-                                <td class="hidden">@user.consigneeId</td>
-                                <td class="hidden">@user.password</td>
-                                <td>@user.createdDate.ToShortDateString()</td>
-                                <td>@user.consignee.name</td>
-                                <td>@user.firstName @user.lastName</td>
-                                <td>@user.firstName</td>
-                                <td>@user.lastName</td>
-                                <td>@user.emailAddress</td>
-                                <td>@user.consignee.contactNumber</td>
-                                <td>@user.consignee.country</td>
-                                <td><a class="editUser"><i class="fa fa-edit"></i></a></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <div style="display: block;max-height: 200px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Created</th>
+                            <th>Consignee</th>
+                            <th>Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email Address</th>
+                            <th>Contact</th>
+                            <th>Country</th>
+                            <th></th>
+                        </tr>
+                        <tbody>
+                            @foreach (var user in Model.users)
+                            {
+                                <tr>
+                                    <td class="hidden">@user.id</td>
+                                    <td class="hidden">@user.consigneeId</td>
+                                    <td class="hidden">@user.password</td>
+                                    <td>@user.createdDate.ToShortDateString()</td>
+                                    <td>@user.consignee.name</td>
+                                    <td>@user.firstName @user.lastName</td>
+                                    <td>@user.firstName</td>
+                                    <td>@user.lastName</td>
+                                    <td>@user.emailAddress</td>
+                                    <td>@user.consignee.contactNumber</td>
+                                    <td>@user.consignee.country</td>
+                                    <td><a class="editUser"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

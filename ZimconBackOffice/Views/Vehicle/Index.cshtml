@@ -13,34 +13,36 @@
                 <h4 class="box-title">Vehicles</h4>
             </div>
             <div class="box-body">
-                <table class="table table-bordered">
-                    <tr>
-                        <th class="hidden">ID</th>
-                        <th>License</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>Year</th>
-                        <th>View</th>
-                        <th>View</th>
-                        <th>Edit</th>
-                    </tr>
-                    <tbody>
-                        @foreach (var car in vehicles)
-                        {
+                <div style="display: block;max-height: 200px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
+                    <table class="table table-bordered">
                         <tr>
-                            <td class="hidden">@car.id</td>
-                            <td>@car.licenseId</td>
-                            <td>@car.make</td>
-                            <td>@car.model</td>
-                            <td>@car.year</td>
-                            <td><a href="/Shipment/ViewShipments?id=@car.id">Cargo</a></td>
-                            <td><a href="/MapView?id=@car.id">Trip</a></td>
-                            <td><a class="editVehicle"><i class="fa fa-edit"></i></a></td>
+                            <th class="hidden">ID</th>
+                            <th>License</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Year</th>
+                            <th>View</th>
+                            <th>View</th>
+                            <th>Edit</th>
                         </tr>
-                            //count++;
-                        }
-                    </tbody>
-                </table>
+                        <tbody>
+                            @foreach (var car in vehicles)
+                            {
+                                <tr>
+                                    <td class="hidden">@car.id</td>
+                                    <td>@car.licenseId</td>
+                                    <td>@car.make</td>
+                                    <td>@car.model</td>
+                                    <td>@car.year</td>
+                                    <td><a href="/Shipment/ViewShipments?id=@car.id">Cargo</a></td>
+                                    <td><a href="/MapView?id=@car.id">Trip</a></td>
+                                    <td><a class="editVehicle"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                //count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -87,7 +89,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="vehicleModelSelector">Model</label>
-                                <select class="form-control" id="vehicleModelSelector">
+                                <select class="form-control" id="vehicleModelSelector" name="vehicleModelSelector">
                                     <option value="">--- Select Model ---</option>
                                     <option value="Volvo">Volvo</option>
                                     <option value="Mercedes Ben">Mercedes Benz</option>
@@ -107,7 +109,7 @@
                         </div>
                     </div>
                     <div class="pull-left">
-                        <button type="button" class="btn btn-info btn-fill btn-wd" id="submitVehicle">Submit</button>
+                        <button type="submit" class="btn btn-info btn-fill btn-wd" id="submitVehicle">Submit</button>
                     </div>
                     <div class="clearfix"></div>
                 </form>

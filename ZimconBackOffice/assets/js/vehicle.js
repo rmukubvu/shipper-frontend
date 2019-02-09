@@ -68,7 +68,7 @@ $(document).ready(function () {
 
     $(".editVehicle").click(function (event) {
         //clearDataFields();
-        $("#fakeloader").fakeLoader();  
+        $("#fakeloader").fakeLoader();
         var id = $(this).closest("tr").find('td:eq(0)').text();
         var license = $(this).closest("tr").find('td:eq(1)').text();
         var make = $(this).closest("tr").find('td:eq(2)').text();
@@ -80,7 +80,7 @@ $(document).ready(function () {
         $("#vehicleMakeSelector").val(make);
         $("#vehicleModelSelector").val(model);
         $("#vehicleYearOption").val(year);
-           
+
     });
 
 
@@ -90,8 +90,7 @@ $(document).ready(function () {
             $("#licenseNumberDiv").removeClass("form-group");
             $("#licenseNumberDiv").addClass("form-group has-error");
         }
-        else
-        {
+        else {
             var postUrl = "../api/vehicle";
             var postData = {
                 'id': $("#vehicleId").val(),
@@ -107,7 +106,7 @@ $(document).ready(function () {
 
     //submit vehicle
     var submitVehicle = function (postUrl, postData) {
-           
+
         var postJson = JSON.stringify(postData);
         $.ajax({
             type: "POST",
@@ -123,7 +122,7 @@ $(document).ready(function () {
                 );
                 clearDataFields();
                 location.reload();
-                   
+
             },
             error: function (error) {
                 swal(
@@ -133,7 +132,7 @@ $(document).ready(function () {
                 );
 
                 location.reload();
-                  
+
             }
         });
     };

@@ -11,35 +11,37 @@
                 <h4 class="title">Devices</h4>
             </div>
             <div class="box-body">
-                <table class="table table-striped">
-                    <tr>
-                        @*<th>ID</th>*@
-                        <th>Telegram</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>Vehicle</th>
-                        <th></th>
-                    </tr>
-                    <tbody>
-                        @foreach (var item in deviceAllocationViewModel.Allocations)
-                        {
+                <div style="display: block;max-height: 200px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
+                    <table class="table table-striped">
                         <tr>
-                            @*<td>@count</td>*@
-                            <td class="hidden">@item.allocationId</td>
-                            <td class="hidden">@item.vehicleId</td>
-                            <td>@item.deviceId</td>
-                            <td>@item.deviceMake</td>
-                            <td>@item.deviceModel</td>
-                            <td>@item.vehicleLicense</td>
-                            <td class="hidden">@item.vehicleMake</td>
-                            <td class="hidden">@item.vehicleModel</td>
-
-                            <td><a class="editDeviceAllocation"><i class="fa fa-edit"></i></a></td>
+                            @*<th>ID</th>*@
+                            <th>Telegram</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Vehicle</th>
+                            <th></th>
                         </tr>
-                            //count++;
-                        }
-                    </tbody>
-                </table>
+                        <tbody>
+                            @foreach (var item in deviceAllocationViewModel.Allocations)
+                            {
+                                <tr>
+                                    @*<td>@count</td>*@
+                                    <td class="hidden">@item.allocationId</td>
+                                    <td class="hidden">@item.vehicleId</td>
+                                    <td>@item.deviceId</td>
+                                    <td>@item.deviceMake</td>
+                                    <td>@item.deviceModel</td>
+                                    <td>@item.vehicleLicense</td>
+                                    <td class="hidden">@item.vehicleMake</td>
+                                    <td class="hidden">@item.vehicleModel</td>
+
+                                    <td><a class="editDeviceAllocation"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                //count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
