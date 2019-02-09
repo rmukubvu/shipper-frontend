@@ -18,7 +18,6 @@ namespace ZimconBackOffice.Controllers
             var devices = _rest.GetSmartDevices();
             var vehicles = _rest.GetVehicles();
             var allocations = _rest.GetSmartDeviceVehicleMapping();
-            var locations = _rest.GetVehicleCurrentLocations();
 
             var dashboard = new DashboardViewModel()
             {
@@ -26,24 +25,9 @@ namespace ZimconBackOffice.Controllers
                 smartDevicesCount = devices.Count,
                 devices = devices,
                 vehicles = vehicles,
-                deviceAllocations = allocations,
-                VehicleLocations = Transpose(locations)
+                deviceAllocations = allocations
             };
             return View(dashboard);
-        }
-
-        private List<TruckCoordinates> Transpose(List<VehicleLocation> collection)
-        {
-            var result = new List<TruckCoordinates>();
-            foreach (var item in collection)
-            {
-                result.Add(new TruckCoordinates()
-                {
-                    lat = item.latitude,
-                    lng = item.longitude
-                });
-            }
-            return result;
-        }
+        }        
     }
 }

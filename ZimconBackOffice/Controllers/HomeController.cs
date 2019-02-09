@@ -33,7 +33,7 @@ namespace ZimconBackOffice.Controllers
 
     public class DashboardViewModel
     {
-        public List<TruckCoordinates> VehicleLocations { get; set; }
+        //public List<TruckCoordinates> VehicleLocations { get; set; }
         public int vehicleCount { get; set; }
         public int smartDevicesCount { get; set; }
         public List<SmartDevice> devices { get; set; }
