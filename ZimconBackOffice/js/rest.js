@@ -1,4 +1,4 @@
-var restEndPointProd = "http://23.100.43.140";
+///var restEndPointProd = "http://23.100.43.140";
 //var restEndPoint = "http://localhost:8089";
 var restEndPoint = "http://154.0.174.76:8089"; 
 
@@ -40,9 +40,9 @@ if (isAdmin === "true") {
 } else {
     $('#side_main_menu').append(
         `<li class="header">MENU</li>
-         <li> <a href="/Client"><i class="fa fa-location-arrow"></i><span>Dashboard</span></a>         
-         <li><a href="/Client/Shipment"><i class="fa fa-gears"></i> <span>Shipment</span></a></li>         
-         <li><a href="/Login"><i class="fa fa-sign-out"></i> <span>Log out</span></a></li>
+         <li><a href="/Client"><i class="fa fa-location-arrow"></i><span>Dashboard</span></a>         
+         <li><a href="/Client/Shipment"><i class="fa fa-truck"></i> <span>Shipment</span></a></li>     
+         <li><a href="/Login"><i class="fa fa-sign-out-alt"></i> <span>Log out</span></a></li>
         `);
 }
 
@@ -349,4 +349,29 @@ function reloadCargo(vehicleId) {
             );
         }
     });  
+}
+
+function displayStatusChanges(waybill) {
+    var urlAnalytics = restEndPoint + "/shipment/status/history?waybillNumber=" + waybill;
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: urlAnalytics,
+        success: function (result) {
+            $('#statusChangeTable').text("");
+            var trHTML = '';
+            $.each(result, function (i, item) {
+                trHTML += '<tr><td>' + item.status + '</td><td>' + item.wayBillNumber + '</td><td>' + item.statusChangeDate + '</td></tr>';
+            });
+            $('#statusChangeTable').append(trHTML);
+        },
+        error: function () {
+            swal(
+                'Ooops',
+                'Something went terribly wrong!',
+                'error'
+            );
+        }
+    });
+    return false;
 }
