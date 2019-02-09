@@ -4,7 +4,7 @@
 $(document).ready(function() {
 
     if (localStorage.getItem('shipper.userName') === "" ){
-        location.href = "/login.html";
+        location.href = "/Login";
         return;
     }
          
@@ -131,37 +131,4 @@ $(document).ready(function() {
         });
     }
 
-    function pubs() {
-        var  pubnub = new PubNub({
-            publishKey : 'pub-c-26c98eaa-87d4-4c69-80aa-085bd2372633',
-            subscribeKey : 'sub-c-dc4b053a-9a41-11e3-b726-02ee2ddab7fe',
-            origin        : 'pubsub.pubnub.com'
-        });
-
-        var schoolChannel1 = localStorage.getItem("shipper.selectedChannel");
-        pubnub.addListener({
-            status: function(statusEvent) {
-                if (statusEvent.category === "PNConnectedCategory") {
-                    console.log("PubNub Connected on channel " + schoolChannel1);
-                }
-            },
-            message: function(message) {
-                console.log("New Message!!", message.message);
-                var res = message.message.split("|");
-                serialNumber = res[0];
-                lat = parseFloat(res[1]);
-                lng = parseFloat(res[2]);
-                //custom method
-                redraw();
-            },
-            presence: function(presenceEvent) {
-                // handle presence
-            }
-        })
-        console.log("Subscribing..");
-        pubnub.subscribe({
-            channels: [schoolChannel1]
-        });
-    }
-    //window.onload = initialize;
 });
