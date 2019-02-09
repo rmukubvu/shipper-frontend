@@ -167,6 +167,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\ConsignorController.cs" />
     <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PasswordController.cs" />
@@ -215,6 +216,8 @@
     <Content Include="assets\js\bootstrap-validate.js" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\chartist.min.js" />
+    <Content Include="assets\js\consignor.js" />
+    <Content Include="assets\js\driver.js" />
     <Content Include="assets\js\shipment.js" />
     <Content Include="assets\js\demo.js" />
     <Content Include="assets\js\jquery.min.js" />
@@ -1335,6 +1338,7 @@
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Views\Client\Shipment.cshtml" />
     <Content Include="Views\Driver\Index.cshtml" />
+    <Content Include="Views\Consignor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

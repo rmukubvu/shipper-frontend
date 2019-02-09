@@ -11,7 +11,7 @@
                 <h4 class="title">Drivers</h4>
             </div>
             <div class="box-body">
-                <div style="display: block;max-height: 200px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
+                <div style="display: block;max-height: 600px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
                     <table class="table table-striped">
                         <tr>
                             <th>First Name</th>
@@ -42,7 +42,7 @@
                 <h4 class="title">Driver Allocations</h4>
             </div>
             <div class="box-body">
-                <div style="display: block;max-height: 200px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
+                <div style="display: block;max-height: 600px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;overflow-x: auto;max-width: 800px;">
                     <table class="table table-striped">
                         <tr>
                             <th>Make</th>
@@ -76,7 +76,7 @@
                 <h4 class="title"><i class="fa fa-mobile-alt"></i> Allocate Driver</h4>
             </div>
             <div class="box-body" style="padding-left: 25px;padding-right: 25px;">
-                <form id="deviceForm" method="post" class="form-horizontal">
+                <form id="driverAllocationForm" method="post" class="form-horizontal">
                     <div class="row hidden">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -104,7 +104,7 @@
                             <div class="form-group">
                                 <label>Vehicle:</label>
                                 <select class="form-control" id="vehicleSelector" name="vehicleSelector">
-                                    <option>--- Select Vehicle ---</option>
+                                    <option value="">--- Select Vehicle ---</option>
                                     @foreach (var vehicle in viewModel.Vehicles)
                                     {
                                         <option value="@vehicle.id">@vehicle.model - @vehicle.licenseId</option>
@@ -125,12 +125,12 @@
                 <h4 class="title"><i class="fa fa-mobile-alt"></i> Add Driver</h4>
             </div>
             <div class="box-body" style="padding-left: 25px;padding-right: 25px;">
-                <form id="deviceForm" method="post" class="form-horizontal">
+                <form id="driverForm" method="post" class="form-horizontal">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>First Name:</label>
-                                <input type="text" class="form-control border-input" placeholder="" value="" id="firstName" @*name="firstName"*@>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="firstName" name="firstName">
                             </div>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Last Name:</label>
-                                <input type="text" class="form-control border-input" placeholder="" value="" id="lastName" @*name="lastName"*@>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="lastName" name="lastName">
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>ID:</label>
-                                <input type="text" class="form-control border-input" placeholder="" value="" id="saId" @*name="saId"*@>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="saId" name="saId">
                             </div>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Passport:</label>
-                                <input type="text" class="form-control border-input" placeholder="" value="" id="passport" @*name="passport"*@>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="passport" name="passport">
                             </div>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-phone"></i>
                                     </div>
-                                    <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask id="telephone" @*name="telephone"*@>
+                                    <input type="tel" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask id="telephone" name="telephone">
                                 </div>
                                 <!-- /.input group -->
                             </div>

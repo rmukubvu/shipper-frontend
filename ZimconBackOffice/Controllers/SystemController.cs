@@ -67,6 +67,12 @@ namespace ZimconBackOffice.Controllers
             return _service.SaveConsignee(model);
         }
 
+        [Route("api/consignor"), HttpPost]
+        public string SaveConsignor(Consignor model)
+        {
+            return _service.SaveConsignor(model);
+        }
+
         [Route("api/vehicle"), HttpPost]
         public string SaveVehicle(Vehicle model)
         {

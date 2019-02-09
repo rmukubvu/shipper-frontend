@@ -22,11 +22,11 @@ $(document).ready(function () {
 
     $('#vehicleForm').bootstrapValidator({
         message: 'This value is not valid',
-        //feedbackIcons: {
-        //    valid: 'glyphicon glyphicon-ok',
-        //    invalid: 'glyphicon glyphicon-remove',
-        //    validating: 'glyphicon glyphicon-refresh'
-        //},
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
         fields: {
             vehicleMakeSelector: {
                 validators: {
@@ -68,7 +68,7 @@ $(document).ready(function () {
 
     $(".editVehicle").click(function (event) {
         //clearDataFields();
-        $("#fakeloader").fakeLoader();
+        //$("#fakeloader").fakeLoader();
         var id = $(this).closest("tr").find('td:eq(0)').text();
         var license = $(this).closest("tr").find('td:eq(1)').text();
         var make = $(this).closest("tr").find('td:eq(2)').text();
@@ -84,23 +84,25 @@ $(document).ready(function () {
     });
 
 
-    $("#submitVehicle").click(function (event) {
+    //$("#submitVehicle").click(function (event) {
+    $('#vehicleForm').validator().on('submit', function (e) {
+        if (!e.isDefaultPrevented()) {
+            if ($.trim($("#licenseNumber").val()) === "") {
+                $("#licenseNumberDiv").removeClass("form-group");
+                $("#licenseNumberDiv").addClass("form-group has-error");
+            }
+            else {
+                var postUrl = "../api/vehicle";
+                var postData = {
+                    'id': $("#vehicleId").val(),
+                    'licenseId': $("#licenseNumber").val().toUpperCase(),
+                    'make': $("#vehicleMakeSelector").val(),
+                    'model': $("#vehicleModelSelector").val(),
+                    'year': $("#vehicleYearOption").val()
+                };
 
-        if ($.trim($("#licenseNumber").val()) === "") {
-            $("#licenseNumberDiv").removeClass("form-group");
-            $("#licenseNumberDiv").addClass("form-group has-error");
-        }
-        else {
-            var postUrl = "../api/vehicle";
-            var postData = {
-                'id': $("#vehicleId").val(),
-                'licenseId': $("#licenseNumber").val().toUpperCase(),
-                'make': $("#vehicleMakeSelector").val(),
-                'model': $("#vehicleModelSelector").val(),
-                'year': $("#vehicleYearOption").val()
-            };
-
-            submitVehicle(postUrl, postData);
+                submitVehicle(postUrl, postData);
+            }
         }
     });
 
@@ -136,54 +138,5 @@ $(document).ready(function () {
             }
         });
     };
-
-    //clear input fields
-    var clearDataFields = function () {
-        $("#vehicleId").val("");
-        $("#licenseNumber").val("");
-        $("#vehicleMakeSelector").val("");
-        $("#vehicleModelSelector").val("");
-        $("#vehicleYearOption").val("");
-    };
-
-    $("#submitDriver").click(function (event) {
-        if ($.trim($("#idPassport").val()) === "") {
-            $("#passportDiv").removeClass("form-group");
-            $("#passportDiv").addClass("form-group has-error");
-        } else {
-            var postUrl = "../api/driver";
-            var postData = {
-                'firstName': $("#firstName").val().toUpperCase(),
-                'lastName': $("#lastName").val().toUpperCase(),
-                'nationalId': $("#idPassport").val().toUpperCase(),
-                'passportNumber': $("#idPassport").val().toUpperCase(),
-                'telephone': $("#driverTelephone").val().toUpperCase(),
-                'country': $("#countryOptions").val(),
-            };
-
-            var postJson = JSON.stringify(postData);
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                url: postUrl,
-                data: postJson,
-                success: function (result) {
-                    swal(
-                        "Result",
-                        "Driver added",
-                        "success"
-                    );
-                },
-                error: function (error) {
-                    swal(
-                        "Ooops",
-                        "Failed to add driver",
-                        "error"
-                    );
-                }
-            });
-        }
-    });
-
+    
 });

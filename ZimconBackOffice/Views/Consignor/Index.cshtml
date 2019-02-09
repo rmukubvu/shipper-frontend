@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Shipper.RestGateway.Model.Consignor>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="box">
+            <div class="box-header with-border">
+                <h4 class="title">Consignor</h4>
+            </div>
+            <div class="box-body">
+                <div style="display: block;max-height: 200px;overflow-y: auto;-ms-overflow-style: -ms-autohiding-scrollbar;">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Edit</th>
+                        </tr>
+                        <tbody>
+                            @foreach (var consignor in Model)
+                            {
+                                <tr>
+                                    <td class="hidden">@consignor.id</td>
+                                    <td>@consignor.name</td>
+                                    <td><a class="editConsinor"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box">
+            <div class="box-header with-border">
+                <h4 class="title"><i class="fa fa-user-circle"></i> Add New Consignor</h4>
+            </div>
+            <div class="box-body" style="padding-left: 25px;padding-right: 25px;">
+                <form id="consignorForm" method="post" class="form-horizontal">
+                    <div class="row hidden">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Id</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="consignorId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="name"  name="name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left">
+                        <button type="submit" class="btn btn-info btn-fill btn-wd" id="submitConsignor">Submit</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

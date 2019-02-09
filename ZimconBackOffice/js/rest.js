@@ -1,5 +1,6 @@
 var restEndPointProd = "http://23.100.43.140";
-var restEndPoint = "http://localhost:8089";
+//var restEndPoint = "http://localhost:8089";
+var restEndPoint = "http://154.0.174.76:8089"; 
 
 //not authorised kickout
 if (localStorage.getItem('shipper.userName') === "") {
@@ -25,15 +26,16 @@ if (isAdmin === "true") {
     $('#side_main_menu').append(
         `<li class="header">MENU</li>
          <li><a href="/Dashboard"><i class="fa fa-location-arrow"></i><span>Dashboard</span></a>
-         <li><a href="/User"><i class="fa fa-user"></i><span>Users</span></a></li>
-         <li><a href="/User/Admin"><i class="fa fa-user"></i><span>Admin User</span></a></li>
-         <li><a href="/Vehicle"><i class="fa fa-automobile"></i> <span>Vehicles</span></a></li>
-         <li><a href="/Driver"><i class="fa fa-user"></i> <span>Driver</span></a></li>
-         <li><a href="/Consignee"><i class="fa fa-database"></i> <span>Consignee</span></a></li>
+         <li><a href="/User"><i class="fa fa-users"></i><span>Users</span></a></li>
+         <li><a href="/User/Admin"><i class="fa fa-users-cog"></i><span>Admin User</span></a></li>
+         <li><a href="/Vehicle"><i class="fa fa-car"></i> <span>Vehicles</span></a></li>
+         <li><a href="/Driver"><i class="fa fa-male"></i> <span>Driver</span></a></li>
+         <li><a href="/Consignee"><i class="fa fa-building"></i> <span>Consignee</span></a></li>
+         <li><a href="/Consignor"><i class="fa fa-user-tie"></i> <span>Consignee</span></a></li>
          <li><a href="/Device"><i class="fa fa-mobile"></i> <span>Device</span></a></li>
          <li><a href="/Shipment"><i class="fa fa-truck"></i> <span>Shipment</span></a></li>
-         <li><a href="/Notification"><i class="fa fa-exchange"></i> <span>Notifications</span></a></li>
-         <li><a href="/Login"><i class="fa fa-sign-out"></i> <span>Log out</span></a></li>
+         <li><a href="/Notification"><i class="fa fa-bell"></i> <span>Notifications</span></a></li>
+         <li><a href="/Login"><i class="fa fa-sign-out-alt"></i> <span>Log out</span></a></li>
         `);
 } else {
     $('#side_main_menu').append(
