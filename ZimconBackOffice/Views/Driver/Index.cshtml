@@ -23,14 +23,16 @@
                         <tbody>
                             @foreach (var item in viewModel.Drivers)
                             {
-                                <tr>
-                                    <td class="hidden">@item.id</td>
-                                    <td>@item.firstName</td>
-                                    <td>@item.lastName</td>
-                                    <td>@item.telephone</td>
-                                    <td>@item.country</td>
-                                    <td><a class="editDriver"><i class="fa fa-edit"></i></a></td>
-                                </tr>
+                            <tr>
+                                <td class="hidden">@item.id</td>
+                                <td class="hidden">@item.nationalId</td>
+                                <td class="hidden">@item.passportNumber</td>
+                                <td>@item.firstName</td>
+                                <td>@item.lastName</td>
+                                <td>@item.telephone</td>
+                                <td>@item.country</td>
+                                <td><a class="editDriver"><i class="fa fa-edit"></i></a></td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -126,6 +128,14 @@
             </div>
             <div class="box-body" style="padding-left: 25px;padding-right: 25px;">
                 <form id="driverForm" method="post" class="form-horizontal">
+                    <div class="row hidden">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>First Name:</label>
+                                <input type="text" class="form-control border-input" placeholder="" value="" id="driverId">
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">

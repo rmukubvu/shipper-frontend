@@ -1,4 +1,5 @@
 ﻿console.log('i am in driver');
+//validation
 $('#driverAllocationForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
@@ -22,7 +23,7 @@ $('#driverAllocationForm').bootstrapValidator({
             }
         }
     }
-}); 
+});
 $('#driverForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
@@ -67,6 +68,14 @@ $('#driverForm').bootstrapValidator({
                 }
             }
         },
+        passport: {
+            message: 'The last name is not valid',
+            validators: {
+                notEmpty: {
+                    message: '* Identification is required and cannot be empty'
+                },
+            }
+        },
         telephone: {
             validators: {
                 notEmpty: {
@@ -81,82 +90,100 @@ $('#driverForm').bootstrapValidator({
         }
     }
 });
-//allocate driver to vehicle
-//for status update
-//$("#submitDriverAllocation").click(function (event) {
-$('#driverAllocationForm').validator().on('submit', function (e) {
-    if (!e.isDefaultPrevented()) {
-    window.FakeLoader.showOverlay();
-    var vehicleId = $("#vehicleSelector").val();
-    var driverId = $("#driverSelector").val();
+//edit
+$(".editDriver").click(function (event) {
+    //$("#fakeloader").fakeLoader();
+    var id = $(this).closest("tr").find('td:eq(0)').text();
+    var saId = $(this).closest("tr").find('td:eq(1)').text();
+    var passport = $(this).closest("tr").find('td:eq(2)').text();
+    var firstname = $(this).closest("tr").find('td:eq(3)').text();
+    var lastname = $(this).closest("tr").find('td:eq(4)').text();
+    var telephone = $(this).closest("tr").find('td:eq(5)').text();
+    var country = $(this).closest("tr").find('td:eq(6)').text();
 
-    var postModel = {
-        'vehicleId': vehicleId,
-        'driverId': driverId,
-        'allocatedStartDate': new Date(),
-        'allocatedEndDate': null
-    };
-    var postJson = JSON.stringify(postModel);
-    var postUrl = "../api/driveralloc";
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: postUrl,
-        data: postJson,
-        success: function (result) {
-            console.log(result);
-            window.FakeLoader.hideOverlay();
-            swal("Result", "Driver has been allocated", "success").then(function () {
-                location.reload();
-            });
-        },
-        error: function () {
-            window.FakeLoader.hideOverlay();
-            swal(
-                "Ooops",
-                "Something went terribly wrong!",
-                "error"
-            );
-        }
-    });
-}
+    $("#driverId").val(id);
+    $("#firstName").val(firstname);
+    $("#lastName").val(lastname);
+    $("#saId").val(saId);
+    $("#passport").val(passport);
+    $("#telephone").val(telephone);
+    $("#countrySelector").val(country);
+
 });
 
+//allocate driver to vehicle
+$('#driverAllocationForm').validator().on('submit', function (e) {
+    if (!e.isDefaultPrevented()) {
+        window.FakeLoader.showOverlay();
+        var vehicleId = $("#vehicleSelector").val();
+        var driverId = $("#driverSelector").val();
 
-//$("#submitDriver").click(function (event) {
-    $('#driverForm').validator().on('submit', function (e) {
-        if (!e.isDefaultPrevented()) {
-            window.FakeLoader.showOverlay();
-            var postUrl = "../api/driver";
-            var postData = {
-                'firstName': $("#firstName").val(),
-                'lastName': $("#lastName").val(),
-                'nationalId': $("#saId").val(),
-                'passportNumber': $("#passport").val(),
-                'telephone': $("#telephone").val(),
-                'country': $("#countrySelector").val()
-            };
-            var postJson = JSON.stringify(postData);
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                url: postUrl,
-                data: postJson,
-                success: function (result) {
-                    window.FakeLoader.hideOverlay();
-                    swal("Result", "Driver has been added", "success").then(function () {
-                        location.reload();
-                    });
-                },
-                error: function (error) {
-                    swal(
-                        'Ooops',
-                        'Failed to create driver',
-                        'error'
-                    );
-                }
-            });
-        }
+        var postModel = {
+            'vehicleId': vehicleId,
+            'driverId': driverId,
+            'allocatedStartDate': new Date(),
+            'allocatedEndDate': null
+        };
+        var postJson = JSON.stringify(postModel);
+        var postUrl = "../api/driveralloc";
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: postUrl,
+            data: postJson,
+            success: function (result) {
+                console.log(result);
+                window.FakeLoader.hideOverlay();
+                swal("Result", "Driver has been allocated", "success").then(function () {
+                    location.reload();
+                });
+            },
+            error: function () {
+                window.FakeLoader.hideOverlay();
+                swal(
+                    "Ooops",
+                    "Something went terribly wrong!",
+                    "error"
+                );
+            }
+        });
+    }
+});
+//save driver
+$('#driverForm').validator().on('submit', function (e) {
+    if (!e.isDefaultPrevented()) {
+        window.FakeLoader.showOverlay();
+        var postUrl = "../api/driver";
+        var postData = {
+            'id': $("#driverId").val(),
+            'firstName': $("#firstName").val(),
+            'lastName': $("#lastName").val(),
+            'nationalId': $("#saId").val(),
+            'passportNumber': $("#passport").val(),
+            'telephone': $("#telephone").val(),
+            'country': $("#countrySelector").val()
+        };
+        var postJson = JSON.stringify(postData);
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: postUrl,
+            data: postJson,
+            success: function (result) {
+                window.FakeLoader.hideOverlay();
+                swal("Result", "Driver has been added", "success").then(function () {
+                    location.reload();
+                });
+            },
+            error: function (error) {
+                swal(
+                    'Ooops',
+                    'Failed to create driver',
+                    'error'
+                );
+            }
+        });
+    }
 });
