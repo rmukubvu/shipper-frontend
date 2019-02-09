@@ -33,6 +33,7 @@ $(document).ready(function() {
                         window.location.href = "/Client";
                     }                 
                 } else {
+                    window.FakeLoader.hideOverlay();
                     swal(
                         'Ooops',
                         result.loginErrorMessage,
@@ -41,6 +42,7 @@ $(document).ready(function() {
                 }
             },
             error: function () {
+                window.FakeLoader.hideOverlay();
                 swal(
                     'Ooops',
                      'Something went terribly wrong!',

@@ -31,7 +31,7 @@ if (isAdmin === "true") {
          <li><a href="/Vehicle"><i class="fa fa-car"></i> <span>Vehicles</span></a></li>
          <li><a href="/Driver"><i class="fa fa-male"></i> <span>Driver</span></a></li>
          <li><a href="/Consignee"><i class="fa fa-building"></i> <span>Consignee</span></a></li>
-         <li><a href="/Consignor"><i class="fa fa-user-tie"></i> <span>Consignee</span></a></li>
+         <li><a href="/Consignor"><i class="fa fa-user-tie"></i> <span>Consignor</span></a></li>
          <li><a href="/Device"><i class="fa fa-mobile"></i> <span>Device</span></a></li>
          <li><a href="/Shipment"><i class="fa fa-truck"></i> <span>Shipment</span></a></li>
          <li><a href="/Notification"><i class="fa fa-bell"></i> <span>Notifications</span></a></li>
@@ -49,7 +49,7 @@ if (isAdmin === "true") {
 
 function connectToForNotificationsMqtt() {
     //Using the HiveMQ public Broker, with a random client Id
-    var client = new Paho.MQTT.Client("localhost", 8083, "myclientid_" + parseInt(Math.random() * 100, 10));
+    var client = new Paho.MQTT.Client("154.0.174.76", 8083, "myclientid_" + parseInt(Math.random() * 100, 10));
     //Gets  called if the websocket/mqtt connection gets disconnected for any reason
     client.onConnectionLost = function (responseObject) {
         //Depending on your scenario you could implement a reconnect logic here
