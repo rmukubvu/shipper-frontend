@@ -10,6 +10,7 @@ namespace Shipper.RestGateway.Model
         public double longitude { get; set; }
         public string status { get; set; }
         public long wayBill { get; set; }
+        public string contents { get; set; }
         public IList<ContactDetail> contactDetails { get; set; }
     }
 
