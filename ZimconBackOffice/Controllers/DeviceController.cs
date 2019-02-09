@@ -29,6 +29,22 @@ namespace ZimconBackOffice.Controllers
             return View(model);
         }
 
+        public ActionResult UnallocatedDevice(string id)
+        {
+            RestResponse reply = null;
+            if (string.IsNullOrEmpty(id))
+            {
+                reply = new RestResponse
+                {
+                    error = true,
+                    message = "Please supply the device to be detached from vehicle"
+                };
+            }
+            else
+                reply = _rest.UnallocatedDevice(id);
+            return View(reply);
+        }
+
         public List<Models.AllocatedVehicleDeviceViewModel> GetAllocatedSmartDevicesView(List<DeviceAllocation> allocations)
         {
 

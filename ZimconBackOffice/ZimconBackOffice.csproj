@@ -1339,6 +1339,7 @@
     <Content Include="Views\Client\Shipment.cshtml" />
     <Content Include="Views\Driver\Index.cshtml" />
     <Content Include="Views\Consignor\Index.cshtml" />
+    <Content Include="Views\Device\UnallocatedDevice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

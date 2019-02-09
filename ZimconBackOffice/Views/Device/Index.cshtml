@@ -15,28 +15,29 @@
                     <table class="table table-striped">
                         <tr>
                             @*<th>ID</th>*@
-                            <th>Telegram</th>
+                            <th>Telegram Id</th>
                             <th>Make</th>
                             <th>Model</th>
                             <th>Vehicle</th>
-                            <th></th>
+                            <th>Remove</th>
+                            <th>Edit</th>
                         </tr>
                         <tbody>
                             @foreach (var item in deviceAllocationViewModel.Allocations)
                             {
-                                <tr>
-                                    @*<td>@count</td>*@
-                                    <td class="hidden">@item.allocationId</td>
-                                    <td class="hidden">@item.vehicleId</td>
-                                    <td>@item.deviceId</td>
-                                    <td>@item.deviceMake</td>
-                                    <td>@item.deviceModel</td>
-                                    <td>@item.vehicleLicense</td>
-                                    <td class="hidden">@item.vehicleMake</td>
-                                    <td class="hidden">@item.vehicleModel</td>
-
-                                    <td><a class="editDeviceAllocation"><i class="fa fa-edit"></i></a></td>
-                                </tr>
+                            <tr>
+                                @*<td>@count</td>*@
+                                <td class="hidden">@item.allocationId</td>
+                                <td class="hidden">@item.vehicleId</td>
+                                <td>@item.deviceId</td>
+                                <td>@item.deviceMake</td>
+                                <td>@item.deviceModel</td>
+                                <td>@item.vehicleLicense</td>
+                                <td class="hidden">@item.vehicleMake</td>
+                                <td class="hidden">@item.vehicleModel</td>
+                                <td><a href="/device/remove/@item.deviceId">Unallocate</a></td>
+                                <td><a class="editDeviceAllocation"><i class="fa fa-edit"></i></a></td>
+                            </tr>
                                 //count++;
                             }
                         </tbody>

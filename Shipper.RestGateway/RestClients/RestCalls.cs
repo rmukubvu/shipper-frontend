@@ -206,16 +206,20 @@ namespace Shipper.RestGateway.RestClients
             return client.GetResult<List<StatusByWaybill>>($"shipment/status/history?waybillNumber={waybill}");
         }
         public List<Package> GetPackagesByConsignee(string consigneeId)
-        {
-            //var client = new Services(_cache, _serializer);
-            //return client.GetResult<List<Package>>($"shipment/consignee?consigneeId={consigneeId}");
+        {            
             return GetResponse<List<Package>>($"shipment/consignee?consigneeId={consigneeId}");
         }
         public List<DeviceAllocation> GetSmartDeviceAllocation()
         {
             var client = new Services(_cache, _serializer);
             return client.GetResult<List<DeviceAllocation>>("smartdevice/allocation");
-        }        
+        }       
+        
+        public RestResponse UnallocatedDevice(string deviceId)
+        {
+            return GetResponse<RestResponse>($"smartdevice/unAllocate?deviceId={deviceId}");
+        }
+       
         private T GetResponse<T>(string requestQuery) where T : new() {
             var client = new Services(_cache, _serializer);
             return client.GetResult<T>(requestQuery);
