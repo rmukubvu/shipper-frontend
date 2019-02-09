@@ -277,40 +277,7 @@ $("#submitAdminUser").click(function (event) {
     });
 });
 
-//save device
-$("#submitDeviceAllocation").click(function (event) {
-    window.FakeLoader.showOverlay();
-    var postUrl = "../api/devicealloc";
-    var postData = {
-        'id': $("#allocationId").val(),
-        'vehicleId': $("#vehicleSelector").val(),
-        'deviceId': $("#deviceSelector").val(),
-        'allocationDate': new Date()
-    };
 
-    //  
-    var postJson = JSON.stringify(postData);
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: postUrl,
-        data: postJson,
-        success: function (result) {
-            window.FakeLoader.hideOverlay();
-            swal("Result", "Device has been allocated", "success").then(function () {
-                location.reload();
-            });
-        },
-        error: function (error) {
-            swal(
-                'Ooops',
-                'Failed to allocate device',
-                'error'
-            );
-        }
-    });
-});
 
 //save the shipment
 $("#submitShipment").click(function (event) {
