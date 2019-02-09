@@ -1,16 +1,11 @@
-﻿
-@{
-                /**/
-
-                ViewBag.Title = "Client Dashboard";
+﻿@{                
+   ViewBag.Title = "Client Dashboard";
 }
 <div class="row">
     <div class="col-md-6">
-        <!-- AREA CHART -->
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title" id="company_header_name">Company Details</h3>
-
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse">
                         <i class="fa fa-minus"></i>
@@ -18,11 +13,7 @@
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                 </div>
             </div>
-            <div class="box-body">
-                <!--<p id="company_address_1"></p>
-                <p id="company_address_2"></p>
-                <p id="company_address_country"></p>
-                <p id="company_address_phone"></p>  -->
+            <div class="box-body">                
                 <div class="mapouter">
                     <div class="gmap_canvas"><iframe width="100%" height="500" id="gmap_canvas" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.pureblack.de"></a></div>
                     <style>
@@ -31,7 +22,6 @@
                             height: 500px;
                             width: 100%;
                         }
-
                         .gmap_canvas {
                             overflow: hidden;
                             background: none !important;
@@ -43,10 +33,6 @@
             </div>
             <!-- /.box-body -->
         </div>
-        <!-- /.box -->
-        <!-- DONUT CHART -->
-        <!-- /.box -->
-
     </div>
     <!-- /.col (LEFT) -->
     <div class="col-md-6">

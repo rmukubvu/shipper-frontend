@@ -15,40 +15,9 @@ namespace ZimconBackOffice.Controllers
         // GET: Consignor
         public ActionResult Index(string id = null)
         {
-            var consignor= _rest.GetConsignor();
-            //var consignee = _rest.GetConsignee();
-            //var countries = _rest.GetCountries();
-            //List<ConsigneeContactDetails> contacts = null;
-            ////Consignee consingee = null;
-
-            //if (id != null)
-            //{
-            //    //consignee = _rest.GetConsigneeById(id);
-
-            //    contacts = _rest.GetConsigneeContactDetails(id);
-            //}
-
-
-            //ConsigneeViewModel consigneeViewModel = new ConsigneeViewModel
-            //{
-            //    Consignees = consignee,
-            //    ConsigneeContacts = contacts,
-            //    Countries = countries
-            //};
-
-            //return View(consigneeViewModel);
+            var consignor= _rest.GetConsignor();            
             return View(consignor);
-        }
-
-        //public ConsigneeViewModel getConsigneeDetails(string consigneeId)
-        //{
-        //    var viewModel = new ConsigneeViewModel
-        //    {
-        //        Consignees = _rest.GetConsignee(),
-        //        ConsigneeContacts = _rest.GetConsigneeContactDetails(consigneeId)
-        //    };
-        //    return viewModel;
-        //}
+        }       
     }
 
 
